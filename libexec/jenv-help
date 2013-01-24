@@ -1,0 +1,88 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+print_set_version() {
+  echo "<version> should be a string matching a Ruby version known by jenv."
+
+  local versions="$(jenv-versions --bare)"
+  if [ -z "$versions" ]; then
+    echo "There are currently no Ruby versions installed for jenv."
+  else
+    echo "The currently installed Ruby versions are:"
+    echo "$versions" | sed 's/^/  /'
+  fi
+
+  echo
+  echo "The special version string 'system' will use your default system Ruby."
+}
+
+case "$1" in
+"") echo "usage: jenv <command> [<args>]
+
+Some useful jenv commands are:
+   commands      List all jenv commands
+   rehash        Rehash jenv shims (run this after installing binaries)
+   global        Set or show the global Ruby version
+   local         Set or show the local directory-specific Ruby version
+   shell         Set or show the shell-specific Ruby version
+   version       Show the current Ruby version
+   versions      List all Ruby versions known by jenv
+   which         Show the full path for the given Ruby command
+   whence        List all Ruby versions with the given command
+
+See 'jenv help <command>' for information on a specific command.
+For full documentation, see: https://github.com/sstephenson/jenv#readme"
+;;
+global) echo "usage: jenv global <version>
+
+Sets the global Ruby version. You can override the global version at
+any time by setting a directory-specific version with \`jenv local'
+or by setting the JENV_VERSION environment variable.
+
+$(print_set_version)"
+;;
+local) echo "usage: jenv local <version>
+       jenv local --unset
+
+Sets the local directory-specific Ruby version by writing the version
+name to a file named '.jenv-version'.
+
+When you run a Ruby command, jenv will look for an '.jenv-version'
+file in the current directory and each parent directory. If no such
+file is found in the tree, jenv will use the global Ruby version
+specified with \`jenv global', or the version specified in the
+JENV_VERSION environment variable.
+
+$(print_set_version)"
+;;
+shell) echo "usage: jenv shell <version>
+       jenv shell --unset
+
+Sets a shell-specific Ruby version by setting the 'JENV_VERSION'
+environment variable in your shell. This version overrides both
+project-specific versions and the global version.
+
+$(print_set_version)"
+;;
+which) echo "usage: jenv which <command>
+
+Displays the full path to the binary that jenv will execute when you
+run the given command."
+;;
+whence) echo "usage: jenv whence <command>
+
+Lists all Ruby versions with the given command installed."
+;;
+*)
+  command_path="$(command -v "jenv-$1" || true)"
+  if [ -n "$command_path" ]; then
+    echo "Sorry, the \`$1' command isn't documented yet."
+    echo
+    echo "You can view the command's source here:"
+    echo "$command_path"
+    echo
+  else
+    echo "jenv: no such command \`$1'"
+  fi
+esac

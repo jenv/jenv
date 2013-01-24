@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+abs_dirname() {
+  local cwd="$(pwd)"
+  local path="$1"
+
+  while [ -n "$path" ]; do
+    cd "${path%/*}"
+    local name="${path##*/}"
+    path="$(resolve_link "$name" || true)"
+  done
+
+  pwd
+  cd "$cwd"
+}
+
+if [ -z "${JENV_ROOT}" ]; then
+  JENV_ROOT="${HOME}/.jenv"
+else
+  JENV_ROOT="${JENV_ROOT%/}"
+fi
+export JENV_ROOT
+
+if [ -z "${JENV_DIR}" ]; then
+  JENV_DIR="$(pwd)"
+else
+  cd "$JENV_DIR" 2>/dev/null || {
+    echo "jenv: cannot change working directory to \`$JENV_DIR'"
+    exit 1
+  } >&2
+  JENV_DIR="$(pwd)"
+  cd "$OLDPWD"
+fi
+export JENV_DIR
+
+
+shopt -s nullglob
+                  
+
+
+bin_path="$(abs_dirname "$0")"
+for plugin_bin in "${JENV_ROOT}/plugins/"*/bin; do
+  bin_path="${bin_path}:${plugin_bin}"
+done
+export PATH="${bin_path}:${PATH}"
+
+hook_path="${JENV_HOOK_PATH}"
+for plugin_hook in "${JENV_ROOT}/plugins/"*/etc/jenv.d; do      
+  hook_path="${hook_path}:${plugin_hook}"
+done
+
+export JENV_HOOK_PATH=$hook_path
+
+
+
+shopt -u nullglob
+
+
+command="$1"
+case "$command" in
+"" | "-h" | "--help" )
+  echo -e "jenv 0.1.0\n$(jenv-help)" >&2
+  ;;
+* )
+  command_path="$(command -v "jenv-$command" || true)"   
+  if [ -z "$command_path" ]; then
+    echo "jenv: no such command \`$command'" >&2
+    exit 1
+  fi
+
+  shift 1        
+  exec "$command_path" "$@"
+  ;;
+esac

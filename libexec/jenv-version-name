@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ -z "$JENV_VERSION" ]; then
+  JENV_VERSION_FILE="$(jenv-version-file)"
+  JENV_VERSION="$(jenv-version-file-read "$JENV_VERSION_FILE" || true)"
+fi
+
+if [ -z "$JENV_VERSION" ] || [ "$JENV_VERSION" = "system" ]; then
+  echo "system"
+  exit
+fi
+
+JENV_VERSION_PATH="${JENV_ROOT}/versions/${JENV_VERSION}"
+
+if [ -d "$JENV_VERSION_PATH" ]; then
+  echo "$JENV_VERSION"
+else
+  echo "jenv: version \`$JENV_VERSION' is not installed" >&2
+  exit 1
+fi

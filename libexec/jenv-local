@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+  echo system
+  exec jenv-versions --bare
+fi
+
+JENV_VERSION="$1"
+JENV_VERSION_FILE=".jenv-version"
+
+if [ "$JENV_VERSION" = "--unset" ]; then
+  rm -f "$JENV_VERSION_FILE"
+elif [ -n "$JENV_VERSION" ]; then
+  jenv-version-file-write "$JENV_VERSION_FILE" "$JENV_VERSION"
+else
+  jenv-version-file-read "$JENV_VERSION_FILE" ||
+  { echo "jenv: no local version configured for this directory"
+    exit 1
+  } >&2
+fi

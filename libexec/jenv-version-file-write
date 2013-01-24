@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+JENV_VERSION_FILE="$1"
+JENV_VERSION="$2"
+
+if [ -z "$JENV_VERSION" ] || [ -z "$JENV_VERSION_FILE" ]; then
+  echo "usage: jenv write-version-file FILENAME VERSION" >&2
+  exit 1
+fi
+
+# Make sure the specified version is installed.
+jenv-prefix "$JENV_VERSION" >/dev/null
+
+# Write the version out to disk.
+echo "$JENV_VERSION" > "$JENV_VERSION_FILE"

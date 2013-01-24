@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+JENV_VERSION_NAME="$(jenv-version-name)"
+
+if [ "$1" = "--bare" ]; then
+  hit_prefix=""
+  miss_prefix=""
+  print_version="$JENV_VERSION_NAME"
+else
+  hit_prefix="* "
+  miss_prefix="  "
+  print_version="$(jenv-version)"
+fi
+
+for path in "${JENV_ROOT}/versions/"*; do
+  if [ -d "$path" ]; then
+    version="${path##*/}"
+
+    if [ "$version" == "$JENV_VERSION_NAME" ]; then
+      echo "${hit_prefix}${print_version}"
+    else
+      echo "${miss_prefix}${version}"
+    fi
+  fi
+done

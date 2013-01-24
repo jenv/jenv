@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo system
+  exec jenv-versions --bare
+fi
+
+JENV_VERSION="$1"
+JENV_VERSION_FILE="${JENV_ROOT}/version"
+
+if [ -n "$JENV_VERSION" ]; then
+  jenv-version-file-write "$JENV_VERSION_FILE" "$JENV_VERSION"
+else
+  jenv-version-file-read "$JENV_VERSION_FILE" ||
+  jenv-version-file-read "${JENV_ROOT}/global" ||
+  jenv-version-file-read "${JENV_ROOT}/default" ||
+  echo system
+fi

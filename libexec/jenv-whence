@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --path
+  exec jenv shims --short
+fi
+
+if [ "$1" = "--path" ]; then
+  print_paths="1"
+  shift
+else
+  print_paths=""
+fi
+
+whence() {
+  local command="$1"
+  jenv-versions --bare | while read version; do
+    path="$(jenv-prefix "$version")/bin/${command}"
+    if [ -x "$path" ]; then
+      [ "$print_paths" ] && echo "$path" || echo "$version"
+    fi
+  done
+}
+
+JENV_COMMAND="$1"
+if [ -z "$JENV_COMMAND" ]; then
+  echo "usage: jenv whence [--path] COMMAND" >&2
+  exit 1
+fi
+
+result="$(whence "$JENV_COMMAND")"
+[ -n "$result" ] && echo "$result"

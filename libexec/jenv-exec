@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  exec jenv shims --short
+fi
+               
+export JAVA_HOME="${JENV_ROOT}/versions/$(jenv-version-name)"   
+
+JENV_COMMAND="$1"
+if [ -z "$JENV_COMMAND" ]; then
+  echo "usage: jenv exec COMMAND [arg1 arg2...]" >&2
+  exit 1
+fi
+
+JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"
+JENV_BIN_PATH="${JENV_COMMAND_PATH%/*}"
+                              
+
+
+#for script in $(jenv-hooks exec); do
+#  source "$script"
+#done
+
+shift 1
+export PATH="${JENV_BIN_PATH}:${PATH}"  
+echo $PATH
+exec -a "$JENV_COMMAND" "$JENV_COMMAND_PATH" "$@"

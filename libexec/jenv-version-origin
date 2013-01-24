@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ -n "$JENV_VERSION" ]; then
+  echo "JENV_VERSION environment variable"
+else
+  jenv-version-file
+fi
