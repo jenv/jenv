@@ -18,7 +18,7 @@ overrides the global version, and can be overridden itself by setting
 the `JENV_VERSION` environment variable or with the `jenv shell`
 command.
 
-    $ jenv local 1.9.3-p327
+    $ jenv local oracle-1.7
 
 When run without a version number, `jenv local` reports the currently
 configured local version. You can also unset the local version:
