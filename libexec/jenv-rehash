@@ -132,7 +132,7 @@ cd "$SHIM_PATH"
 # Create the prototype shim, then register shims for all known binaries.
 create_prototype_shim
 shopt -s nullglob
-#make_shims ../versions/*/bin/*
+make_shims ../versions/*/bin/*
 
 # Restore the previous working directory.
 cd "$OLDPWD"
