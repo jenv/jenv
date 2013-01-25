@@ -44,15 +44,27 @@ shopt -s nullglob
                   
 
 
-bin_path="$(abs_dirname "$0")"
+bin_path="$(abs_dirname "$0")"    
+
+
+
 for plugin_bin in "${JENV_ROOT}/plugins/"*/bin; do
   bin_path="${bin_path}:${plugin_bin}"
-done
+done  
+
+for plugin_bin in "$bin_path/../plugins/"*/bin; do
+  bin_path="${bin_path}:${plugin_bin}"
+done                          
+
 export PATH="${bin_path}:${PATH}"
 
 hook_path="${JENV_HOOK_PATH}"
 for plugin_hook in "${JENV_ROOT}/plugins/"*/etc/jenv.d; do      
   hook_path="${hook_path}:${plugin_hook}"
+done   
+
+for plugin_hook in "$bin_path/../plugins/"*/etc/jenv.d; do      
+  hook_path="${hook_path}:${plugin_hook}"     
 done
 
 export JENV_HOOK_PATH=$hook_path

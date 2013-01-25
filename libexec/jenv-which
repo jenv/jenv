@@ -61,6 +61,11 @@ if [ "$JENV_VERSION" = "system" ]; then
   JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"
 else
   JENV_COMMAND_PATH="${JENV_ROOT}/versions/${JENV_VERSION}/bin/${JENV_COMMAND}"
+  if ! [ -x "$JENV_COMMAND_PATH" ]; then
+   	PATH="$(remove_from_path "${JENV_ROOT}/shims")"
+	JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"   
+  fi
+  
 fi
 
 for script in $(jenv-hooks which); do
