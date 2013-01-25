@@ -1,4 +1,28 @@
 #!/usr/bin/env bash
+#
+# Summary: Set or show the local application-specific Ruby version
+#
+# Usage: jenv local <version>
+#        jenv local --unset
+#
+# Sets the local application-specific Ruby version by writing the
+# version name to a file named `.java-version'.
+#
+# When you run a Ruby command, jenv will look for a `.java-version'
+# file in the current directory and each parent directory. If no such
+# file is found in the tree, jenv will use the global Ruby version
+# specified with `jenv global'. A version specified with the
+# `JENV_VERSION' environment variable takes precedence over local
+# and global versions.
+#
+# For backwards compatibility, jenv will also read version
+# specifications from `.jenv-version' files, but a `.java-version'
+# file in the same directory takes precedence.
+#
+# <version> should be a string matching a Ruby version known to jenv.
+# The special version string `system' will use your default system Ruby.
+# Run `jenv versions' for a list of available Ruby versions.
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
@@ -10,14 +34,20 @@ if [ "$1" = "--complete" ]; then
 fi
 
 JENV_VERSION="$1"
-JENV_VERSION_FILE=".jenv-version"
 
 if [ "$JENV_VERSION" = "--unset" ]; then
-  rm -f "$JENV_VERSION_FILE"
+  rm -f .java-version .jenv-version
 elif [ -n "$JENV_VERSION" ]; then
-  jenv-version-file-write "$JENV_VERSION_FILE" "$JENV_VERSION"
+  if [ "$(JENV_VERSION= jenv-version-origin)" -ef .jenv-version ]; then
+    rm -f .jenv-version
+    { echo "jenv: removed existing \`.jenv-version' file and migrated"
+      echo "       local version specification to \`.java-version' file"
+    } >&2
+  fi
+  jenv-version-file-write .java-version "$JENV_VERSION"
 else
-  jenv-version-file-read "$JENV_VERSION_FILE" ||
+  jenv-version-file-read .java-version ||
+  jenv-version-file-read .jenv-version ||
   { echo "jenv: no local version configured for this directory"
     exit 1
   } >&2

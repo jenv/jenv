@@ -1,18 +1,24 @@
 #!/usr/bin/env bash
+# Summary: Configure the shell environment for jenv
+# Usage: eval "$(jenv init - [--no-rehash] [<shell>])"
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
 print=""
-if [ "$1" = "-" ]; then
-  print=1
-  shift
-fi
-
 no_rehash=""
-if [ "$1" = "--no-rehash" ]; then
-  no_rehash=1
-  shift
-fi
+for args in "$@"
+do
+  if [ "$args" = "-" ]; then
+    print=1
+		shift
+  fi
+
+  if [ "$args" = "--no-rehash" ]; then
+    no_rehash=1
+    shift
+  fi
+done
 
 shell="$1"
 if [ -z "$shell" ]; then
@@ -79,10 +85,11 @@ if [ -z "$no_rehash" ]; then
   echo 'jenv rehash 2>/dev/null'
 fi
 
-commands=(`jenv commands --sh`)
+commands=(`jenv-commands --sh`)
 IFS="|"
 cat <<EOS
 jenv() {
+  typeset command
   command="\$1"
   if [ "\$#" -gt 0 ]; then
     shift

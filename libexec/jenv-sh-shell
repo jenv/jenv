@@ -1,4 +1,18 @@
 #!/usr/bin/env bash
+#
+# Summary: Set or show the shell-specific Ruby version
+#
+# Usage: jenv shell <version>
+#        jenv shell --unset
+#
+# Sets a shell-specific Ruby version by setting the `JENV_VERSION'
+# environment variable in your shell. This version overrides local
+# application-specific versions and the global version.
+#
+# <version> should be a string matching a Ruby version known to jenv.
+# The special version string `system' will use your default system Ruby.
+# Run `jenv versions' for a list of available Ruby versions.
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
@@ -23,10 +37,13 @@ fi
 
 if [ "$version" = "--unset" ]; then
   echo "unset JENV_VERSION"
-  exit 1
+  exit
 fi
 
 # Make sure the specified version is installed.
-jenv-prefix "$version" >/dev/null
-
-echo "export JENV_VERSION=\"${version}\""
+if jenv-prefix "$version" >/dev/null; then
+  echo "export JENV_VERSION=\"${version}\""
+else
+  echo "return 1"
+  exit 1
+fi

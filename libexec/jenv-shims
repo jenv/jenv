@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Summary: List existing jenv shims
+# Usage: jenv shims [--short]
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 

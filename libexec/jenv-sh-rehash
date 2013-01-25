@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  exec jenv-rehash --complete
+fi
+
+# When jenv shell integration is enabled, delegate to jenv-rehash,
+# then tell the shell to empty its command lookup cache.
+jenv-rehash
+echo "hash -r"

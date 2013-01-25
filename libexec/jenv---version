@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Summary: Display the version of jenv
+#
+# Displays the version number of this jenv release, including the
+# current revision from git, if available.
+#
+# The format of the git revision is:
+#   <version>-<num_commits>-<git_sha>
+# where `num_commits` is the number of commits since `version` was
+# tagged.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+version="0.1.0"
+
+cd "$JENV_ROOT"
+git_revision="$(git describe --tags HEAD 2>/dev/null || true)"
+git_revision="${git_revision#v}"
+
+echo "jenv ${git_revision:-$version}"

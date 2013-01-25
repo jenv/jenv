@@ -1,4 +1,12 @@
 #!/usr/bin/env bash
+#
+# Summary: Display the full path to an executable
+#
+# Usage: jenv which <command>
+#
+# Displays the full path to the executable that jenv will invoke when
+# you run the given command.
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
@@ -27,7 +35,10 @@ remove_from_path() {
     return
   fi
 
-  for path in ${PATH//:/$'\n'}; do
+  local paths
+  IFS=: paths=($PATH)
+
+  for path in "${paths[@]}"; do
     path="$(expand_path "$path" || true)"
     if [ -n "$path" ] && [ "$path" != "$path_to_remove" ]; then
       result="${result}${path}:"
@@ -41,24 +52,15 @@ JENV_VERSION="$(jenv-version-name)"
 JENV_COMMAND="$1"
 
 if [ -z "$JENV_COMMAND" ]; then
-  echo "usage: jenv which COMMAND" >&2
+  jenv-help --usage which >&2
   exit 1
 fi
 
 if [ "$JENV_VERSION" = "system" ]; then
   PATH="$(remove_from_path "${JENV_ROOT}/shims")"
-  JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND")"
+  JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"
 else
-  JENV_COMMAND_PATH="${JENV_ROOT}/versions/${JENV_VERSION}/bin/${JENV_COMMAND}" 
-
-  if [ -x "$JENV_COMMAND_PATH" ]; then      
-	echo 
-  else
-	  PATH="$(remove_from_path "${JENV_ROOT}/shims")"
-	  JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND")"
-  fi  
-	  
-	   
+  JENV_COMMAND_PATH="${JENV_ROOT}/versions/${JENV_VERSION}/bin/${JENV_COMMAND}"
 fi
 
 for script in $(jenv-hooks which); do

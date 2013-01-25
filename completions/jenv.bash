@@ -5,8 +5,10 @@ _jenv() {
   if [ "$COMP_CWORD" -eq 1 ]; then
     COMPREPLY=( $(compgen -W "$(jenv commands)" -- "$word") )
   else
-    local command="${COMP_WORDS[1]}"
-    local completions="$(jenv completions "$command")"
+    local words=("${COMP_WORDS[@]}")
+    unset words[0]
+    unset words[$COMP_CWORD]
+    local completions=$(jenv completions "${words[@]}")
     COMPREPLY=( $(compgen -W "$completions" -- "$word") )
   fi
 }

@@ -5,14 +5,13 @@ fi
 compctl -K _jenv jenv
 
 _jenv() {
-  local word words completions
+  local words completions
   read -cA words
-  word="${words[2]}"
 
   if [ "${#words}" -eq 2 ]; then
     completions="$(jenv commands)"
   else
-    completions="$(jenv completions "${word}")"
+    completions="$(jenv completions ${words[2,-1]})"
   fi
 
   reply=("${(ps:\n:)completions}")

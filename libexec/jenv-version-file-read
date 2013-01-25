@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
+# Usage: jenv version-file-read <file>
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
 VERSION_FILE="$1"
 
 if [ -e "$VERSION_FILE" ]; then
-  # Read and print the first non-whitespace word from the specified
-  # version file.
+  # Read the first non-whitespace word from the specified version file.
+  # Be careful not to load it whole in case there's something crazy in it.
   version=""
   while read -a words; do
     word="${words[0]}"

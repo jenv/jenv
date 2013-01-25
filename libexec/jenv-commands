@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Summary: List all available jenv commands
+# Usage: jenv commands [--sh|--no-sh]
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 

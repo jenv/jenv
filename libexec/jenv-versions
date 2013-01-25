@@ -1,27 +1,39 @@
 #!/usr/bin/env bash
+# Summary: List all Ruby versions available to jenv
+# Usage: jenv versions [--bare]
+#
+# Lists all Ruby versions found in `$JENV_ROOT/versions/*'.
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
-
-JENV_VERSION_NAME="$(jenv-version-name)"
 
 if [ "$1" = "--bare" ]; then
   hit_prefix=""
   miss_prefix=""
-  print_version="$JENV_VERSION_NAME"
+  current_version=""
+  include_system=""
 else
   hit_prefix="* "
   miss_prefix="  "
-  print_version="$(jenv-version)"
+  current_version="$(jenv-version-name || true)"
+  include_system="1"
+fi
+
+print_version() {
+  if [ "$1" == "$current_version" ]; then
+    echo "${hit_prefix}$(jenv-version 2>/dev/null)"
+  else
+    echo "${miss_prefix}$1"
+  fi
+}
+
+# Include "system" in the non-bare output, if it exists
+if [ -n "$include_system" ] && JENV_VERSION=system jenv-which ruby >/dev/null 2>&1; then
+  print_version system
 fi
 
 for path in "${JENV_ROOT}/versions/"*; do
   if [ -d "$path" ]; then
-    version="${path##*/}"
-
-    if [ "$version" == "$JENV_VERSION_NAME" ]; then
-      echo "${hit_prefix}${print_version}"
-    else
-      echo "${miss_prefix}${version}"
-    fi
+    print_version "${path##*/}"
   fi
 done

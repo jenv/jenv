@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# Summary: Show the current Ruby version
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
@@ -12,10 +13,18 @@ if [ -z "$JENV_VERSION" ] || [ "$JENV_VERSION" = "system" ]; then
   exit
 fi
 
-JENV_VERSION_PATH="${JENV_ROOT}/versions/${JENV_VERSION}"
+version_exists() {
+  local version="$1"
+  [ -d "${JENV_ROOT}/versions/${version}" ]
+}
 
-if [ -d "$JENV_VERSION_PATH" ]; then
+if version_exists "$JENV_VERSION"; then
   echo "$JENV_VERSION"
+elif version_exists "${JENV_VERSION#ruby-}"; then
+  { echo "warning: ignoring extraneous \`ruby-' prefix in version \`${JENV_VERSION}'"
+    echo "         (set by $(jenv-version-origin))"
+  } >&2
+  echo "${JENV_VERSION#ruby-}"
 else
   echo "jenv: version \`$JENV_VERSION' is not installed" >&2
   exit 1
