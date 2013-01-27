@@ -167,7 +167,7 @@ The jenv source code is [hosted on
 GitHub](https://github.com/hikage/jenv). It's clean, modular,
 and easy to understand, even if you're not a shell hacker. 
 
-It is based on [rbenv](https://github.com/hikage/jenv).
+It is based on [rbenv](https://github.com/sstephenson/rbenv).
 
 Please feel free to submit pull requests and file bugs on the [issue
 tracker](https://github.com/hikage/jenv/issues).
