@@ -15,7 +15,7 @@ jenv is for Java,
 2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
 
 	~~~ sh
-		$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+		$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
 	~~~
 
 	**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
@@ -38,25 +38,25 @@ jenv is for Java,
 
 5. Configure JVM in jenv
 
-	~~~
+	~~~  sh
 	    $ jenv add oracle-1.7.0 /path/to/java/home
 	~~~
 
 6. Configure which JVM to use, globaly or by directory 
 
-	~~~
+	~~~  sh
 	    $ jenv global oracle-1.7.0 
 	~~~                            
 	
 	or 
 		
-	~~~
+	~~~ sh
 		 $ jenv local oracle-1.7.0 
 	~~~
       
 6. Check that works 
 
-	~~~
+	~~~  sh
 		 $ java -version
 	~~~
 
