@@ -2,8 +2,64 @@
 
 jenv is for Java, 
 
-## How It Works
+## Gettings started
 
+
+
+1. Check out jenv into `~/.jenv`.
+
+    ~~~ sh
+    $ git clone git@github.com:hikage/jenv.git ~/.jenv
+    ~~~
+                                                      
+2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
+
+	~~~ sh
+		$ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+	~~~
+
+	**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
+
+	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.   
+	
+3. Add `jenv init` to your shell to enable shims and autocompletion.
+
+	~~~ sh
+	    $ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+	~~~
+
+	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
+
+4. Restart your shell as a login shell so the path changes take effect.
+	You can now begin using jenv.
+
+	    ~~~ sh
+	    $ exec $SHELL -l
+	    ~~~
+
+5. Configure JVM in jenv
+
+	~~~
+	    $ jenv add oracle-1.7.0 /path/to/java/home
+	~~~
+
+6. Configure which JVM to use, globaly or by directory 
+
+	~~~
+	    $ jenv global oracle-1.7.0 
+	~~~                            
+	
+	or 
+		
+	~~~
+		 $ jenv local oracle-1.7.0 
+	~~~
+      
+6. Check that works 
+
+	~~~
+		 $ java -version
+	~~~
 
 ## Command Reference
 
