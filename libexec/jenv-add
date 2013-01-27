@@ -2,21 +2,12 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
-# Provide jenv completions
-if [ "$1" = "--complete" ]; then
-  echo --unset
-  echo system
-  exec jenv-versions --bare
-fi
+
 
 JENV_VERSION="$1" 
 JENV_JAVAPATH="$2"
 JENV_VERSION_FILE=".jenv-version"
-                  
-echo $JENV_VERSION
-echo $JENV_JAVAPATH  
 
-   
                             
 if [ -f "$JENV_JAVAPATH/bin/java" ];
 then

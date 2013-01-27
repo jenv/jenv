@@ -4,24 +4,17 @@ set -e
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
-  echo --unset
-  echo system
   exec jenv-versions --bare
 fi
 
 JENV_VERSION="$1" 
-JENV_JAVAPATH="$2"
-JENV_VERSION_FILE=".jenv-version"
                   
-echo $JENV_VERSION
-echo $JENV_JAVAPATH  
-
-   
                             
-if [ -f "$JENV_JAVAPATH/bin/java" ];
-then
- 	ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_VERSION"         
-	$(jenv-rehash)
+if [ -L " " ];
+then         
+	rm -f $JENV_ROOT/versions/$JENV_VERSION
+  $(jenv-rehash)
+
 else
-	echo "$JENV_JAVAPATH is not a valid path to java installation"
+	echo "$JENV_VERSION is not a managed version of Java "
 fi

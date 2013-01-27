@@ -34,6 +34,7 @@ fi
 JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"
 JENV_BIN_PATH="${JENV_COMMAND_PATH%/*}"
 
+
 for script in $(jenv-hooks exec); do
   source "$script"
 done
