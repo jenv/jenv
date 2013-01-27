@@ -30,12 +30,11 @@ jenv is for Java,
 
 	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
 
-4. Restart your shell as a login shell so the path changes take effect.
-	You can now begin using jenv.
+4. Restart your shell as a login shell so the path changes take effect. You can now begin using jenv.
 
-	    ~~~ sh
-	    	$ exec $SHELL -l
-	    ~~~
+	~~~ sh
+		$ exec $SHELL -l
+	~~~
 
 5. Configure JVM in jenv
 
