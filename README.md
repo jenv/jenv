@@ -25,7 +25,7 @@ jenv is for Java,
 3. Add `jenv init` to your shell to enable shims and autocompletion.
 
 	~~~ sh
-	    $ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
+	    $ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 	~~~
 
 	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
@@ -34,7 +34,7 @@ jenv is for Java,
 	You can now begin using jenv.
 
 	    ~~~ sh
-	    $ exec $SHELL -l
+	    	$ exec $SHELL -l
 	    ~~~
 
 5. Configure JVM in jenv
