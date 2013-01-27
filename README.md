@@ -9,7 +9,7 @@ jenv is for Java,
 1. Check out jenv into `~/.jenv`.
 
     ~~~ sh
-    $ git clone git@github.com:hikage/jenv.git ~/.jenv
+    	$ git clone git@github.com:hikage/jenv.git ~/.jenv
     ~~~
                                                       
 2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
