@@ -24,7 +24,9 @@ fi
 export JENV_VERSION="$(jenv-version-name)"
 JENV_COMMAND="$1"              
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
+export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"    
+                
+echo "java home : $JAVA_HOME"
 
 if [ -z "$JENV_COMMAND" ]; then
   jenv-help --usage exec >&2

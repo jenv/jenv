@@ -1,1 +1,1 @@
-echo "Before execute $1 $2"
+echo "Before maven"
