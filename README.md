@@ -42,7 +42,7 @@ jenv is for Java,
 	    $ jenv add oracle-1.7.0 /path/to/java/home
 	~~~
 
-6. Configure which JVM to use, globaly or by directory 
+6. Configure which JVM to use (globally, by directory or for the current shell instance)
 
 	~~~  sh
 	    $ jenv global oracle-1.7.0 
@@ -52,6 +52,12 @@ jenv is for Java,
 		
 	~~~ sh
 		 $ jenv local oracle-1.7.0 
+	~~~     
+	
+	or 
+		
+	~~~ sh
+		 $ jenv shell oracle-1.7.0 
 	~~~
       
 6. Check that works 
@@ -59,6 +65,31 @@ jenv is for Java,
 	~~~  sh
 		 $ java -version
 	~~~
+7. Add JVM Options (globally, by directory or for the current shell instance)
+	~~~  sh
+	    $ jenv global-options "-Xmx512m" 
+	~~~                            
+
+	or 
+
+	~~~ sh
+		 $ jenv local-options "-Xmx512m" 
+	~~~
+	or 
+	                                 
+	~~~ sh
+		 $ jenv shell-options "-Xmx512m" 
+	~~~
+ 
+8. Check that works 
+	
+	~~~ sh
+		 $ jenv info java
+	~~~
+
+ 
+
+                          
 
 ## Command Reference
 
