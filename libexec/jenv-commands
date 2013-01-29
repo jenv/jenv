@@ -19,7 +19,7 @@ elif [ "$1" = "--no-sh" ]; then
   nosh=1
   shift
 fi
-
+               
 shopt -s nullglob
 
 { for path in ${PATH//:/$'\n'}; do

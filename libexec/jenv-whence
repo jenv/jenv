@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Summary: List all Ruby versions that contain the given executable
+# Summary: List all Java versions that contain the given executable
 # Usage: jenv whence [--path] <command>
 
 set -e

@@ -14,22 +14,32 @@
 #   PATH="$JENV_ROOT/versions/1.9.3-p327/bin:$PATH" bundle install
 
 set -e
-[ -n "$JENV_DEBUG" ] && set -x
+[ -n "$JENV_DEBUG" ] && set -x     
+            
+
+
+exportVariable(){   
+   exportedKey[$1]=$1; 
+   exportedValue[$2]=$2;
+   export $1=$2 
+}
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
   exec jenv shims --short
 fi
 
-export JENV_VERSION="$(jenv-version-name)"
+export JENV_VERSION="$(jenv-version-name)"    
+            
+export JENV_OPTIONS="$(jenv-options)"    
+
+
 JENV_COMMAND="$1"              
 
 export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"    
+                
 
-if [ -z "$JENV_COMMAND" ]; then
-  jenv-help --usage exec >&2
-  exit 1
-fi
+
 
 JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"
 JENV_BIN_PATH="${JENV_COMMAND_PATH%/*}"
@@ -43,4 +53,11 @@ shift 1
 if [ "$JENV_VERSION" != "system" ]; then
   export PATH="${JENV_BIN_PATH}:${PATH}"
 fi
-exec -a "$JENV_COMMAND" "$JENV_COMMAND_PATH" $JENV_OPTIONS "$@"
+echo "Jenv will exec : $JENV_COMMAND_PATH" $JENV_OPTIONS "$@"             
+echo "Exported variables : "
+for i in "${!exportedKey[@]}"
+do
+  key="${exportedKey[$i]}"    
+  value=${exportedValue[$key]} 
+  echo "$key=$value"
+done

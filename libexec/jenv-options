@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Summary: Show the current Java version
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ -z "$JENV_OPTIONS" ]; then
+  JENV_OPTIONS_FILE="$(jenv-options-file)"
+  JENV_OPTIONS="$(jenv-options-file-read "$JENV_OPTIONS_FILE" || true)"
+fi
+
+if [ -z "$JENV_OPTIONS" ] ; then
+  echo ""
+  exit
+fi
+
+           
+if [ "$1" = "--verbose" ] ; then
+echo "$JENV_OPTIONS  (set by $(jenv-options-origin))"         
+else
+	    echo "$JENV_OPTIONS"
+fi;

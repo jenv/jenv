@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Summary: Show the current Ruby version and its origin
+# Summary: Show the current Java version and its origin
 #
-# Shows the currently selected Ruby version and how it was
+# Shows the currently selected Java version and how it was
 # selected. To obtain only the version string, use `jenv
 # version-name'.
 

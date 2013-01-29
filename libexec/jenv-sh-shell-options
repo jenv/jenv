@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+#
+# Summary: Set or show the shell-specific Java options
+#
+# Usage: jenv shell <options>
+#        jenv shell --unset
+#
+# Sets a shell-specific Java options by setting the `JENV_OPTIONS'
+# environment variable in your shell. This options overrides local
+# application-specific optionss and the global options.
+#
+# <options> should be a string matching a Java options known to jenv.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+
+options="$1"
+
+if [ -z "$options" ]; then
+  if [ -z "$JENV_OPTIONS" ]; then
+    echo "jenv: no shell-specific options configured" >&2
+    exit 1
+  else
+    echo "echo \"\$JENV_OPTIONS\""
+    exit
+  fi
+fi
+
+if [ "$options" = "--unset" ]; then
+  echo "unset JENV_OPTIONS"
+  exit
+fi
+
+     
+echo "export JENV_OPTIONS=\"${options}\""

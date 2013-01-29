@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Summary: List all Ruby versions available to jenv
+# Summary: List all Java versions available to jenv
 # Usage: jenv versions [--bare]
 #
-# Lists all Ruby versions found in `$JENV_ROOT/versions/*'.
+# Lists all Java versions found in `$JENV_ROOT/versions/*'.
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x

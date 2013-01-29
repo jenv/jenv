@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 #
-# Summary: Set or show the global Ruby version
+# Summary: Set or show the global Java version
 #
 # Usage: jenv global <version>
 #
-# Sets the global Ruby version. You can override the global version at
+# Sets the global Java version. You can override the global version at
 # any time by setting a directory-specific version with `jenv local'
 # or by setting the `JENV_VERSION' environment variable.
 #
-# <version> should be a string matching a Ruby version known to jenv.
-# The special version string `system' will use your default system Ruby.
-# Run `jenv versions' for a list of available Ruby versions.
+# <version> should be a string matching a Java version known to jenv.
+# The special version string `system' will use your default system Java.
+# Run `jenv versions' for a list of available Java versions.
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x

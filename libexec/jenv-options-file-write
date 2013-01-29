@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Usage: jenv options-file-write <file> <options>
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+JENV_OPTIONS_FILE="$1"
+JENV_OPTIONS="$2"
+
+if [ -z "$JENV_OPTIONS" ] || [ -z "$JENV_OPTIONS_FILE" ]; then
+  jenv-help --usage options-file-write >&2
+  exit 1
+fi
+
+
+
+# Write the options out to disk.
+echo "$JENV_OPTIONS" > "$JENV_OPTIONS_FILE"

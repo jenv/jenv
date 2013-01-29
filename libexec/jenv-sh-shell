@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 #
-# Summary: Set or show the shell-specific Ruby version
+# Summary: Set or show the shell-specific Java version
 #
 # Usage: jenv shell <version>
 #        jenv shell --unset
 #
-# Sets a shell-specific Ruby version by setting the `JENV_VERSION'
+# Sets a shell-specific Java version by setting the `JENV_VERSION'
 # environment variable in your shell. This version overrides local
 # application-specific versions and the global version.
 #
-# <version> should be a string matching a Ruby version known to jenv.
-# The special version string `system' will use your default system Ruby.
-# Run `jenv versions' for a list of available Ruby versions.
+# <version> should be a string matching a Java version known to jenv.
+# The special version string `system' will use your default system Java.
+# Run `jenv versions' for a list of available Java versions.
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x

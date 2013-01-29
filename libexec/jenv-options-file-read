@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Usage: jenv options-file-read <file>
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+OPTIONS_FILE="$1"
+
+if [ -e "$OPTIONS_FILE" ]; then
+  # Read the first non-whitespace word from the specified options file.
+  # Be careful not to load it whole in case there's something crazy in it.
+  options=$(head -n 1 $OPTIONS_FILE)
+ 
+
+  if [ -n "$options" ]; then
+    echo "$options"
+    exit
+  fi
+fi
+
+exit 1

@@ -3,8 +3,8 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
-if [ -n "$JENV_VERSION" ]; then
-  echo "JENV_VERSION environment variable"
+if [ -n "$JENV_OPTIONS" ]; then
+  echo "JENV_OPTIONS environment variable"
 else
-  jenv-version-file
+  jenv-options-file
 fi

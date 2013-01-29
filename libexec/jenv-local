@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 #
-# Summary: Set or show the local application-specific Ruby version
+# Summary: Set or show the local application-specific Java version
 #
 # Usage: jenv local <version>
 #        jenv local --unset
 #
-# Sets the local application-specific Ruby version by writing the
+# Sets the local application-specific Java version by writing the
 # version name to a file named `.java-version'.
 #
-# When you run a Ruby command, jenv will look for a `.java-version'
+# When you run a Java command, jenv will look for a `.java-version'
 # file in the current directory and each parent directory. If no such
-# file is found in the tree, jenv will use the global Ruby version
+# file is found in the tree, jenv will use the global Java version
 # specified with `jenv global'. A version specified with the
 # `JENV_VERSION' environment variable takes precedence over local
 # and global versions.
@@ -19,9 +19,9 @@
 # specifications from `.jenv-version' files, but a `.java-version'
 # file in the same directory takes precedence.
 #
-# <version> should be a string matching a Ruby version known to jenv.
-# The special version string `system' will use your default system Ruby.
-# Run `jenv versions' for a list of available Ruby versions.
+# <version> should be a string matching a Java version known to jenv.
+# The special version string `system' will use your default system Java.
+# Run `jenv versions' for a list of available Java versions.
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x

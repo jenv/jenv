@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# Summary: Set or show the local application-specific JVM options
+#
+# Usage: jenv local <jvm options>
+#        jenv local --unset
+#
+# Sets the local application-specific JVM Options by writing the
+# options to a file named `.java-options'.
+#
+# When you run a Java command, jenv will look for a `.java-options'
+# file in the current directory and each parent directory. If no such
+# file is found in the tree, jenv will use the global Java Options
+# specified with `jenv global'. A version specified with the
+# `JENV_JAVAOPT' environment variable takes precedence over local
+# and global versions.
+#
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+fi
+
+JENV_JAVAOPT="$1"
+
+if [ "$JENV_JAVAOPT" = "--unset" ]; then
+  rm -f .java-options
+elif [ -n "$JENV_JAVAOPT" ]; then
+  jenv-options-file-write .java-options "$JENV_JAVAOPT"
+else
+  jenv-options-file-read .java-options ||
+  { echo "jenv: no local JVM options configured for this directory"
+    exit 1
+  } >&2
+fi

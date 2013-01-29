@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# Summary: Detect the file that sets the current jenv jvm options
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+find_local_version_file() {
+  local root="$1"
+  while [ -n "$root" ]; do
+    if [ -e "${root}/.java-options" ]; then
+      echo "${root}/.java-options"
+      exit           
+     fi
+    root="${root%/*}"
+  done
+}
+
+find_local_version_file "$JENV_DIR"
+[ "$JENV_DIR" = "$PWD" ] || find_local_version_file "$PWD"
+
+global_version_file="${JENV_ROOT}/options"
+
+if [ -e "$global_version_file" ]; then
+  echo "$global_version_file"
+else
+  echo "$global_version_file"
+fi
