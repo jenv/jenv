@@ -14,7 +14,14 @@
 #   PATH="$JENV_ROOT/versions/1.9.3-p327/bin:$PATH" bundle install
 
 set -e
-[ -n "$JENV_DEBUG" ] && set -x
+[ -n "$JENV_DEBUG" ] && set -x      
+
+
+exportVariable(){   
+   exportedKey[$1]=$1; 
+   exportedValue[$2]=$2;
+   export $1=$2 
+}
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
