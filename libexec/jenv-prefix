@@ -22,9 +22,9 @@ elif [ -z "$JENV_VERSION" ]; then
 fi
 
 if [ "$JENV_VERSION" = "system" ]; then
-  RUBY_PATH="$(jenv-which ruby)"
-  RUBY_PATH="${RUBY_PATH%/*}"
-  echo "${RUBY_PATH%/bin}"
+  JAVA_PATH="$(jenv-which java)"
+  JAVA_PATH="${JAVA_PATH%/*}"
+  echo "${JAVA_PATH%/bin}"
   exit
 fi
 

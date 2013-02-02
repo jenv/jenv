@@ -20,11 +20,11 @@ version_exists() {
 
 if version_exists "$JENV_VERSION"; then
   echo "$JENV_VERSION"
-elif version_exists "${JENV_VERSION#ruby-}"; then
-  { echo "warning: ignoring extraneous \`ruby-' prefix in version \`${JENV_VERSION}'"
+elif version_exists "${JENV_VERSION#java-}"; then
+  { echo "warning: ignoring extraneous \`java-' prefix in version \`${JENV_VERSION}'"
     echo "         (set by $(jenv-version-origin))"
   } >&2
-  echo "${JENV_VERSION#ruby-}"
+  echo "${JENV_VERSION#java-}"
 else
   echo "jenv: version \`$JENV_VERSION' is not installed" >&2
   exit 1

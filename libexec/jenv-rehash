@@ -78,7 +78,7 @@ set -e
 [ -n "\$JENV_DEBUG" ] && set -x
 
 program="\${0##*/}"
-if [ "\$program" = "ruby" ]; then
+if [ "\$program" = "java" ]; then
   for arg; do
     case "\$arg" in
     -e* | -- ) break ;;
