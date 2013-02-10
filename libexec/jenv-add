@@ -7,6 +7,13 @@ set -e
 JENV_JAVAPATH="$1"
 JENV_VERSION_FILE=".jenv-version"
 
+if [ $# -eq 2 ]; then
+	echo "jenv add alias path/to/java_home is deprecated." 
+	echo "Please let jenv generate unique alias name by using"
+	echo ""
+	echo "	$ jenv add path/to/java_home"                            
+	exit 1;
+fi;
                             
 if [ -f "$JENV_JAVAPATH/bin/java" ];
 then     
