@@ -4,15 +4,48 @@ set -e
 
 
 
-JENV_VERSION="$1" 
-JENV_JAVAPATH="$2"
+JENV_JAVAPATH="$1"
 JENV_VERSION_FILE=".jenv-version"
 
+if [ $# -eq 2 ]; then
+	echo "jenv add alias path/to/java_home is deprecated." 
+	echo "Please let jenv generate unique alias name by using"
+	echo ""
+	echo "	$ jenv add path/to/java_home"                            
+	exit 1;
+fi;
                             
 if [ -f "$JENV_JAVAPATH/bin/java" ];
-then
- 	ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_VERSION"         
-	$(jenv-rehash)
+then     
+ 
+    JAVA_VERSION=`$JENV_JAVAPATH/bin/java -version 2>&1 | head -n 1 | cut -d\" -f 2 ` 
+	JAVA_VERSION=${JAVA_VERSION/_/.}
+   
+	$JENV_JAVAPATH/bin/java -version 2>&1 | grep "HotSpot"
+	if [ $? ]; then
+		JAVA_PROVIDER="oracle"
+	else
+	   	$JENV_JAVAPATH/bin/java -version 2>&1 | grep "OpenJDK"
+	   	if [ $? ]; then
+			JAVA_PROVIDER="openjdk"
+		else   
+			$JENV_JAVAPATH/bin/java -version 2>&1 | grep "J9"
+			if [ $? ]; then
+				JAVA_PROVIDER="ibm"
+			else
+				JAVA_PROVIDER="other"
+			fi;
+		fi;  	
+	fi;  
+	
+	JENV_VERSION="$JAVA_PROVIDER-$JAVA_VERSION"        
+	       
+	if [ -h ${JENV_ROOT}/versions/$JENV_VERSION ]; then 
+	   echo "There is already a $JENV_VERSION JDK managed by jenv"
+	else
+ 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_VERSION"         
+		$(jenv-rehash)
+	fi
 else
 	echo "$JENV_JAVAPATH is not a valid path to java installation"
 fi
