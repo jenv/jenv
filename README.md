@@ -60,12 +60,12 @@ jenv is for Java,
 		 $ jenv shell oracle-1.7.0 
 	~~~
       
-6. Check that works 
+7. Check that works 
 
 	~~~  sh
 		 $ java -version
 	~~~
-7. Add JVM Options (globally, by directory or for the current shell instance)
+8. Add JVM Options (globally, by directory or for the current shell instance)
 	~~~  sh
 	    $ jenv global-options "-Xmx512m" 
 	~~~                            
@@ -81,11 +81,15 @@ jenv is for Java,
 		 $ jenv shell-options "-Xmx512m" 
 	~~~
  
-8. Check that works 
+9. Check that works 
 	
 	~~~ sh
 		 $ jenv info java
 	~~~
+
+10. jenv also provides wrappers for several build tools (Ant, Gradle, Maven, SBT) that will use 
+the configured JVM Options (globally, by directory or for the current shell instance), unless the
+tool's environment variable is already set (e.g. `ANT_OPTS` for Ant).
 
  
 
