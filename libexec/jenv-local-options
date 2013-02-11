@@ -22,6 +22,7 @@ set -e
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
   echo --unset
+  exit
 fi
 
 JENV_JAVAOPT="$1"
