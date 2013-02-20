@@ -7,11 +7,11 @@
 # Runs an executable by first preparing PATH so that the selected Java
 # version's `bin' directory is at the front.
 #
-# For example, if the currently selected Java version is 1.9.3-p327:
-#   jenv exec bundle install
+# For example, if the currently selected Java version is oracle-1.6.3:
+#   jenv exec java -jar myjar.jar
 #
 # is equivalent to:
-#   PATH="$JENV_ROOT/versions/1.9.3-p327/bin:$PATH" bundle install
+#   PATH="$JENV_ROOT/versions/oracle-1.6.3/bin:$PATH" java -jar myjar.jar 
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x      

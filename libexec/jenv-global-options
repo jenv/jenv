@@ -8,9 +8,6 @@
 # any time by setting a directory-specific options with `jenv local-options'
 # or by setting the `JENV_OPTIONS' environment variable.
 #
-# <options> should be a string matching a Java options known to jenv.
-# The special options string `system' will use your default system Java.
-# Run `jenv optionss' for a list of available Java optionss.
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x

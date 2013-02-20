@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 #
-# Summary: Run an executable with the selected Java version
+# Summary: Show information about which command will be executed
 #
-# Usage: jenv exec <command> [arg1 arg2...]
+# Usage: jenv info <command>
 #
-# Runs an executable by first preparing PATH so that the selected Java
-# version's `bin' directory is at the front.
-#
-# For example, if the currently selected Java version is 1.9.3-p327:
-#   jenv exec bundle install
-#
-# is equivalent to:
-#   PATH="$JENV_ROOT/versions/1.9.3-p327/bin:$PATH" bundle install
+
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x     
