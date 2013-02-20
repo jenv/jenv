@@ -39,7 +39,7 @@ jenv is for Java,
 5. Configure JVM in jenv
 
 	~~~  sh
-	    $ jenv add oracle-1.7.0 /path/to/java/home
+	    $ jenv add /path/to/java/home
 	~~~
 
 6. Configure which JVM to use (globally, by directory or for the current shell instance)
