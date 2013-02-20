@@ -12,7 +12,7 @@ fi
 JENV_VERSION="$1" 
                   
                             
-if [ -L " " ];
+if [ -L "$JENV_ROOT/versions/$JENV_VERSION" ];
 then         
 	rm -f $JENV_ROOT/versions/$JENV_VERSION
   $(jenv-rehash)
