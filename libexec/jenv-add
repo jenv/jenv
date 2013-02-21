@@ -40,9 +40,16 @@ then
 				JAVA_PROVIDER="other"
 			fi;
 		fi;  	
-	fi;  
+	fi;    
 	
-	JENV_VERSION="$JAVA_PROVIDER-$JAVA_VERSION"        
+	$JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "64-Bit"
+	if [ $? ]; then
+	   JAVA_PLATFORM="64"
+	else   
+	   JAVA_PLATFORM="32"
+	fi
+	
+	JENV_VERSION="$JAVA_PROVIDER$JAVA_PLATFORM-$JAVA_VERSION"        
 	       
 	if [ -h ${JENV_ROOT}/versions/$JENV_VERSION ]; then 
 	   echo "There is already a $JENV_VERSION JDK managed by jenv"
