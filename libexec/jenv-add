@@ -25,16 +25,13 @@ then
 	JAVA_VERSION=${JAVA_VERSION/_/.}   
   
    
-	$JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "HotSpot"
-	if [ $? ]; then
+	if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "HotSpot"; then
 		JAVA_PROVIDER="oracle"
 	else
-	   	$JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "OpenJDK"
-	   	if [ $? ]; then
+	   	if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "OpenJDK"; then
 			JAVA_PROVIDER="openjdk"
 		else   
-			$JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "J9"
-			if [ $? ]; then
+			if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "J9"; then
 				JAVA_PROVIDER="ibm"
 			else
 				JAVA_PROVIDER="other"
@@ -42,8 +39,7 @@ then
 		fi;  	
 	fi;    
 	
-	$JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "64-Bit"
-	if [ $? ]; then
+	if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "64-Bit"; then
 	   JAVA_PLATFORM="64"
 	else   
 	   JAVA_PLATFORM="32"
