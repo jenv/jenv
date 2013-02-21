@@ -15,7 +15,8 @@ JENV_VERSION="$1"
 if [ -L "$JENV_ROOT/versions/$JENV_VERSION" ];
 then         
 	rm -f $JENV_ROOT/versions/$JENV_VERSION
-  $(jenv-rehash)
+  $(jenv-rehash)             
+   echo "JDK $JENV_VERSION removed"
 
 else
 	echo "$JENV_VERSION is not a managed version of Java "
