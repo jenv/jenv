@@ -1,6 +1,15 @@
-# Master your Java Environnement with jenv
+# Master your Java Environnement with jenv 
+Website : http://www.jenv.be
 
-jenv is for Java, 
+jenv is for a equivalent of rbenv, but for Java environnement.
+It allow to easily switch between several JDKs installations (already presents), and configure which one to use per project.
+
+jEnv may work on bash-ready OS. 
+
+Verified on :
+
+* Mac OS X 
+* Debian
 
 ## Gettings started
 
