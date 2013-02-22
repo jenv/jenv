@@ -18,8 +18,7 @@ set -e
 
 
 exportVariable(){   
-   exportedKey[$1]=$1; 
-   exportedValue[$2]=$2;
+   exportedValues="$exportedValues:$1=$2"
    export $1=$2 
 }
 

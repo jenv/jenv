@@ -9,11 +9,10 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x     
             
-
+exportedValues=""
 
 exportVariable(){   
-   exportedKey[$1]=$1; 
-   exportedValue[$2]=$2;
+   exportedValues="$exportedValues:$1=$2"
    export $1=$2 
 }
 
@@ -47,10 +46,11 @@ if [ "$JENV_VERSION" != "system" ]; then
   export PATH="${JENV_BIN_PATH}:${PATH}"
 fi
 echo "Jenv will exec : $JENV_COMMAND_PATH" $JENV_OPTIONS "$@"             
-echo "Exported variables : "
-for i in "${!exportedKey[@]}"
-do
-  key="${exportedKey[$i]}"    
-  value=${exportedValue[$key]} 
-  echo "$key=$value"
-done
+echo "Exported variables :"
+while IFS=':' read -ra ADDR; do
+      for i in "${ADDR[@]}"; do
+      	  if [ -n "$i" ]; then
+   				echo "  $i"
+		  fi
+      done
+ done <<< "$exportedValues"
