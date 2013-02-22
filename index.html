@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8">
+    <title>jEnv - Manage your Java environment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover jenv, the command line Java manager">
+    <meta name="author" content="Gildas Cuisinier">
+    <!-- Le styles -->
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet">
+	<link href="assets/css/style.css" rel="stylesheet">
+    
+    <!-- Fallback for NoScript -->
+    <noscript>
+    <style type="text/css">
+     body {
+        display: block;
+     }
+    </style>
+    </noscript>
+	
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
+      </script>
+    <![endif]-->
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+  </head>
+
+  <body>
+		<section class="container">
+
+			<!-- Header -->
+			<header class="row-fluid">
+				<div class="title span7">
+					<img src="assets/img/profile.jpg" title="That`s me!" alt="My Profile"/>
+					<h1>jEnv</h1>
+					<h2>Manage your Java environment</h2>
+				</div>
+				<div class="social offset1 span4">
+					<ul>
+						<li><i class="icon-home"></i><a href="http://www.jenv.be">http://www.jenv.be</a></li>
+						<li><i class="icon-github"></i><a href="https://github.com/hikage/jenv">https://github.com/hikage/jenv</a></li>
+						<li><i class="icon-twitter"></i><a href="https://twitter.com/gcuisinier">@gcuisinier</a></li>
+
+					</ul>
+				</div>	
+			</header>
+
+			<!-- Welcome Text -->
+			<article class="row-fluid">
+				<header class="span3">
+					<h3>What's jEnv ?</h3>
+				</header>
+				<div class="span9 ">
+					<p class="welcome">jEnv is a command line tool to help you to forget to set the environment variable</p>
+					
+				</div>
+			</article>
+
+			<article class="row-fluid">
+				<header class="span3">
+					<h3>Installation</h3>
+				</header>
+				<div class="span9">
+					<h4>Linux / OS X</h4>
+						<pre class="code">$ git clone https://github.com/hikage/jenv.git ~/.jenv</pre>
+					<h4>Mac OS X</h4>
+						<pre class="code">$ brew install https://raw.github.com/hikage/homebrew/master/Library/Formula/jenv.rb</pre>
+				</div>
+			</article>
+
+			<article class="row-fluid">
+				<header class="span3">
+					<h3>Installation</h3>
+				</header>
+				<div class="span9">
+					<h4>Bash</h4>
+						<pre class="code">$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+$ echo 'eval "$(jenv init -)"' >> ~/.bash_profile</pre>
+					<h4>Zsh</h4>
+						<pre class="code">$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
+$ echo 'eval "$(jenv init -)"' >> ~/.zshrc</pre>
+				</div>
+			</article>
+
+			<article class="row-fluid">
+				<header class="span3">
+					<h3>Configure</h3>
+				</header>
+				<div class="span9">
+					<pre class="code">$ jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+oracle64-1.6.0.39 added
+$ jenv add /Library/Java/JavaVirtualMachines/jdk17011.jdk/Contents/Home    
+oracle64-1.7.0.11 added</pre>
+					
+				</div>
+			</article>
+
+			<article class="row-fluid">
+				<header class="span3">
+					<h3>And Use !</h3>
+				</header>
+				<div class="span9">
+					<h4>List managed JDKs</h4>
+						<pre class="code">$ jenv versions
+  system
+  oracle64-1.6.0.39
+* oracle64-1.7.0.11 (set by /Users/hikage/.jenv/version)</pre>
+					<h4>Configure global version</h4>
+						<pre class="code">$ jenv global oracle64-1.6.0.39</pre>
+					<h4>Configure local version (per directory)</h4>
+						<pre class="code">$ jenv local oracle64-1.6.0.39</pre>	
+					<h4>Configure shell instance version </h4>
+						<pre class="code">$ jenv shell oracle64-1.6.0.39</pre>	
+				</div>
+			</article>
+
+<article class="row-fluid">
+				
+				<div class="span12" style="text-align:center" >
+					<p class="welcome"><a href="https://github.com/hikage/jenv/wiki">Further Documentation</a></p>
+					
+				</div>
+			</article>
+
+			<article class="row-fluid">
+				<header class="span3">
+					<h3>Contribute</h3>
+				</header>
+				<div class="span9">
+					<h4>Source code</h4>
+					<p>The project is Open Source and open to external contribution. <br/>Do no hesitate to clone it and propose pull request
+					<ul style="padding-top:10px">
+						
+						<li><i class="icon-arrow-right"></i><a href="https://github.com/hikage/jenv">https://github.com/hikage/jenv</a></li>
+						<li>
+
+					</ul>
+
+					</p>
+						
+					<h4>Report a issue</h4>
+						<p>You find a bug ? Feature missing in jenv ? Create issue !
+					<ul style="padding-top:10px">
+						
+						<li><i class="icon-arrow-right"></i><a href="https://github.com/hikage/jenv/issues?state=openv">jEnv issues</a></li>
+						<li>
+
+					</ul>
+
+					</p>
+				</div>
+			</article>
+
+			
+
+			<!-- Footer -->
+			<footer>
+				&copy; 2013 Gildas Cuisinier 
+				 | <a href="#top">To top <i class="icon-arrow-up"></i></a>
+			
+			</footer>
+	</section>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+<script src="assets/js/main.js"></script>
+	</body>
+
+</html>
