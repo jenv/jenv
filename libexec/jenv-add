@@ -4,6 +4,13 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  for d in ${!#}*; do
+    [[ -d "$d" ]] && echo $d/
+  done
+  exit
+fi
 
 
 JENV_JAVAPATH="$1"

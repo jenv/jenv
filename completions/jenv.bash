@@ -7,9 +7,10 @@ _jenv() {
   else
     local words=("${COMP_WORDS[@]}")
     unset words[0]
-    unset words[$COMP_CWORD]
     local completions=$(jenv completions "${words[@]}")
     COMPREPLY=( $(compgen -W "$completions" -- "$word") )
+    # Prevents the addition of a trailing space when completing a path
+    [[ $COMPREPLY = */ ]] && compopt -o nospace
   fi
 }
 
