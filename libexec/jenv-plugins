@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+# Summary: List available plugins
+# Usage: jenv plugins
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+
+if [ "$1" = "--complete" ]; then
+  echo "--enabled"
+  echo "--available" 
+  exit
+fi
+
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
+samedir()  {
+  local path1="$(resolvepath $1)"
+  local path2="$(resolvepath $2)"
+
+  if [ $path1 == $path2 ]; then
+   return 0; 
+  else
+   return 1;
+  fi
+}
+
+resolvepath() {
+  local cwd="$(pwd)" 
+  cd $1
+  echo "$(pwd)"
+  cd "$cwd"
+}
+
+
+
+abs_dirname() {
+  local cwd="$(pwd)"
+  local path="$1"
+
+  while [ -n "$path" ]; do
+    cd "${path%/*}"
+    local name="${path##*/}"
+    path="$(resolve_link "$name" || true)"
+  done
+
+  pwd
+  cd "$cwd"
+}
+
+
+if [ "$1" = "--enabled" ] ; then
+	for plugin in "${JENV_ROOT}"/plugins/*; do      
+  		echo $(basename $plugin)
+	done   
+else
+	for plugin in "${JENV_INSTALL_DIR}"/available-plugins/*; do      
+  		echo $(basename $plugin)
+	done   
+fi
+

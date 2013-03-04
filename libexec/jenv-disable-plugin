@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Summary: Desactivate a jEnv plugin
+# Usage: jenv disable-plugin <pluginName>
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  exec jenv-plugins --enabled
+fi
+
+if [ -z "$1" ]; then
+  jenv-help disable-plugin  >&2
+  exit 1
+fi
+
+plugin="$1"
+
+if [ -h ${JENV_ROOT}/plugins/$plugin ]; then 
+	   	rm -f "${JENV_ROOT}/plugins/$plugin"
+		$(jenv-rehash)	   	
+	   	echo "$plugin disabled"
+	else
+        echo "$plugin is not enabled"
+
+fi
+

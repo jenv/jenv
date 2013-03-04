@@ -45,6 +45,8 @@ else
 fi
 export JENV_ROOT
 
+
+
 if [ -z "${JENV_DIR}" ]; then
   JENV_DIR="$(pwd)"
 else
@@ -64,22 +66,17 @@ shopt -s nullglob
 
 bin_path="$(abs_dirname "$0")"    
                   
-
-
+if ! samedir "${JENV_ROOT}" "$bin_path/../"  ; then
+   JENV_INSTALL_DIR=$(resolvepath "$bin_path/../")
+else
+    JENV_INSTALL_DIR=$JENV_ROOT
+fi
+   export JENV_INSTALL_DIR
 
 
 for plugin_bin in "${JENV_ROOT}/plugins/"*/bin; do
   bin_path="${bin_path}:${plugin_bin}"
 done  
-
-# If jenv is not installed in $HOME/.jenv, look for plugin in installation directory
-if ! samedir "${JENV_ROOT}" "$bin_path/../"  ; then
-  for plugin_bin in "$bin_path/../plugins/"*/bin; do
-    bin_path="${bin_path}:${plugin_bin}"
-  done                          
-fi
-
-
 
 export PATH="${bin_path}:${PATH}" 
 
@@ -89,13 +86,6 @@ hook_path="${JENV_HOOK_PATH}"
 for plugin_hook in "${JENV_ROOT}/plugins/"*/etc/jenv.d; do      
   hook_path="${hook_path}:${plugin_hook}"
 done   
-
-# If jenv is not installed in $HOME/.jenv, look for plugin in installation directory
-if ! samedir "${JENV_ROOT}" "$bin_path/../"  ; then
-  for plugin_hook in "$bin_path/../plugins/"*/etc/jenv.d; do      
-    hook_path="${hook_path}:${plugin_hook}"     
-  done
-fi
 
 
 export JENV_HOOK_PATH=$hook_path
