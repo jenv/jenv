@@ -71,7 +71,7 @@ if [ -z "$print" ]; then
   exit 1
 fi
 
-mkdir -p "${JENV_ROOT}/"{shims,versions}
+mkdir -p "${JENV_ROOT}/"{shims,plugins,versions}
 
 echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
 
