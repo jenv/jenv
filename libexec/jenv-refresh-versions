@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Summary: Refresh alias names
+     
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}       
+                  
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+for path in "${JENV_ROOT}/versions/"*; do
+  if [ -d "$path" ]; then
+
+      aliasname=$(basename $path)
+      if test "${JENV_ROOT}/$aliasname.time" -ot "$path/bin/java"; then
+           realpath=$(resolve_link $path)
+           jenv remove $aliasname >> /dev/null 
+           newalias=$(jenv add $realpath) 
+           newalias=${newalias%added}
+           echo  "$aliasname has been replaced by $newalias"
+      fi   
+  fi
+done

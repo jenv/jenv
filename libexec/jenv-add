@@ -57,7 +57,8 @@ then
 	if [ -h ${JENV_ROOT}/versions/$JENV_VERSION ]; then 
 	   echo "There is already a $JENV_VERSION JDK managed by jenv"
 	else
- 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_VERSION"    
+ 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_VERSION" 
+ 		touch ${JENV_ROOT}/$JENV_VERSION.time   
         echo "$JENV_VERSION added"
 		$(jenv-rehash)
 	fi

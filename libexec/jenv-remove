@@ -15,6 +15,7 @@ JENV_VERSION="$1"
 if [ -L "$JENV_ROOT/versions/$JENV_VERSION" ];
 then         
 	rm -f $JENV_ROOT/versions/$JENV_VERSION
+	rm -f ${JENV_ROOT}/$JENV_VERSION.time
   $(jenv-rehash)             
    echo "JDK $JENV_VERSION removed"
 
