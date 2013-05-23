@@ -10,7 +10,7 @@ if [ -e "$VERSION_FILE" ]; then
   # Be careful not to load it whole in case there's something crazy in it.
   version=""
   while read -a words; do
-    word="${words[0]}"
+    word="${words[0]/$'\r'/}"
     if [ -z "$version" ] && [ -n "$word" ]; then
       version="$word"
     fi
