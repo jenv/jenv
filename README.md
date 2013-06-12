@@ -205,6 +205,29 @@ Lists all Java versions with the given command installed.
     oracle-1.6
     oracle-1.7
 
+## Plugins
+
+Jenv provides plugins to make command-line tools aware of which JDK is activated.
+
+    $ jenv plugins
+    ant
+	golo
+	gradle
+	groovy
+	lein
+	maven
+	sbt
+	scala
+
+Let's say you want Maven to use the JDK activated with Jenv, not the default `JAVA_HOME` configuration. You need to activate Jenv's maven plugin.
+
+    $ jenv enable-plugin maven
+    maven plugin activated
+
+    $ jenv disable-plugin maven
+    maven disabled
+
+
 ## Development
 
 The jenv source code is [hosted on
