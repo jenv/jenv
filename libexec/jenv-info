@@ -12,8 +12,11 @@ set -e
 exportedValues=""
 
 exportVariable(){   
-   exportedValues="$exportedValues:$1=$2"
-   export $1=$2 
+echo $exportedValues
+ #  echo $1, $2, $3 
+   exportedValues="$exportedValues:$1"
+   export $1="$2 $3 $4 $5 $6 $7 $8 $9"
+    
 }
 
 # Provide jenv completions
@@ -24,6 +27,7 @@ fi
 export JENV_VERSION="$(jenv-version-name)"    
             
 export JENV_OPTIONS="$(jenv-options)"    
+
 
 
 JENV_COMMAND="$1"              
@@ -45,12 +49,13 @@ shift 1
 if [ "$JENV_VERSION" != "system" ]; then
   export PATH="${JENV_BIN_PATH}:${PATH}"
 fi
-echo "Jenv will exec : $JENV_COMMAND_PATH" $JENV_OPTIONS "$@"             
+echo "Jenv will exec : $JENV_COMMAND_PATH" $JENV_OPTIONS "$@"   
+echo $exportedValues          
 echo "Exported variables :"
 while IFS=':' read -ra ADDR; do
       for i in "${ADDR[@]}"; do
       	  if [ -n "$i" ]; then
-   				echo "  $i"
+   				echo "  $i=${!i}" 
 		  fi
       done
  done <<< "$exportedValues"
