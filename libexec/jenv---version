@@ -12,7 +12,7 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
-version="0.1.0"
+version="0.2.0-20130902"
 
 cd "$JENV_ROOT"
 git_revision="$(git describe --tags HEAD 2>/dev/null || true)"
