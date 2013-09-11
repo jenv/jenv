@@ -18,7 +18,7 @@ Verified on :
 1. Check out jenv into `~/.jenv`.
 
     ~~~ sh
-    	$ git clone https://github.com/hikage/jenv.git ~/.jenv
+    	$ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
     ~~~
                                                       
 2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
@@ -231,13 +231,13 @@ Let's say you want Maven to use the JDK activated with Jenv, not the default `JA
 ## Development
 
 The jenv source code is [hosted on
-GitHub](https://github.com/hikage/jenv). It's clean, modular,
+GitHub](https://github.com/gcuisinier/jenv). It's clean, modular,
 and easy to understand, even if you're not a shell hacker. 
 
 It is based on [rbenv](https://github.com/sstephenson/rbenv).
 
 Please feel free to submit pull requests and file bugs on the [issue
-tracker](https://github.com/hikage/jenv/issues).
+tracker](https://github.com/gcuisinier/jenv/issues).
 
 ### Version History
 
