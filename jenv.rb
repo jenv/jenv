@@ -3,8 +3,8 @@ require 'formula'
 
 class Jenv < Formula
   homepage 'http://www.jenv.be'
-  url 'https://github.com/gcuisinier/jenv/archive/0.2.0-20130902.tar.gz'
-  sha1 'd4fc78b74887e63814b3c31102decbd6716a6520'
+  url 'https://github.com/gcuisinier/jenv/archive/0.2.0-20130917.tar.gz'
+  sha1 'c18c343ba202feaae044bbd5bf5d96f7b11d211f'
   head 'https://github.com/gcuisinier/jenv.git', :branch => 'master'
 
   def install
