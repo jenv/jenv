@@ -13,6 +13,13 @@ Verified on :
 
 ## Gettings started
 
+> jenv works by inserting a directory of shims at the front of your `PATH`, just like [rbenv's shims](https://github.com/sstephenson/rbenv#understanding-shims)
+
+> ```
+> ~/.jenv/shims:...:$JENV_HOME/bin:/usr/local/bin:/usr/bin:/bin
+> ```
+> 
+> Each time the JDK version is changed jenv will _rehash_ every binaries in the JDK's home directory those are called shims. They're lightweight executables that will delegate the command to `jenv exec` that will then execute the real binary of the JDK.
 
 
 1. Check out jenv into `~/.jenv`.
@@ -21,7 +28,7 @@ Verified on :
     	$ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
     ~~~
                                                       
-2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
+2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility and prefix it with `~/.jenv/shims` for access to JDK shims.
 
 	~~~ sh
 		$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
@@ -29,7 +36,7 @@ Verified on :
 
 	**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
 
-	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.   
+	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
 	
 3. Add `jenv init` to your shell to enable shims and autocompletion.
 
