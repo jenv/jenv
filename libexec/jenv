@@ -98,7 +98,7 @@ shopt -u nullglob
 command="$1"
 case "$command" in
 "" | "-h" | "--help" )
-  echo -e "jenv 0.1.0\n$(jenv-help)" >&2
+  echo -e "$(jenv --version)\n$(jenv-help)" >&2
   ;;
 * )
   command_path="$(command -v "jenv-$command" || true)"   
