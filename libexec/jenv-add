@@ -80,6 +80,9 @@ then
 	then 
 		   cwarn "There is already a $JENV_ALIAS JDK managed by jenv"
 		else
+                        cd $JENV_JAVAPATH
+                        JENV_JAVAPATH=$PWD
+                        cd -
 	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_ALIAS" 
 	 		touch ${JENV_ROOT}/$JENV_ALIAS.time   
 	        cinfo "$JENV_ALIAS added"
