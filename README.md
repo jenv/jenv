@@ -1,7 +1,7 @@
 # Master your Java Environnement with jenv 
 Website : http://www.jenv.be
 
-jenv is for a equivalent of rbenv, but for Java environnement.
+jenv is for a equivalent of rbenv, but for Java environment.
 It allow to easily switch between several JDKs installations (already presents), and configure which one to use per project.
 
 jEnv may work on bash-ready OS. 
@@ -213,6 +213,7 @@ Jenv provides plugins to make command-line tools aware of which JDK is activated
     ant
 	golo
 	gradle
+	grails
 	groovy
 	lein
 	maven
