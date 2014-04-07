@@ -1,4 +1,4 @@
-if [ "$1" = "mvn" ]; then            
+if [ "$1" = "mvn" -o "$1" = "mvnDebug"  ]; then            
   if [ -n "$JENV_OPTIONS" ]; then
     if [ -z "$MAVEN_OPTS" ]; then
       exportVariable MAVEN_OPTS $JENV_OPTIONS
