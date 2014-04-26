@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+#
+# Summary: Show information about which command will be executed
+#
+# Usage: jenv info <command>
+#
+
+# Display colorized information output
+function cinfo() {
+  COLOR='\033[01;32m' # bold green
+  RESET='\033[00;00m' # normal white
+  echo -e "${COLOR}[OK]\t$*${RESET}"
+}
+ 
+# Display colorized warning output
+function cwarn() {
+  COLOR='\033[01;31m' # bold red
+  RESET='\033[00;00m' # normal white
+  echo -e "${COLOR}[ERROR]\t$*${RESET}"
+}
+
+function cfix() {
+  COLOR='\033[01;34m' # bold red
+  RESET='\033[00;00m' # normal white
+  echo -e "${COLOR}\t$*${RESET}"
+}
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x     
+            
+exportedValues=""
+
+exportVariable(){   
+echo $exportedValues
+ #  echo $1, $2, $3 
+   exportedValues="$exportedValues:$1"
+   export $1="$2 $3 $4 $5 $6 $7 $8 $9"
+    
+}
+
+# Provide jenv completions
+#if [ "$1" = "--complete" ]; then
+#  exec jenv shims --short
+#fi
+
+
+if [[ ! -z "$JAVA_HOME" ]] ; then 
+  cwarn "JAVA_HOME variable already set, scripts that use it directly could not use java version set by jenv"
+else
+    cinfo "No JAVA_HOME set"
+fi
+
+JAVA_BIN=`command -v java`
+
+EXPECTED_JAVA="$JENV_ROOT/shims/java"
+
+
+
+
+if [ "$EXPECTED_JAVA" = "$JAVA_BIN" ] ; then
+      cinfo "Java binaries in path are jenv shims"
+else
+  cwarn "java binary in path is not he the jenv shims"
+  cwarn "Please check your path"
+  cfix "PATH : $PATH"
+
+fi
+
+shell="$(basename "$SHELL")"
+
+
+ case "$shell" in
+  bash )
+    profile="$HOME/.bash_profile"
+    ;;
+  zsh )
+    profile="$HOME/.zshrc"
+    ;;
+  ksh )
+    profile="$HOME/.profile"
+    ;;
+  * )
+    profile='your profile'
+    ;;
+  esac
+
+if grep --quiet "jenv init" $profile; then
+  cinfo "Jenv is correlly loaded"
+
+else
+  cwarn "Jenv is not loaded in your $shell"
+  cwarn 'To fix : \tcat eval "$(jenv init -)" >>' $profile
+
+fi
+
+
+
+

@@ -85,6 +85,9 @@ if [ -z "$no_rehash" ]; then
   echo 'jenv rehash 2>/dev/null'
 fi
 
+echo "export JENV_LOADED=1"
+echo "unset JAVA_HOME"
+
 commands=(`jenv-commands --sh`)
 IFS="|"
 cat <<EOS
