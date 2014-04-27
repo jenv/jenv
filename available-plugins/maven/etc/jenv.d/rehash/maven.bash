@@ -10,5 +10,6 @@ MAVEN_DEBUG="$(command -v "mvnDebug" || true)"
 PATH=$backuppath
 
 make_shims "$MAVEN_BIN"  
+make_shims "$MAVEN_DEBUG"  
 
 
