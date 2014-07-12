@@ -2,7 +2,7 @@
 #
 # Summary: Set or show the global Java options
 #
-# Usage: jenv global <options>
+# Usage: jenv global-options <options>
 #
 # Sets the global Java options. You can override the global options at
 # any time by setting a directory-specific options with `jenv local-options'
