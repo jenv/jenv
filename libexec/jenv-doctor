@@ -2,7 +2,7 @@
 #
 # Summary: Show information about which command will be executed
 #
-# Usage: jenv info <command>
+# Usage: jenv doctor <command>
 #
 
 # Display colorized information output
