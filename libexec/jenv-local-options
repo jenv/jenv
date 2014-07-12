@@ -2,8 +2,8 @@
 #
 # Summary: Set or show the local application-specific JVM options
 #
-# Usage: jenv local <jvm options>
-#        jenv local --unset
+# Usage: jenv local-options <jvm options>
+#        jenv local-options --unset
 #
 # Sets the local application-specific JVM Options by writing the
 # options to a file named `.java-options'.

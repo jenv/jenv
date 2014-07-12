@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Summary: Show the current Java options
+# Usage: jenv options
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
