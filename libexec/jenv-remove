@@ -1,6 +1,6 @@
 #!/usr/bin/env bash        
 # Summary: Remove a JDK installation
-# Usage: jenv add alias-name
+# Usage: jenv remove alias-name
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
