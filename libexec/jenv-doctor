@@ -11,7 +11,7 @@ function cinfo() {
   RESET='\033[00;00m' # normal white
   echo -e "${COLOR}[OK]\t$*${RESET}"
 }
- 
+
 # Display colorized warning output
 function cwarn() {
   COLOR='\033[01;31m' # bold red
@@ -26,16 +26,16 @@ function cfix() {
 }
 
 set -e
-[ -n "$JENV_DEBUG" ] && set -x     
-            
+[ -n "$JENV_DEBUG" ] && set -x
+
 exportedValues=""
 
-exportVariable(){   
+exportVariable(){
 echo $exportedValues
- #  echo $1, $2, $3 
+ #  echo $1, $2, $3
    exportedValues="$exportedValues:$1"
    export $1="$2 $3 $4 $5 $6 $7 $8 $9"
-    
+
 }
 
 # Provide jenv completions
@@ -44,7 +44,7 @@ echo $exportedValues
 #fi
 
 
-if [[ ! -z "$JAVA_HOME" ]] ; then 
+if [[ ! -z "$JAVA_HOME" ]] ; then
   cwarn "JAVA_HOME variable already set, scripts that use it directly could not use java version set by jenv"
 else
     cinfo "No JAVA_HOME set"
@@ -55,10 +55,8 @@ JAVA_BIN=`command -v java`
 EXPECTED_JAVA="$JENV_ROOT/shims/java"
 
 
-
-
 if [ "$EXPECTED_JAVA" = "$JAVA_BIN" ] ; then
-      cinfo "Java binaries in path are jenv shims"
+  cinfo "Java binaries in path are jenv shims"
 else
   cwarn "java binary in path is not he the jenv shims"
   cwarn "Please check your path"
@@ -66,33 +64,29 @@ else
 
 fi
 
-shell="$(basename "$SHELL")"
-
-
- case "$shell" in
-  bash )
-    profile="$HOME/.bash_profile"
-    ;;
-  zsh )
-    profile="$HOME/.zshrc"
-    ;;
-  ksh )
-    profile="$HOME/.profile"
-    ;;
-  * )
-    profile='your profile'
-    ;;
-  esac
-
-if grep --quiet "jenv init" $profile; then
-  cinfo "Jenv is correlly loaded"
+if [ "$JENV_LOADED" = "1" ]; then
+  cinfo "Jenv is correctly loaded"
 
 else
+  shell="$(basename "$SHELL")"
+
+  case "$shell" in
+    bash )
+      profile="$HOME/.bash_profile"
+      ;;
+    zsh )
+      profile="$HOME/.zshrc"
+      ;;
+    ksh )
+      profile="$HOME/.profile"
+      ;;
+    * )
+      profile='your profile'
+      ;;
+  esac
+
   cwarn "Jenv is not loaded in your $shell"
   cwarn 'To fix : \tcat eval "$(jenv init -)" >>' $profile
 
 fi
-
-
-
 
