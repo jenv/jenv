@@ -72,7 +72,9 @@ then
 		   JAVA_PLATFORM="32"
 		fi
 		
-		JENV_ALIAS="$JAVA_PROVIDER$JAVA_PLATFORM-$JAVA_VERSION"        
+		JENV_ALIAS="$JAVA_PROVIDER$JAVA_PLATFORM-$JAVA_VERSION"
+
+
 		       
 		
 	fi
@@ -86,6 +88,35 @@ then
 	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_ALIAS" 
 	 		touch ${JENV_ROOT}/$JENV_ALIAS.time   
 	        cinfo "$JENV_ALIAS added"
+			$(jenv-rehash)
+	fi
+
+	
+	JAVA_SHORTVERSION=$(sed 's/\([0-9].[0-9]\).*/\1/' <<< $JAVA_VERSION)
+	
+	if [ -h ${JENV_ROOT}/versions/$JAVA_VERSION ];
+	then 
+		   cwarn "There is already a $JAVA_VERSION JDK managed by jenv"
+		else
+            cd $JENV_JAVAPATH
+            JENV_JAVAPATH=$PWD
+            cd -
+	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JAVA_VERSION" 
+	 		touch ${JENV_ROOT}/$JAVA_VERSION.time   
+	        cinfo "$JAVA_VERSION added"
+			$(jenv-rehash)
+	fi
+
+	if [ -h ${JENV_ROOT}/versions/$JAVA_SHORTVERSION ];
+	then 
+		   cwarn "There is already a $JAVA_SHORTVERSION JDK managed by jenv"
+		else
+            cd $JENV_JAVAPATH
+            JENV_JAVAPATH=$PWD
+            cd -
+	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JAVA_SHORTVERSION" 
+	 		touch ${JENV_ROOT}/$JAVA_SHORTVERSION.time   
+	        cinfo "$JAVA_SHORTVERSION added"
 			$(jenv-rehash)
 	fi
 
