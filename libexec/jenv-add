@@ -119,6 +119,11 @@ then
 	add_alias_check $JAVA_SHORTVERSION
 
 
+	if $version_added ; then 
+		$(jenv-rehash)
+	fi
+
+
 
 	
 	
