@@ -12,6 +12,7 @@ if [ "$1" = "--complete" ]; then
   exit
 fi
 
+version_added=false
 
 # Display colorized information output
 function cinfo() {
@@ -25,6 +26,36 @@ function cwarn() {
 	COLOR='\033[01;31m'	# bold red
 	RESET='\033[00;00m'	# normal white
 	echo -e "${COLOR}$*${RESET}"
+}
+
+
+function add_alias_check(){
+	if [ -h ${JENV_ROOT}/versions/$1 ];
+	then 
+		   cwarn "There is already a $1 JDK managed by jenv"
+		   read -p "Do you want to override (type y to confirm)? " -n 1 -r
+		   echo ""
+		   if [[ $REPLY =~ ^[Yy]$ ]]
+			then
+			    rm -f "${JENV_ROOT}/versions/$1"
+				add_alias "$1"
+			fi
+
+	else
+           add_alias "$1"
+
+	fi
+}
+
+function add_alias(){
+	cd $JENV_JAVAPATH
+    JENV_JAVAPATH=$PWD
+    cd - 2>&1 > /dev/null
+	ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$1" 
+	touch ${JENV_ROOT}/$1.time   
+    cinfo "$1 added"
+    version_added=true
+
 }
 
 JENV_JAVAPATH="$1"
@@ -78,47 +109,20 @@ then
 		       
 		
 	fi
-	if [ -h ${JENV_ROOT}/versions/$JENV_ALIAS ];
-	then 
-		   cwarn "There is already a $JENV_ALIAS JDK managed by jenv"
-		else
-                        cd $JENV_JAVAPATH
-                        JENV_JAVAPATH=$PWD
-                        cd -
-	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JENV_ALIAS" 
-	 		touch ${JENV_ROOT}/$JENV_ALIAS.time   
-	        cinfo "$JENV_ALIAS added"
-			$(jenv-rehash)
-	fi
 
-	
+
 	JAVA_SHORTVERSION=$(sed 's/\([0-9].[0-9]\).*/\1/' <<< $JAVA_VERSION)
-	
-	if [ -h ${JENV_ROOT}/versions/$JAVA_VERSION ];
-	then 
-		   cwarn "There is already a $JAVA_VERSION JDK managed by jenv"
-		else
-            cd $JENV_JAVAPATH
-            JENV_JAVAPATH=$PWD
-            cd -
-	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JAVA_VERSION" 
-	 		touch ${JENV_ROOT}/$JAVA_VERSION.time   
-	        cinfo "$JAVA_VERSION added"
-			$(jenv-rehash)
-	fi
 
-	if [ -h ${JENV_ROOT}/versions/$JAVA_SHORTVERSION ];
-	then 
-		   cwarn "There is already a $JAVA_SHORTVERSION JDK managed by jenv"
-		else
-            cd $JENV_JAVAPATH
-            JENV_JAVAPATH=$PWD
-            cd -
-	 		ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$JAVA_SHORTVERSION" 
-	 		touch ${JENV_ROOT}/$JAVA_SHORTVERSION.time   
-	        cinfo "$JAVA_SHORTVERSION added"
-			$(jenv-rehash)
-	fi
+
+	add_alias_check $JENV_ALIAS
+	add_alias_check $JAVA_VERSION
+	add_alias_check $JAVA_SHORTVERSION
+
+
+
+	
+	
+	
 
 else
 	cwarn "$JENV_JAVAPATH is not a valid path to java installation"
