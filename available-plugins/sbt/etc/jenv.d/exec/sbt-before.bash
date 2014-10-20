@@ -6,5 +6,6 @@ if [ "$1" = "sbt" ]; then
       echo "SBT_OPTS is set and not overridden by jenv"
     fi
     unset JENV_OPTIONS        
-  fi      
+  fi    
+  JENV_OPTIONS="$JENV_OPTIONS -java-home=$JAVA_HOME"  
 fi
