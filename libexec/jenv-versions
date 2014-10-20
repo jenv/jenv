@@ -6,6 +6,7 @@
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
+verbose=false
 
 if [ "$1" = "--bare" ]; then
   hit_prefix=""
@@ -18,12 +19,38 @@ else
   current_version="$(jenv-version-name || true)"
   include_system="1"
 fi
+if [ "$1" = "--verbose" ]; then
+  verbose=true
+fi
+
+resolvepath() {
+  local cwd="$(pwd)" 
+  cd $1
+  echo "$(pwd -P)"
+  cd "$cwd"
+}
+
 
 print_version() {
+
+
   if [ "$1" == "$current_version" ]; then
     echo "${hit_prefix}$(jenv-version 2>/dev/null)"
+    if $verbose ; then
+      local realPath="$(resolvepath $2)"
+     echo "         $2"
+     echo "         --> $realPath"
+     echo ""
+    fi
   else
     echo "${miss_prefix}$1"
+    if $verbose ; then
+            local realPath="$(resolvepath $2)"
+
+      echo "         $2"
+     echo "         --> $realPath"
+     echo ""
+    fi
   fi
 }
 
@@ -34,6 +61,7 @@ fi
 
 for path in "${JENV_ROOT}/versions/"*; do
   if [ -d "$path" ]; then
-    print_version "${path##*/}"
+    #print_version "${path##*/}"
+    print_version "${path##*/}" "$path"
   fi
 done
