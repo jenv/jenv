@@ -7,7 +7,7 @@ configureBash(){
 }
 
 configureZsh(){
-	echo "configure export plugin for ZSH"
+	#echo "configure export plugin for ZSH"
 	typeset -ag chpwd_functions
 	if [[ -z $chpwd_functions[(r)_jenv_export_hook] ]]; then
     		chpwd_functions+=_jenv_export_hook;
