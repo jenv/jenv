@@ -88,6 +88,10 @@ fi
 echo "export JENV_LOADED=1"
 echo "unset JAVA_HOME"
 
+for script in $(jenv-hooks init); do
+  echo "source \"$script\""
+done
+
 commands=(`jenv-commands --sh`)
 IFS="|"
 cat <<EOS

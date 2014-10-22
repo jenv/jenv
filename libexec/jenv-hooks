@@ -19,6 +19,8 @@ if [ -z "$JENV_COMMAND" ]; then
   exit 1
 fi
 
+JENV_PLUGIN="$2"
+
 resolve_link() {
   $(type -p greadlink readlink | head -1) $1
 }

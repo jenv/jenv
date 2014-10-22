@@ -26,8 +26,12 @@ if [ -h ${JENV_ROOT}/plugins/$plugin ]; then
   		  exit 1;
 		fi
  		ln -s  "${JENV_INSTALL_DIR}/available-plugins/$plugin" "${JENV_ROOT}/plugins/$plugin" 
+		
+		if [ -f "${JENV_ROOT}/plugins/$plugin/etc/jenv.d/load/after.bash" ]; then
+			source "${JENV_ROOT}/plugins/$plugin/etc/jenv.d/load/after.bash"
+		fi
 
-		echo "echo $plugin plugin activated && jenv rehash "
+ 		echo "echo $plugin plugin activated && jenv rehash"
 fi
 
 

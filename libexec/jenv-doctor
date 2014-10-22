@@ -45,7 +45,11 @@ echo $exportedValues
 
 
 if [[ ! -z "$JAVA_HOME" ]] ; then
-  cwarn "JAVA_HOME variable already set, scripts that use it directly could not use java version set by jenv"
+  if [[ -z "$JENV_FORCEJAVAHOME" ]] ; then
+    cwarn "JAVA_HOME variable already set, scripts that use it directly could not use java version set by jenv"
+  else
+    cinfo "JAVA_HOME variable probably set by jenv PROMPT"
+  fi
 else
     cinfo "No JAVA_HOME set"
 fi
