@@ -28,6 +28,7 @@ resolvepath() {
 }
 
 samedir()  {
+  if [ -d $1 ] && [ -d $2 ]; then
   local path1="$(resolvepath $1)"
   local path2="$(resolvepath $2)"
 
@@ -36,6 +37,8 @@ samedir()  {
   else
    return 1;
   fi
+fi
+return 0;
 }
 
 if [ -z "${JENV_ROOT}" ]; then
