@@ -88,7 +88,7 @@ fi
 echo "export JENV_LOADED=1"
 echo "unset JAVA_HOME"
 
-for script in $(jenv-hooks init); do
+for script in $(jenv-hooks init $shell); do
   echo "source \"$script\""
 done
 

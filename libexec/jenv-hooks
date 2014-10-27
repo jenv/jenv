@@ -19,7 +19,10 @@ if [ -z "$JENV_COMMAND" ]; then
   exit 1
 fi
 
-JENV_PLUGIN="$2"
+shell="$2"
+if [ -z $shell ]; then
+  shell="bash"
+fi
 
 resolve_link() {
   $(type -p greadlink readlink | head -1) $1
@@ -42,8 +45,20 @@ realpath() {
 
 shopt -s nullglob
 for path in ${JENV_HOOK_PATH//:/$'\n'}; do
-  for script in $path/"$JENV_COMMAND"/*.bash; do
+
+   case "$shell" in
+  bash )
+    for script in $path/"$JENV_COMMAND"/*.bash; do
+    echo $(realpath $script)
+    done
+    ;;
+  zsh )
+    for script in $path/"$JENV_COMMAND"/*.zsh; do
     echo $(realpath $script)
   done
+    ;;
+  esac
+
+  
 done
 shopt -u nullglob
