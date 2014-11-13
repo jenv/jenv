@@ -70,8 +70,7 @@
 					<h4>Linux / OS X</h4>
 						<pre class="code">$ git clone https://github.com/gcuisinier/jenv.git ~/.jenv</pre>
 						<h4>Mac OS X via <a href="http://brew.sh/">Homebrew</a></h4>
-						<pre class="code">
-$ brew install jenv</pre>
+						<pre class="code">$ brew install jenv</pre>
 				</div>
 			</article>
 
@@ -81,11 +80,15 @@ $ brew install jenv</pre>
 				</header>
 				<div class="span9">
 					<h4>Bash</h4>
-						<pre class="code">$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
-$ echo 'eval "$(jenv init -)"' >> ~/.bash_profile</pre>
+<pre class="code">
+$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+$ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+</pre>
 					<h4>Zsh</h4>
-						<pre class="code">$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
-$ echo 'eval "$(jenv init -)"' >> ~/.zshrc</pre>
+<pre class="code">
+$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
+$ echo 'eval "$(jenv init -)"' >> ~/.zshrc
+</pre>
 				</div>
 			</article>
 
@@ -94,10 +97,12 @@ $ echo 'eval "$(jenv init -)"' >> ~/.zshrc</pre>
 					<h3>Configure</h3>
 				</header>
 				<div class="span9">
-					<pre class="code">$ jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
-oracle64-1.6.0.39 added
+<pre class="code">
+$ jenv add /System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
+  oracle64-1.6.0.39 added
 $ jenv add /Library/Java/JavaVirtualMachines/jdk17011.jdk/Contents/Home    
-oracle64-1.7.0.11 added</pre>
+  oracle64-1.7.0.11 added
+</pre>
 				</div>
 			</article>
 
@@ -107,10 +112,12 @@ oracle64-1.7.0.11 added</pre>
 				</header>
 				<div class="span9">
 					<h4>List managed JDKs</h4>
-						<pre class="code">$ jenv versions
+<pre class="code">
+$ jenv versions
   system
   oracle64-1.6.0.39
-* oracle64-1.7.0.11 (set by /Users/hikage/.jenv/version)</pre>
+* oracle64-1.7.0.11 (set by /Users/hikage/.jenv/version)
+</pre>
 					<h4>Configure global version</h4>
 						<pre class="code">$ jenv global oracle64-1.6.0.39</pre>
 					<h4>Configure local version (per directory)</h4>
