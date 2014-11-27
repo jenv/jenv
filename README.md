@@ -216,6 +216,16 @@ Lists all Java versions with the given command installed.
     oracle-1.6
     oracle-1.7
 
+### jenv update
+
+Update jenv and all installed external plugins
+
+    $ jenv update
+    [OK]	Updating /home/bshell/.jenv...
+    From https://github.com/gcuisinier/jenv
+    * branch            master     -> FETCH_HEAD
+    Already up-to-date.
+
 ## Plugins
 
 Jenv provides plugins to make command-line tools aware of which JDK is activated.
