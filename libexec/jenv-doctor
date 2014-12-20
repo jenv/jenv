@@ -62,7 +62,7 @@ EXPECTED_JAVA="$JENV_ROOT/shims/java"
 if [ "$EXPECTED_JAVA" = "$JAVA_BIN" ] ; then
   cinfo "Java binaries in path are jenv shims"
 else
-  cwarn "java binary in path is not he the jenv shims"
+  cwarn "Java binary in path is not in the jenv shims"
   cwarn "Please check your path"
   cfix "PATH : $PATH"
 
