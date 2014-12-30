@@ -31,7 +31,7 @@ Verified on :
 
 	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
 
-    **Fish note**: Modify your `~/.conf/fish/config.sh' to append
+    **Fish note**: Modify your `~/.config/fish/config.fish' to append
     ~~~
         set PATH $HOME/.jenv/bin $PATH
     ~~~
@@ -44,10 +44,10 @@ Verified on :
 
 	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
 
-    **Fish note**: Instead, copy `~/.jenv/fish/jenv.fish` to `~/.conf/fish/function/jenv.fish`. If you don't have the `export` function, also copy `export.fish`
+    **Fish note**: Instead, copy `~/.jenv/fish/jenv.fish` to `~/.config/fish/function/jenv.fish`. If you don't have the `export` function, also copy `export.fish`
     ~~~ sh
-        cp ~/.jenv/fish/jenv.fish ~/.conf/fish/function/jenv.fish
-        cp ~/.jenv/fish/export.fish ~/.conf/fish/function/export.fish
+        cp ~/.jenv/fish/jenv.fish ~/.config/fish/function/jenv.fish
+        cp ~/.jenv/fish/export.fish ~/.config/fish/function/export.fish
     ~~~
 
 4. Restart your shell as a login shell so the path changes take effect. You can now begin using jenv.
