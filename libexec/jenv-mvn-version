@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Summary: Show the current Maven version and its origin
+#
+# Shows the currently selected Maven version and how it was
+# selected. To obtain only the version string, use `jenv mvn-version-name`.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+echo "$(jenv-mvn-version-name) (set by $(jenv-mvn-version-origin))"

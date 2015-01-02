@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+# Summary: List all Maven versions available to jenv
+# Usage: jenv mvn-versions [--bare]
+#
+# Lists all Maven versions found in `$JENV_ROOT/maven-versions/*'.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+verbose=false
+
+if [ "$1" = "--bare" ]; then
+  hit_prefix=""
+  miss_prefix=""
+  current_version=""
+  include_system=""
+else
+  hit_prefix="* "
+  miss_prefix="  "
+  current_mvn_version="$(jenv-mvn-version-name || true)"
+  include_system="1"
+fi
+if [ "$1" = "--verbose" ]; then
+  verbose=true
+fi
+
+resolvepath() {
+  local cwd="$(pwd)" 
+  cd $1
+  echo "$(pwd -P)"
+  cd "$cwd"
+}
+
+
+print_version() {
+  if [ "$1" == "$current_mvn_version" ]; then
+    echo "${hit_prefix}$(jenv-mvn-version 2>/dev/null)"
+  else
+    echo "${miss_prefix}$1"
+    if $verbose ; then
+      local realPath="$(resolvepath $2)"
+      echo "         $2"
+      echo "         --> $realPath"
+      echo ""
+    fi
+  fi
+}
+
+for path in "${JENV_ROOT}/maven-versions/maven"*; do
+  if [ -d "$path" ]; then
+    print_version "${path##*/}" "$path"
+  fi
+done

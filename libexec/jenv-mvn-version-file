@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Summary: Detect the file that sets the current jenv Maven version
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+find_local_version_file() {
+  local root="$1"
+  while [ -n "$root" ]; do
+    if [ -e "${root}/.maven-version" ]; then
+      echo "${root}/.maven-version"
+      exit
+    elif [ -e "${root}/.maven-version" ]; then
+      echo "${root}/.maven-version"
+      exit
+    fi
+    root="${root%/*}"
+  done
+}
+
+find_local_version_file "$JENV_DIR"
+[ "$JENV_DIR" = "$PWD" ] || find_local_version_file "$PWD"
+
+global_version_file="${JENV_ROOT}/maven-version"
+
+if [ -e "$global_version_file" ]; then
+  echo "$global_version_file"
+else
+  echo "$global_version_file"
+fi

@@ -218,6 +218,86 @@ Lists all Java versions with the given command installed.
     oracle-1.6
     oracle-1.7
 
+## Maven Command Reference
+
+`jenv` commands handling Maven versions are `jenv` commands for Java prefixed with `mvn-`.
+
+### jenv mvn-add
+
+Configures a Maven installation in jenv.
+
+    $ jenv mvn-add /home/hikage/tools/apache-maven-3.2.1
+
+### jenv mvn-remove
+
+Removes a Maven installation from jenv.
+
+    $ jenv mvn-remove maven-3.2.1
+
+### jenv mvn-local
+
+Sets a local application-specific Maven version by writing the version
+name to a `.maven-version` file in the current directory. This version
+overrides the global version, and can be overridden itself by setting
+the `JENV_MAVEN_VERSION` environment variable or with the `jenv mvn-shell`
+command.
+
+    $ jenv mvn-local maven-3.2.1
+
+When run without a version number, `jenv mvn-local` reports the currently
+configured local version. You can also unset the local version:
+
+    $ jenv mvn-local --unset
+
+### jenv mvn-global
+
+Sets the global version of Maven to be used in all shells by writing
+the version name to the `~/.jenv/maven-version` file. This version can be
+overridden by an application-specific `.maven-version` file, or by
+setting the `JENV_MAVEN_VERSION` environment variable.
+
+    $ jenv mvn-global maven-3.1.0
+
+When run without a version number, `jenv mvn-global` reports the
+currently configured global version.
+
+### jenv shell
+
+Sets a shell-specific Maven version by setting the `JENV_MAVEN_VERSION`
+environment variable in your shell. This version overrides
+application-specific versions and the global version.
+
+    $ jenv mvn-shell maven-3.0.1
+
+When run without a version number, `jenv mvn-shell` reports the current
+value of `JENV_MAVEN-VERSION`. You can also unset the shell version:
+
+    $ jenv mvn-shell --unset
+
+Note that you'll need jenv's shell integration enabled (step 3 of
+the installation instructions) in order to use this command. If you
+prefer not to use shell integration, you may simply set the
+`JENV_MAVEN_VERSION` variable yourself:
+
+    $ export JENV_MAVEN_VERSION=maven-3.0.1
+
+### jenv mvn-versions
+
+Lists all Maven versions known to jenv, and shows an asterisk next to
+the currently active version.
+
+    $ jenv mvn-versions
+      maven-3.0.1
+    *  maven-3.2.1 (set by /Users/hikage/.jenv/maven-version)
+
+### jenv mvn-version
+
+Displays the currently active Maven version, along with information on
+how it was set.
+
+    $ jenv mvn-version
+    maven-3.0.1 (set by /tmp/test/.maven-version)
+
 ## Plugins
 
 Jenv provides plugins to make command-line tools aware of which JDK is activated.

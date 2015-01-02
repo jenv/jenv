@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+#
+# Summary: Set or show the local application-specific Maven version
+#
+# Usage: jenv mvn-local <version>
+#        jenv mvn-local --unset
+#
+# Sets the local application-specific Maven version by writing the
+# version name to a file named `.maven-version'.
+#
+# When you run a Java command, jenv will look for a `.maven-version'
+# file in the current directory and each parent directory. If no such
+# file is found in the tree, jenv will use the global Maven version
+# specified with `jenv mvn-global'. A version specified with the
+# `JENV_MAVEN_VERSION' environment variable takes precedence over local
+# and global versions.
+#
+# <version> should be a string matching a Maven version known to jenv.
+# The special version string `system' will use your default system Maven.
+# Run `jenv mvn-versions' for a list of available Maven versions.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+  echo system
+  exec jenv-mvn-versions --bare
+fi
+
+JENV_MAVEN_VERSION="$1"
+
+if [ "$JENV_MAVEN_VERSION" = "--unset" ]; then
+  rm -f .maven-version
+elif [ -n "$JENV_MAVEN_VERSION" ]; then
+  jenv-version-file-write .maven-version "$JENV_MAVEN_VERSION"
+else
+  jenv-version-file-read .maven-version ||
+  { echo "jenv: no local version configured for this directory"
+    exit 1
+  } >&2
+fi

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Summary: Display prefix for a Maven version
+# Usage: jenv mvn-prefix [<version>]
+#
+# Displays the directory where a Maven version is installed. If no
+# version is given, `jenv mvn-prefix' displays the location of the
+# currently selected version.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo system
+  exec jenv-mvn-versions --bare
+fi
+
+if [ -n "$1" ]; then
+  export JENV_MAVEN_VERSION="$1"
+elif [ -z "$JENV_MAVEN_VERSION" ]; then
+  JENV_MAVEN_VERSION="$(jenv-mvn-version-name)"
+fi
+
+if [ "$JENV_MAVEN_VERSION" = "system" ]; then
+  MAVEN_PATH="$(jenv-which mvn)"
+  MAVEN_PATH="${MAVEN_PATH%/*}"
+  echo "${MAVEN_PATH%/bin}"
+  exit
+fi
+
+JENV_MAVEN_PREFIX_PATH="${JENV_ROOT}/maven-versions/${JENV_MAVEN_VERSION}"
+if [ ! -d "$JENV_MAVEN_PREFIX_PATH" ]; then
+  echo "jenv: version \`${JENV_MAVEN_VERSION}' not installed" >&2
+  exit 1
+fi
+
+echo "$JENV_MAVEN_PREFIX_PATH"

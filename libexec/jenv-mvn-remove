@@ -1,0 +1,23 @@
+#!/usr/bin/env bash        
+# Summary: Remove a JDK installation
+# Usage: jenv mvn-remove alias-name
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  exec jenv-mvn-versions --bare
+fi
+
+JENV_MAVEN_VERSION="$1"
+
+if [ -L "$JENV_ROOT/maven-versions/$JENV_MAVEN_VERSION" ];
+then         
+	rm -f $JENV_ROOT/maven-versions/$JENV_MAVEN_VERSION
+	rm -f ${JENV_ROOT}/$JENV_MAVEN_VERSION.time
+  $(jenv-rehash)             
+   echo "Maven $JENV_MAVEN_VERSION removed"
+
+else
+	echo "$JENV_MAVEN_VERSION is not a managed version of Maven "
+fi

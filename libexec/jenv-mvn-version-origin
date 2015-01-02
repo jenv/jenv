@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Summary: Explain how the current Maven version is set
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ -n "$JENV_MAVEN_VERSION" ]; then
+  echo "JENV_MAVEN_VERSION environment variable"
+else
+  jenv-mvn-version-file
+fi

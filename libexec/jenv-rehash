@@ -171,6 +171,7 @@ shopt -s nullglob
 create_prototype_shim
 remove_outdated_shims
 make_shims ../versions/*/bin/*
+make_shims ../maven-versions/*/bin/*
 
 # Restore the previous working directory.
 cd "$OLDPWD"

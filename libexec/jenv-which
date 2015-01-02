@@ -49,6 +49,7 @@ remove_from_path() {
 }
 
 JENV_VERSION="$(jenv-version-name)"
+JENV_MAVEN_VERSION="$(jenv-mvn-version-name)"
 JENV_COMMAND="$1"
 
 if [ -z "$JENV_COMMAND" ]; then
@@ -59,6 +60,12 @@ fi
 if [ "$JENV_VERSION" = "system" ]; then
   PATH="$(remove_from_path "${JENV_ROOT}/shims")"
   JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"
+elif [ $JENV_COMMAND == "mvn" ]; then
+  JENV_COMMAND_PATH="${JENV_ROOT}/maven-versions/${JENV_MAVEN_VERSION}/bin/${JENV_COMMAND}"
+  if ! [ -x "$JENV_COMMAND_PATH" ]; then
+   	PATH="$(remove_from_path "${JENV_ROOT}/shims")"
+	JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"
+  fi
 else
   JENV_COMMAND_PATH="${JENV_ROOT}/versions/${JENV_VERSION}/bin/${JENV_COMMAND}"
   if ! [ -x "$JENV_COMMAND_PATH" ]; then

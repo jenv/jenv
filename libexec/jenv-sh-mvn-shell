@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+#
+# Summary: Set or show the shell-specific Maven version
+#
+# Usage: jenv mvn-shell <version>
+#        jenv mvn-shell --unset
+#
+# Sets a shell-specific Maven version by setting the `JENV_MAVEN_VERSION'
+# environment variable in your shell. This version overrides local
+# application-specific versions and the global version.
+#
+# <version> should be a string matching a Maven version known to jenv.
+# The special version string `system' will use your default system Maven.
+# Run `jenv mvn-versions' for a list of available Maven versions.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+  echo system
+  exec jenv-mvn-versions --bare
+fi
+
+version="$1"
+
+if [ -z "$version" ]; then
+  if [ -z "$JENV_MAVEN_VERSION" ]; then
+    echo "jenv: no shell-specific version configured" >&2
+    exit 1
+  else
+    echo "echo \"\$JENV_MAVEN_VERSION\""
+    exit
+  fi
+fi
+
+if [ "$version" = "--unset" ]; then
+  echo "unset JENV_MAVEN_VERSION"
+  exit
+fi
+
+# Make sure the specified version is installed.
+if jenv-mvn-prefix "$version" >/dev/null; then
+  echo "export JENV_MAVEN_VERSION=\"${version}\""
+else
+  echo "return 1"
+  exit 1
+fi
