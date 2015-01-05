@@ -12,8 +12,13 @@ if [ -z "$JENV_VERSION" ] || [ -z "$JENV_VERSION_FILE" ]; then
   exit 1
 fi
 
-# Make sure the specified version is installed.
-jenv-prefix "$JENV_VERSION" >/dev/null
+if [ ${JENV_VERSION:0:5} == "maven" ]; then
+  # Make sure the specified version is installed.
+  jenv-mvn-prefix "$JENV_VERSION" >/dev/null
+else
+  # Make sure the specified version is installed.
+  jenv-prefix "$JENV_VERSION" >/dev/null
+fi
 
 # Write the version out to disk.
 echo "$JENV_VERSION" > "$JENV_VERSION_FILE"
