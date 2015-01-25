@@ -64,7 +64,7 @@ JENV_VERSION_FILE=".jenv-version"
 
 if [ $# -eq 2 ]; then
 	cwarn "Warning : jenv add alias path/to/java_home is deprecated." 
-	cwarn "Please prefere to let jenv generate unique alias name by using"
+	cwarn "Please prefer to let jenv generate unique alias name by using"
 	echo ""
 	cwarn "    $ jenv add path/to/java_home"    
 	echo ""
