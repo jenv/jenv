@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Summary: Bootstrap your jenv installation. Updates you profile scripts. Adds jdks found in common locations.
+# Usage: jenv bootstrap
+
+set -e
+[ -n "${JENV_DEBUG}" ] && set -x
+
+# Add to profiles if not there
+for conf in ~/.profile ~/.bash_profile ~/.zshrc; do
+     if [ -f "${conf}" ]; then
+         if [ $(grep -c jenv "${conf}" 2> /dev/null ) -eq 0 ]; then
+             echo 'PATH="~/.jenv/bin:${PATH}"' >> ${conf}
+             echo 'eval "$(jenv init -)"' >> ${conf}
+         fi
+    fi
+done
+
+# Hunt around for jdks, and add them
+unset JVM_DIRS
+if [ $(uname -a | grep -c Linux) -ge 1 ]; then
+    # linux
+    JVM_DIRS=(/usr/lib/jvm /opt)
+    DEPTH=3
+else
+    # Mac OSX
+    JVM_DIRS=(/System/Library/Java/JavaVirtualMachines /Library/Java/JavaVirtualMachines)
+    DEPTH=5
+fi
+
+if [ -n "${JVM_DIRS}" ]; then
+    CANDIDATES=()
+    for dir in ${JVM_DIRS}; do
+            CANDIDATES=(${CANDIDATES} $(find -L ${dir} -maxdepth ${DEPTH} -path \*/bin/java))
+    done
+
+    # Add all found jdks
+    for candidate in ${CANDIDATES}; do
+        yes | jenv add $(dirname $(dirname ${candidate})) > /dev/null
+    done
+    jenv versions
+fi
