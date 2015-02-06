@@ -19,22 +19,22 @@ done
 unset JVM_DIRS
 if [ $(uname -a | grep -c Linux) -ge 1 ]; then
     # linux
-    JVM_DIRS=(/usr/lib/jvm /opt)
+    JVM_DIRS="/usr/lib/jvm /opt"
     DEPTH=3
 else
     # Mac OSX
-    JVM_DIRS=(/System/Library/Java/JavaVirtualMachines /Library/Java/JavaVirtualMachines)
+    JVM_DIRS="/System/Library/Java/JavaVirtualMachines /Library/Java/JavaVirtualMachines"
     DEPTH=5
 fi
 
 if [ -n "${JVM_DIRS}" ]; then
     CANDIDATES=()
-    for dir in ${JVM_DIRS}; do
-            CANDIDATES=(${CANDIDATES} $(find -L ${dir} -maxdepth ${DEPTH} -path \*/bin/java))
+    for dir in $(echo ${JVM_DIRS}); do
+            CANDIDATES="${CANDIDATES} $(find -L ${dir} -maxdepth ${DEPTH} -path \*/bin/java))"
     done
 
     # Add all found jdks
-    for candidate in ${CANDIDATES}; do
+    for candidate in $(echo ${CANDIDATES}); do
         yes | jenv add $(dirname $(dirname ${candidate})) > /dev/null
     done
     jenv versions
