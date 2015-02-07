@@ -9,7 +9,7 @@ set -e
 for conf in ~/.profile ~/.bash_profile ~/.zshrc; do
      if [ -f "${conf}" ]; then
          if [ $(grep -c jenv "${conf}" 2> /dev/null ) -eq 0 ]; then
-             echo 'PATH="~/.jenv/bin:${PATH}"' >> ${conf}
+             echo 'export PATH="${HOME}/.jenv/bin:${PATH}"' >> ${conf}
              echo 'eval "$(jenv init -)"' >> ${conf}
          fi
     fi
