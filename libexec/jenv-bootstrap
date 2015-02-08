@@ -7,11 +7,9 @@ set -e
 
 # Add to profiles if not there
 for conf in ~/.profile ~/.bash_profile ~/.zshrc; do
-     if [ -f "${conf}" ]; then
-         if [ $(grep -c jenv "${conf}" 2> /dev/null ) -eq 0 ]; then
-             echo 'export PATH="${HOME}/.jenv/bin:${PATH}"' >> ${conf}
-             echo 'eval "$(jenv init -)"' >> ${conf}
-         fi
+    if [ $(grep -q jenv "${conf}" 2> /dev/null ) -ne 0 ]; then
+         echo 'export PATH="${HOME}/.jenv/bin:${PATH}"' >> ${conf}
+         echo 'eval "$(jenv init -)"' >> ${conf}
     fi
 done
 
