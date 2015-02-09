@@ -239,6 +239,7 @@ Let's say you want Maven to use the JDK activated with Jenv, not the default `JA
     $ jenv disable-plugin maven
     maven disabled
 
+Note: The enable-plugin functionality is system wide not local to the shell, or temporary - you only need to do each one once.
 
 ## Development
 
