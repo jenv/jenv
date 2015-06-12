@@ -101,11 +101,14 @@ then
 				fi;
 			fi;
 		fi;
-
-		if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "64-Bit"; then
-		   JAVA_PLATFORM="64"
+    if [ $JAVA_PROVIDER=="sap" ]; then
+      JAVA_PLATFORM="64"
 		else
+      if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "64-Bit"; then
+		   JAVA_PLATFORM="64"
+		  else
 		   JAVA_PLATFORM="32"
+      fi
 		fi
 
 		JENV_ALIAS="$JAVA_PROVIDER$JAVA_PLATFORM-$JAVA_VERSION"
