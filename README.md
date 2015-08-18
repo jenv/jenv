@@ -1,6 +1,8 @@
 # Master your Java Environnement with jenv
 Website : http://www.jenv.be
 
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=gcuisinier&url=https://github.com/gcuisinier/jenv&title=jEnv&language=&tags=github&category=software)
+
 jenv is for a equivalent of rbenv, but for Java environment.
 It allow to easily switch between several JDKs installations (already presents), and configure which one to use per project.
 
