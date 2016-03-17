@@ -16,15 +16,15 @@ set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
 # Provide jenv completions
-if [ "$1" = "--complete" ]; then  
+if [ "$1" = "--complete" ]; then
   echo --unset
-  echo system      
+  echo system
   exec jenv-versions --bare
 fi
 
 JENV_VERSION="$1"
 JENV_VERSION_FILE="${JENV_ROOT}/version"
-      
+
 
 if [ "$JENV_VERSION" = "--unset" ]; then
   rm -f "${JENV_ROOT}/version"

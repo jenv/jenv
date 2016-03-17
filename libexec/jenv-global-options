@@ -16,8 +16,10 @@ set -e
 JENV_OPTIONS="$1"
 JENV_OPTIONS_FILE="${JENV_ROOT}/options"
 
-if [ -n "$JENV_OPTIONS" ]; then
+if [ "$JENV_OPTIONS" = "--unset" ]; then
+  rm -f "$JENV_OPTIONS_FILE"
+elif [ -n "$JENV_OPTIONS" ]; then
   jenv-options-file-write "$JENV_OPTIONS_FILE" "$JENV_OPTIONS"
 else
-  jenv-options-file-read "$JENV_OPTIONS_FILE" 
+  jenv-options-file-read "$JENV_OPTIONS_FILE"
 fi
