@@ -79,7 +79,7 @@ then
 
  	if [ -z "$JENV_ALIAS" ];
  	then
-	    JAVA_VERSION=`$JENV_JAVAPATH/bin/java -version 2>&1 | head -n 1 | cut -d\" -f 2 `
+	    JAVA_VERSION=`$JENV_JAVAPATH/bin/java -version 2>&1 | grep "version" |  head -n 1 | cut -d\" -f 2 `
 		JAVA_VERSION=${JAVA_VERSION/_/.}
 
 
