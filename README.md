@@ -245,11 +245,11 @@ Let's say you want Maven to use the JDK activated with Jenv, not the default `JA
 Note: The enable-plugin functionality is system wide not local to the shell, or temporary - you only need to do each one once.
 
 ### Export plugin
-Another one usefull plugin is the "export", that expose JAVA_HOME automatically :
+Another one useful plugin is the "export", that expose JAVA_HOME automatically :
 
-  $ jenv enable-plugin export
-    You may restart your session to activate jenv export plugin echo export plugin activated
-
+    $ jenv enable-plugin export
+    
+You may restart your session to activate the JAVA_HOME var env. 
 
 
 ## Development
