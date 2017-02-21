@@ -48,7 +48,7 @@ function add_alias_check(){
 }
 
 function add_alias(){
-	cd $JENV_JAVAPATH
+	cd "$JENV_JAVAPATH"
     JENV_JAVAPATH=$PWD
     cd - 2>&1 > /dev/null
 	ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$1"
