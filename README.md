@@ -20,93 +20,93 @@ Verified on :
 1. Check out jenv into `~/.jenv`.
 
     ~~~ sh
-    	$ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
+    $ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
     ~~~
 
 2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
 
 	~~~ sh
-		$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+	$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
 	~~~
 
 	**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
 
 	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
 
-    **Fish note**: Modify your `~/.conf/fish/config.sh' to append
+    **Fish note**: Modify your `~/.conf/fish/config.sh` to append
     ~~~
-        set PATH $HOME/.jenv/bin $PATH
+    set PATH $HOME/.jenv/bin $PATH
     ~~~
 
 3. Add `jenv init` to your shell to enable shims and autocompletion.
 
 	~~~ sh
-	    $ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+	$ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 	~~~
 
 	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
 
     **Fish note**: Instead, copy `~/.jenv/fish/jenv.fish` to `~/.conf/fish/function/jenv.fish`. If you don't have the `export` function, also copy `export.fish`
     ~~~ sh
-        cp ~/.jenv/fish/jenv.fish ~/.conf/fish/function/jenv.fish
-        cp ~/.jenv/fish/export.fish ~/.conf/fish/function/export.fish
+    cp ~/.jenv/fish/jenv.fish ~/.conf/fish/function/jenv.fish
+    cp ~/.jenv/fish/export.fish ~/.conf/fish/function/export.fish
     ~~~
 
 4. Restart your shell as a login shell so the path changes take effect. You can now begin using jenv.
 
 	~~~ sh
-		$ exec $SHELL -l
+	$ exec $SHELL -l
 	~~~
 
 5. Configure JVM in jenv
 
 	~~~  sh
-	    $ jenv add /path/to/java/home
+	$ jenv add /path/to/java/home
 	~~~
 
 6. Configure which JVM to use (globally, by directory or for the current shell instance)
 
 	~~~  sh
-	    $ jenv global oracle-1.7.0
+	$ jenv global oracle-1.7.0
 	~~~
 
 	or
 
 	~~~ sh
-		 $ jenv local oracle-1.7.0
+	$ jenv local oracle-1.7.0
 	~~~
 
 	or
 
 	~~~ sh
-		 $ jenv shell oracle-1.7.0
+	$ jenv shell oracle-1.7.0
 	~~~
 
 7. Check that works
 
 	~~~  sh
-		 $ java -version
+	$ java -version
 	~~~
 8. Add JVM Options (globally, by directory or for the current shell instance)
 	~~~  sh
-	    $ jenv global-options "-Xmx512m"
+	$ jenv global-options "-Xmx512m"
 	~~~
 
 	or
 
 	~~~ sh
-		 $ jenv local-options "-Xmx512m"
+	$ jenv local-options "-Xmx512m"
 	~~~
 	or
 
 	~~~ sh
-		 $ jenv shell-options "-Xmx512m"
+	$ jenv shell-options "-Xmx512m"
 	~~~
 
 9. Check that works
 
 	~~~ sh
-		 $ jenv info java
+	$ jenv info java
 	~~~
 
 10. jenv also provides wrappers for several build tools (Ant, Gradle, Maven, SBT) that will use
@@ -247,8 +247,9 @@ Note: The enable-plugin functionality is system wide not local to the shell, or 
 ### Export plugin
 Another one usefull plugin is the "export", that expose JAVA_HOME automatically :
 
-  $ jenv enable-plugin export
-    You may restart your session to activate jenv export plugin echo export plugin activated
+    $ jenv enable-plugin export
+
+You may restart your session to activate jenv export plugin echo export plugin activated
 
 
 
