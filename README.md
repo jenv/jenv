@@ -247,10 +247,8 @@ Note: The enable-plugin functionality is system wide not local to the shell, or 
 ### Export plugin
 Another one usefull plugin is the "export", that expose JAVA_HOME automatically :
 
-  $ jenv enable-plugin export
-    You may restart your session to activate jenv export plugin echo export plugin activated
-
-
+    $ jenv enable-plugin export
+      You may restart your session to activate jenv export plugin echo export plugin activated
 
 ## Development
 
