@@ -78,19 +78,6 @@ set -e
 [ -n "\$JENV_DEBUG" ] && set -x
 
 program="\${0##*/}"
-if [ "\$program" = "java" ]; then
-  for arg; do
-    case "\$arg" in
-    -e* | -- ) break ;;
-    */* )
-      if [ -f "\$arg" ]; then
-        export JENV_DIR="\${arg%/*}"
-        break
-      fi
-      ;;
-    esac
-  done
-fi
 
 export JENV_ROOT="$JENV_ROOT"
 exec "$(command -v jenv)" exec "\$program" "\$@"
