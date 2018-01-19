@@ -6,6 +6,7 @@ set -e
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
+  echo "--skip-existing"
   for d in ${!#}*; do
     [[ -d "$d" ]] && echo $d/
   done
@@ -30,15 +31,19 @@ function cwarn() {
 
 
 function add_alias_check(){
-	if [ -h ${JENV_ROOT}/versions/$1 ];
+	if [ -h "${JENV_ROOT}/versions/$1" ];
 	then
-		   cwarn "There is already a $1 JDK managed by jenv"
-		   read -p "Do you want to override (type y to confirm)? " -n 1 -r
-		   echo ""
-		   if [[ $REPLY =~ ^[Yy]$ ]]
-			then
-			    rm -f "${JENV_ROOT}/versions/$1"
-				add_alias "$1"
+		   if [ "$JENV_SKIP" = false ]; then
+			cwarn "There is already a $1 JDK managed by jenv"
+			read -p "Do you want to override (type y to confirm)? " -n 1 -r
+			echo ""
+			if [[ $REPLY =~ ^[Yy]$ ]]
+				then
+					rm -f "${JENV_ROOT}/versions/$1"
+					add_alias "$1"
+				fi
+			else 
+				cinfo " $1 already present, skip installation"	
 			fi
 
 	else
@@ -60,18 +65,26 @@ function add_alias(){
 
 JENV_JAVAPATH="$1"
 JENV_VERSION_FILE=".jenv-version"
-
+JENV_SKIP=false
 
 if [ $# -eq 2 ]; then
-	cwarn "Warning : jenv add alias path/to/java_home is deprecated."
-	cwarn "Please prefer to let jenv generate unique alias name by using"
-	echo ""
-	cwarn "    $ jenv add path/to/java_home"
-	echo ""
+	if [ "$1" = "--skip-existing" ]; then
+		echo "Ignore existings installations"
+		JENV_SKIP=true
+		JENV_JAVAPATH="$2"
 
-	JENV_JAVAPATH="$2"
-	JENV_ALIAS="$1"
+	else
 
+		cwarn "Warning : jenv add alias path/to/java_home is deprecated."
+		cwarn "Please prefer to let jenv generate unique alias name by using"
+		echo ""
+		cwarn "    $ jenv add path/to/java_home"
+		echo ""
+
+		JENV_JAVAPATH="$2"
+		JENV_ALIAS="$1"
+
+	fi;
 fi;
 
 if [ -f "$JENV_JAVAPATH/bin/java" ];
