@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+#
+# Summary: Update jenv and all installed external plugins
+#
+# Usage: jenv update
+#
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ -z "$JENV_ROOT" ]; then
+  JENV_ROOT="${HOME}/.jenv"
+fi
+
+REMOTE="${JENV_REMOTE:-origin}"
+BRANCH="${JENV_BRANCH:-master}"
+
+verify_repo_remote() {
+  ( cd "$1" && git remote show -n "${REMOTE}" 1>/dev/null 2>&1 )
+}
+
+verify_repo_branch() {
+  local name="$(cd "$1" && git name-rev --name-only HEAD 2>/dev/null)"
+  [[ "${name}" == "${BRANCH}" ]]
+}
+
+verify_repo_clean() {
+  ! ( cd "$1" && git status --short ) | grep -q -v '^[!?][!?]'
+}
+
+verify_repo() {
+  local stat=0
+  verify_repo_remote "$1" || {
+    stat="$?"
+    cerror "jenv-update: $1 does not have ${REMOTE}."
+  }
+  verify_repo_branch "$1" || {
+    stat="$?"
+    cerror "jenv-update: $1 is not on ${BRANCH} branch."
+  }
+  verify_repo_clean "$1" || {
+    stat="$?"
+    cerror "jenv-update: $1 is not clean"
+  }
+  return "$stat"
+}
+
+update_repo() {
+  cinfo "Updating $1..."
+  verify_repo "$1" &&
+  ( cd "${repo}" && git pull "${REMOTE}" "${BRANCH}" )
+}
+
+# Display colorized information output
+function cinfo() {
+  COLOR='\033[01;32m' # bold green
+  RESET='\033[00;00m' # normal white
+  echo -e "${COLOR}[OK]\t$*${RESET}"
+}
+
+
+# Display colorized error output
+function cerror() {
+  COLOR='\033[01;31m' # bold red
+  RESET='\033[00;00m' # normal white
+  echo -e "${COLOR}[ERROR]\t$*${RESET}"
+}
+
+STATUS=0
+shopt -s nullglob
+for repo in "${JENV_ROOT}" "${JENV_ROOT}/plugins/"*; do
+  if [ -d "${repo}/.git" ]; then
+    update_repo "${repo}" || STATUS="$?"
+  fi
+done
+shopt -u nullglob
+
+exit "$STATUS"
