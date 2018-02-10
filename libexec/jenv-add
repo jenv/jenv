@@ -99,6 +99,9 @@ then
 		if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "HotSpot"; then
 			JAVA_PROVIDER="oracle"
 		else
+		   	if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "Zulu"; then
+				JAVA_PROVIDER="zulu"
+			else
 		   	if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "OpenJDK"; then
 				JAVA_PROVIDER="openjdk"
 			else
@@ -112,6 +115,7 @@ then
 					  JAVA_PROVIDER="other"
           fi;
 				fi;
+			fi;
 			fi;
 		fi;
     if [ $JAVA_PROVIDER=="sap" ]; then
