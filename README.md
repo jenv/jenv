@@ -1,3 +1,14 @@
+# Why this fork?
+
+In no particular order.
+
+1. Cause I have some free time
+2. Cause I want to clean up jenv.be repo
+3. Cause bad English is bad
+4. Cause Zulu is not recognized now.
+
+I've pulled in some PRs from others, and will maintain it for some time, till @gcuisinier will merge them or drop the thing entirely. I'm yet to announce to him what I'm doing and why, first I want to do it. :-)
+
 # Master your Java Environment with jenv
 Website : http://www.jenv.be
 
@@ -15,8 +26,6 @@ Verified on :
 
 ## Gettings started
 
-
-
 1. Check out jenv into `~/.jenv`.
 
 ~~~ sh
@@ -29,11 +38,11 @@ $ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
 $ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
 ~~~
 
-	**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
+**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
 
-	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
+**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
 
-    **Fish note**: Modify your `~/.conf/fish/config.sh' to append
+**Fish note**: Modify your `~/.conf/fish/config.sh' to append
 ~~~
 set PATH $HOME/.jenv/bin $PATH
 ~~~
@@ -44,7 +53,7 @@ set PATH $HOME/.jenv/bin $PATH
 $ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 ~~~
 
-    _Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
+_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
 
 **Fish note**: Instead, copy `~/.jenv/fish/jenv.fish` to `~/.conf/fish/function/jenv.fish`. If you don't have the `export` function, also copy `export.fish`
 ~~~ sh
@@ -70,13 +79,13 @@ $ jenv add /path/to/java/home
 $ jenv global oracle-1.7.0
 ~~~
 
-    or
+or
 
 ~~~ sh
  $ jenv local oracle-1.7.0
 ~~~
 
-    or
+or
 
 ~~~ sh
  $ jenv shell oracle-1.7.0
@@ -92,12 +101,12 @@ $ jenv global oracle-1.7.0
 $ jenv global-options "-Xmx512m"
 ~~~
 
-    or
+or
 
 ~~~ sh
  $ jenv local-options "-Xmx512m"
 ~~~
-    or
+or
 
 ~~~ sh
  $ jenv shell-options "-Xmx512m"
