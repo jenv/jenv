@@ -1,10 +1,10 @@
-# Master your Java Environnement with jenv
+# Master your Java Environment with jenv
 Website : http://www.jenv.be
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=gcuisinier&url=https://github.com/gcuisinier/jenv&title=jEnv&language=&tags=github&category=software)
 
-jenv is for a equivalent of rbenv, but for Java environment.
-It allow to easily switch between several JDKs installations (already presents), and configure which one to use per project.
+jenv is equivalent to rbenv, but for Java environments.
+It allows you to easily switch between several JDKs installations (already present), and configure which one to use per project.
 
 jEnv may work on bash-ready OS.
 
@@ -64,7 +64,7 @@ Verified on :
 	    $ jenv add /path/to/java/home
 	~~~
 
-6. Configure which JVM to use (globally, by directory or for the current shell instance)
+6. Configure which JVM to use (globally, by directory, or for the current shell instance)
 
 	~~~  sh
 	    $ jenv global oracle-1.7.0
