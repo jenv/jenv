@@ -22,7 +22,11 @@ done
 
 shell="$1"
 if [ -z "$shell" ]; then
-  shell="$(basename "$SHELL")"
+  shell="$(ps -p "$PPID" -o 'args=' 2>/dev/null || true)"
+  shell="${shell%% *}"
+  shell="${shell##-}"
+  shell="${shell:-$SHELL}"
+  shell="${shell##*/}"
 fi
 
 resolve_link() {
