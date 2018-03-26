@@ -8,7 +8,7 @@ _jenv() {
   local words completions
   read -cA words
 
-  if [ "${#words}" -eq 2 ]; then
+  if [ "${#words[@]}" -eq 2 ]; then
     completions="$(jenv commands)"
   else
     completions="$(jenv completions ${words[2,-1]})"
