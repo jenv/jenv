@@ -6,8 +6,8 @@
 
   if [ -e "$JAVA_HOME/bin/javac" ]
   then
-    export JDK_HOME=$(jenv javahome)
-    export JENV_FORCEJDKHOME=true
+    export JDK_HOME=$JAVA_HOME
+    export JENV_FORCEJDKHOME=$JENV_FORCEJAVAHOME
   fi
  }
 
