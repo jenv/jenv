@@ -33,7 +33,7 @@ Verified on :
 
 	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
 
-    **Fish note**: Modify your `~/.conf/fish/config.sh' to append
+    **Fish note**: Modify your `~/.conf/fish/config.sh` to append
     ~~~
         set PATH $HOME/.jenv/bin $PATH
     ~~~
