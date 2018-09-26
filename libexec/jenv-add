@@ -137,7 +137,9 @@ then
 
 	add_alias_check $JENV_ALIAS
 	add_alias_check $JAVA_VERSION
-	add_alias_check $JAVA_SHORTVERSION
+	if [ "$JAVA_SHORTVERSION" != "$JAVA_VERSION" ]; then
+		add_alias_check $JAVA_SHORTVERSION
+	fi
 
 
 	if $version_added ; then
