@@ -46,10 +46,10 @@ Verified on :
 
 	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
 
-    **Fish note**: Instead, copy `jenv.fish` to yor fish functions folder. If you don't have the `export` function, also copy `export.fish`
+    **Fish note**: Instead, copy `jenv.fish` to your fish functions folder. If you don't have the `export` function, also copy `export.fish`
     ~~~ sh
-        cp /usr/local/Cellar/jenv/0.4.4/libexec/fish/jenv.fish ~/.config/fish/functions/jenv.fish
-        cp /usr/local/Cellar/jenv/0.4.4/libexec/fish/export.fish ~/.config/fish/functions/export.fish
+        cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
+        cp ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish
     ~~~
 
 4. Restart your shell as a login shell so the path changes take effect. You can now begin using jenv.
