@@ -22,7 +22,11 @@ done
 
 shell="$1"
 if [ -z "$shell" ]; then
-  shell="$(basename "$SHELL")"
+  shell="$(ps -p "$PPID" -o 'args=' 2>/dev/null || true)"
+  shell="${shell%% *}"
+  shell="${shell##-}"
+  shell="${shell:-$SHELL}"
+  shell="${shell##*/}"
 fi
 
 resolve_link() {
@@ -56,6 +60,9 @@ if [ -z "$print" ]; then
   ksh )
     profile='~/.profile'
     ;;
+  fish )
+    profile='~/.config/fish/config.fish'
+    ;;
   * )
     profile='your profile'
     ;;
@@ -64,7 +71,14 @@ if [ -z "$print" ]; then
   { echo "# Load jenv automatically by adding"
     echo "# the following to ${profile}:"
     echo
-    echo 'eval "$(jenv init -)"'
+    case "$shell" in
+    fish )
+      echo 'status --is-interactive; and source (jenv init -|psub)'
+      ;;
+    * )
+      echo 'eval "$(jenv init -)"'
+      ;;
+    esac
     echo
   } >&2
 
@@ -73,28 +87,55 @@ fi
 
 mkdir -p "${JENV_ROOT}/"{shims,plugins,versions}
 
-echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
-
 case "$shell" in
+fish )
+  echo "set -gx PATH '${JENV_ROOT}/shims' \$PATH"
+  echo "set -gx JENV_SHELL $shell"
+  echo "set -gx JENV_LOADED 1"
+  echo "set -e JAVA_HOME"
+  ;;
 bash | zsh )
-  echo "source \"$root/completions/jenv.${shell}\""
+  echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
+  echo "export JENV_SHELL=$shell"
+  echo "export JENV_LOADED=1"
+  echo "unset JAVA_HOME"
   ;;
 esac
+
+completion="${root}/completions/jenv.${shell}"
+if [ -r "$completion" ]; then
+  echo "source '$completion'"
+fi
 
 if [ -z "$no_rehash" ]; then
   echo 'jenv rehash 2>/dev/null'
 fi
-
-echo "export JENV_LOADED=1"
-echo "unset JAVA_HOME"
 
 for script in $(jenv-hooks init $shell); do
   echo "source \"$script\""
 done
 
 commands=(`jenv-commands --sh`)
-IFS="|"
-cat <<EOS
+case "$shell" in
+fish )
+  IFS=" "
+  cat <<EOS
+function jenv
+  set command \$argv[1]
+  set -e argv[1]
+
+  switch "\$command"
+  case ${commands[*]}
+    source (jenv "sh-\$command" \$argv|psub)
+  case '*'
+    command jenv "\$command" \$argv
+  end
+end
+EOS
+  ;;
+bash | zsh )
+  IFS="|"
+  cat <<EOS
 jenv() {
   typeset command
   command="\$1"
@@ -110,3 +151,5 @@ jenv() {
   esac
 }
 EOS
+  ;;
+esac
