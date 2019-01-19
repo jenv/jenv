@@ -163,7 +163,7 @@ Sets a shell-specific Java version by setting the `JENV_VERSION`
 environment variable in your shell. This version overrides
 application-specific versions and the global version.
 
-    $ jenv shell jJava-1.7.1
+    $ jenv shell openjdk64-11.0.1
 
 When run without a version number, `jenv shell` reports the current
 value of `JENV_VERSION`. You can also unset the shell version:
