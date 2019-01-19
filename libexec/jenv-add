@@ -80,7 +80,7 @@ if [ "$#" -eq 2 ]; then
 fi;
 
 if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
-    if [ -z "$JENV_ALIAS" ]; then
+    if [ -z "${JENV_ALIAS}" ]; then
         JAVA_VERSION=`"${JENV_JAVAPATH}"/bin/java -version 2>&1 | head -n 1 | cut -d\" -f 2 `
         JAVA_VERSION=${JAVA_VERSION/_/.}
         if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "HotSpot"; then
@@ -114,10 +114,9 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
         else
             JAVA_PLATFORM="32"
         fi;
-        
-        JENV_ALIAS="$JAVA_PROVIDER$JAVA_PLATFORM-$JAVA_VERSION"
     fi;
-    
+
+    JENV_ALIAS="${JAVA_PROVIDER}${JAVA_PLATFORM}-${JAVA_VERSION}"
     
     JAVA_SHORTVERSION=$(sed 's/\([0-9].[0-9]\).*/\1/' <<< $JAVA_VERSION)
     
