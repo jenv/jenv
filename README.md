@@ -1,10 +1,21 @@
-# Master your Java Environnement with jenv
+# Why this fork?
+
+In no particular order.
+
+1. Cause I have some free time
+2. Cause I want to clean up jenv.be repo
+3. Cause bad English is bad
+4. Cause Zulu is not recognized now.
+
+I've pulled in some PRs from others, and will maintain it for some time, till @gcuisinier will merge them or drop the thing entirely. I'm yet to announce to him what I'm doing and why, first I want to do it. :-)
+
+# Master your Java Environment with jenv
 Website : http://www.jenv.be
 
 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=gcuisinier&url=https://github.com/gcuisinier/jenv&title=jEnv&language=&tags=github&category=software)
 
-jenv is for a equivalent of rbenv, but for Java environment.
-It allow to easily switch between several JDKs installations (already presents), and configure which one to use per project.
+jenv is equivalent to rbenv, but for Java environments.
+It allows you to easily switch between several JDKs installations (already present), and configure which one to use per project.
 
 jEnv may work on bash-ready OS.
 
@@ -15,106 +26,101 @@ Verified on :
 
 ## Gettings started
 
-
-
 1. Check out jenv into `~/.jenv`.
 
-    ~~~ sh
-    	$ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
-    ~~~
+~~~ sh
+$ git clone https://github.com/gcuisinier/jenv.git ~/.jenv
+~~~
 
 2. Add `~/.jenv/bin` to your `$PATH` for access to the `jenv` command-line utility.
 
-	~~~ sh
-		$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
-	~~~
+~~~ sh
+$ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+~~~
 
-	**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
+**Ubuntu note**: Modify your `~/.profile` instead of `~/.bash_profile`.
 
-	**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
+**Zsh note**: Modify your `~/.zshrc` file instead of `~/.bash_profile`.
 
-    **Fish note**: Modify your `~/.conf/fish/config.sh' to append
-    ~~~
-        set PATH $HOME/.jenv/bin $PATH
-    ~~~
+**Fish note**: Modify your `~/.conf/fish/config.sh' to append
+~~~
+set PATH $HOME/.jenv/bin $PATH
+~~~
 
 3. Add `jenv init` to your shell to enable shims and autocompletion.
 
-	~~~ sh
-	    $ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
-	~~~
+~~~ sh
+$ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
+~~~
 
-	_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
+_Same as in previous step, use `~/.profile` on Ubuntu, `~/.zshrc` for Zsh._
 
-    **Fish note**: Instead, copy `~/.jenv/fish/jenv.fish` to `~/.conf/fish/function/jenv.fish`. If you don't have the `export` function, also copy `export.fish`
-    ~~~ sh
-        cp ~/.jenv/fish/jenv.fish ~/.conf/fish/function/jenv.fish
-        cp ~/.jenv/fish/export.fish ~/.conf/fish/function/export.fish
-    ~~~
+**Fish note**: Instead, copy `~/.jenv/fish/jenv.fish` to `~/.conf/fish/function/jenv.fish`. If you don't have the `export` function, also copy `export.fish`
+~~~ sh
+cp ~/.jenv/fish/jenv.fish ~/.conf/fish/function/jenv.fish
+cp ~/.jenv/fish/export.fish ~/.conf/fish/function/export.fish
+~~~
 
 4. Restart your shell as a login shell so the path changes take effect. You can now begin using jenv.
 
-	~~~ sh
-		$ exec $SHELL -l
-	~~~
+~~~ sh
+$ exec $SHELL -l
+~~~
 
 5. Configure JVM in jenv
 
-	~~~  sh
-	    $ jenv add /path/to/java/home
-	~~~
+~~~  sh
+$ jenv add /path/to/java/home
+~~~
 
-6. Configure which JVM to use (globally, by directory or for the current shell instance)
+6. Configure which JVM to use (globally, by directory, or for the current shell instance)
 
-	~~~  sh
-	    $ jenv global oracle-1.7.0
-	~~~
+~~~  sh
+$ jenv global oracle-1.7.0
+~~~
 
-	or
+or
 
-	~~~ sh
-		 $ jenv local oracle-1.7.0
-	~~~
+~~~ sh
+ $ jenv local oracle-1.7.0
+~~~
 
-	or
+or
 
-	~~~ sh
-		 $ jenv shell oracle-1.7.0
-	~~~
+~~~ sh
+ $ jenv shell oracle-1.7.0
+~~~
 
 7. Check that works
 
-	~~~  sh
-		 $ java -version
-	~~~
+~~~  sh
+ $ java -version
+~~~
 8. Add JVM Options (globally, by directory or for the current shell instance)
-	~~~  sh
-	    $ jenv global-options "-Xmx512m"
-	~~~
+~~~  sh
+$ jenv global-options "-Xmx512m"
+~~~
 
-	or
+or
 
-	~~~ sh
-		 $ jenv local-options "-Xmx512m"
-	~~~
-	or
+~~~ sh
+ $ jenv local-options "-Xmx512m"
+~~~
+or
 
-	~~~ sh
-		 $ jenv shell-options "-Xmx512m"
-	~~~
+~~~ sh
+ $ jenv shell-options "-Xmx512m"
+~~~
 
 9. Check that works
 
-	~~~ sh
-		 $ jenv info java
-	~~~
+~~~ sh
+ $ jenv info java
+~~~
 
 10. jenv also provides wrappers for several build tools (Ant, Gradle, Maven, SBT) that will use
 the configured JVM Options (globally, by directory or for the current shell instance), unless the
 tool's environment variable is already set (e.g. `ANT_OPTS` for Ant).
-
-
-
 
 
 ## Command Reference
@@ -245,10 +251,11 @@ Let's say you want Maven to use the JDK activated with Jenv, not the default `JA
 Note: The enable-plugin functionality is system wide not local to the shell, or temporary - you only need to do each one once.
 
 ### Export plugin
-Another one usefull plugin is the "export", that expose JAVA_HOME automatically :
+Another one useful plugin is the "export" plugin, that exposes `JAVA_HOME` automatically:
 
     $ jenv enable-plugin export
-      You may restart your session to activate jenv export plugin echo export plugin activated
+      
+You may need to restart your session to activate it.
 
 ## Development
 
