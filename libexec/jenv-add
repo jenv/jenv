@@ -53,10 +53,10 @@ function add_alias_check(){
 }
 
 function add_alias(){
-	cd "$JENV_JAVAPATH"
+	cd "${JENV_JAVAPATH}"
     JENV_JAVAPATH=$PWD
     cd - 2>&1 > /dev/null
-	ln -s  "$JENV_JAVAPATH" "${JENV_ROOT}/versions/$1"
+	ln -s  "${JENV_JAVAPATH}" "${JENV_ROOT}/versions/$1"
 	touch ${JENV_ROOT}/$1.time
     cinfo "$1 added"
     version_added=true
@@ -65,47 +65,39 @@ function add_alias(){
 
 JENV_JAVAPATH="$1"
 JENV_VERSION_FILE=".jenv-version"
-JENV_SKIP=false
 
-if [ $# -eq 2 ]; then
-	if [ "$1" = "--skip-existing" ]; then
-		echo "Ignore existings installations"
-		JENV_SKIP=true
-		JENV_JAVAPATH="$2"
 
-	else
+if [ "$#" -eq 2 ]; then
+	cwarn "Warning : jenv add alias path/to/java_home is deprecated."
+	cwarn "Please prefer to let jenv generate unique alias name by using"
+	echo ""
+	cwarn "    $ jenv add path/to/java_home"
+	echo ""
 
-		cwarn "Warning : jenv add alias path/to/java_home is deprecated."
-		cwarn "Please prefer to let jenv generate unique alias name by using"
-		echo ""
-		cwarn "    $ jenv add path/to/java_home"
-		echo ""
+	JENV_JAVAPATH="$2"
+	JENV_ALIAS="$1"
 
-		JENV_JAVAPATH="$2"
-		JENV_ALIAS="$1"
-
-	fi;
 fi;
 
-if [ -f "$JENV_JAVAPATH/bin/java" ];
+if [ -f "${JENV_JAVAPATH}/bin/java" ];
 then
 
  	if [ -z "$JENV_ALIAS" ];
  	then
-	    JAVA_VERSION=`$JENV_JAVAPATH/bin/java -version 2>&1 | grep "version" | head -n 1 | cut -d\" -f 2 `
+	    JAVA_VERSION=`"${JENV_JAVAPATH}"/bin/java -version 2>&1 | head -n 1 | cut -d\" -f 2 `
 		JAVA_VERSION=${JAVA_VERSION/_/.}
 
 
-		if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "HotSpot"; then
+		if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "HotSpot"; then
 			JAVA_PROVIDER="oracle"
 		else
-		   	if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "OpenJDK"; then
+		   	if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "OpenJDK"; then
 				JAVA_PROVIDER="openjdk"
 			else
-				if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "J9"; then
+				if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "J9"; then
 					JAVA_PROVIDER="ibm"
         else
-          if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "SAP"; then
+          if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "SAP"; then
   					JAVA_PROVIDER="sap"
 				  else
 
@@ -117,7 +109,7 @@ then
     if [ $JAVA_PROVIDER=="sap" ]; then
       JAVA_PLATFORM="64"
 		else
-      if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "64-Bit"; then
+      if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "64-Bit"; then
 		   JAVA_PLATFORM="64"
 		  else
 		   JAVA_PLATFORM="32"
@@ -151,5 +143,5 @@ then
 
 
 else
-	cwarn "$JENV_JAVAPATH is not a valid path to java installation"
+	cwarn "${JENV_JAVAPATH} is not a valid path to java installation"
 fi
