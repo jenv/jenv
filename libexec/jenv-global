@@ -36,3 +36,7 @@ else
   jenv-version-file-read "${JENV_ROOT}/default" ||
   echo system
 fi
+
+case "$(uname -s)" in
+  Darwin*)    jenv-macos-javahome;;
+esac

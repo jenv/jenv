@@ -10,7 +10,6 @@ This is an updated fork of `jenv`, a beloved Java environment manager adapted fr
 However, this project does **not**:
 
  - Install `java` for you. Use your platform appropriate package manager to install `java`. On macOS, `brew` is recommended.
- - Set `JAVA_HOME` for GUI applications on macOS. [Use this tutorial instead](https://www.ibm.com/support/knowledgecenter/en/SSPJLC_7.6.2/com.ibm.si.mpl.doc/tshoot/ts_java_home.html) to set `JAVA_HOME` for GUI applications.
 
 This document will show you how to install `jenv`, review its most common commands, show example workflows and identify known issues.
 
@@ -138,6 +137,9 @@ jenv global 11.0.2
 ```
 
 When you next open a shell or terminal window, this version of Java will be the default.
+
+On macOS, this sets `JAVA_HOME` for GUI applications on macOS using `jenv macos-javahome`. Integrates [this tutorial](https://www.ibm.com/support/knowledgecenter/en/SSPJLC_7.6.2/com.ibm.si.mpl.doc/tshoot/ts_java_home.html) to create a file that does **not update dynamically** depending on what local or shell version of Java is set, only global.
+
 
 #### 1.4 Setting a Shell Java Version
 
