@@ -42,8 +42,8 @@ function add_alias_check(){
 					rm -f "${JENV_ROOT}/versions/$1"
 					add_alias "$1"
 				fi
-			else 
-				cinfo " $1 already present, skip installation"	
+			else
+				cinfo " $1 already present, skip installation"
 			fi
 
 	else
@@ -81,29 +81,19 @@ fi;
 
 if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
     if [ -z "${JENV_ALIAS}" ]; then
+        JAVA_VERSION_OUTPUT=`"${JENV_JAVAPATH}"/bin/java -version 2>&1`
         JAVA_VERSION=`"${JENV_JAVAPATH}"/bin/java -version 2>&1 | head -n 1 | cut -d\" -f 2 `
         JAVA_VERSION=${JAVA_VERSION/_/.}
-        if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "HotSpot"; then
-            JAVA_PROVIDER="oracle"
-        else
-            if $JENV_JAVAPATH/bin/java -version 2>&1 | grep -q "Zulu"; then
-                JAVA_PROVIDER="zulu"
-            else
-                if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "OpenJDK"; then
-                    JAVA_PROVIDER="openjdk"
-                else
-                    if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "J9"; then
-                        JAVA_PROVIDER="ibm"
-                    else
-                        if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "SAP"; then
-                            JAVA_PROVIDER="sap"
-                        else
-                            JAVA_PROVIDER="other"
-                        fi;
-                    fi;
-                fi;
-            fi;
-        fi;
+
+        case "${JAVA_VERSION_OUTPUT}" in
+            *HotSpot*)      JAVA_PROVIDER="oracle" ;;
+            *Zulu*)         JAVA_PROVIDER="zulu" ;;
+            *OpenJDK*)      JAVA_PROVIDER="openjdk" ;;
+            *J9*)           JAVA_PROVIDER="ibm" ;;
+            *SAP*)          JAVA_PROVIDER="sap" ;;
+            *GraalVM*)      JAVA_PROVIDER="graalvm" ;;
+            *)              JAVA_PROVIDER="other" ;;
+        esac
     fi;
 
     if [ $JAVA_PROVIDER=="sap" ]; then
@@ -117,17 +107,17 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
     fi;
 
     JENV_ALIAS="${JAVA_PROVIDER}${JAVA_PLATFORM}-${JAVA_VERSION}"
-    
+
     JAVA_SHORTVERSION=$(sed 's/\([0-9].[0-9]\).*/\1/' <<< $JAVA_VERSION)
-    
+
     add_alias_check $JENV_ALIAS
     add_alias_check $JAVA_VERSION
-    
+
     if [ "$JAVA_SHORTVERSION" != "$JAVA_VERSION" ]; then
     	add_alias_check $JAVA_SHORTVERSION
     fi;
-    
-    
+
+
     if $version_added ; then
     	$(jenv-rehash)
     fi;
