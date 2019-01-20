@@ -2,6 +2,7 @@
 /shims
 /version
 /versions
+*.time
 
 # Editor directories and files
 .idea
