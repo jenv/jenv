@@ -82,14 +82,6 @@ brew install java
 jenv add $(/usr/libexec/java_home)
 ```
 
-Alternatively, you can use `jenv refresh-versions` to find common Java install paths:
-
-```bash
-jenv refresh-versions
-```
-
-This will update the versions listing.
-
 With macOS OpenJDK 11.0.2 installed, for example, either of these commands will add `/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home` as a valid JVM. Your JVM directory may vary!
 
 Observe now that this version of Java is added to your `java versions` command:
