@@ -1,4 +1,17 @@
-# Java Environment Management, Maintained
+# Master your Java Environnement with jenv
+
+Website : http://www.jenv.be
+
+Maintainers : 
+- (Gildas Cuisinier)[https://github.com/gcuisinier/]
+
+Futur maintainer in discussion:
+- (Benjamin Berman)[https://github.com/doctorpangloss] 
+
+As he makes an incredible work by taking time to merge the Pull Request on his fork, I (@gcuisinier) am in discussion with him to take part of jEnv directly if he wants.
+Whatever his decision, I thank him for his work, and to have convincing me to think about the futur of jEnv and accepting a new maintainer for the good of the project.
+
+## What's jEnv ?
 
 This is an updated fork of `jenv`, a beloved Java environment manager adapted from `rbenv`.
 
@@ -25,10 +38,16 @@ Follow the steps below to get a working `jenv` installation with knowledge of yo
 
 #### 1.1 Installing `jenv`
 
-Because this fork is not available on common package managers like `brew` or `apt` yet, it is recommended to install it by checking it out from `git`.
+On OSX, the simpler way to install jEnv is but using [Homebrew](https://brew.sh)
 
 ```bash
-git clone https://github.com/hiddenswitch/jenv.git ~/.jenv
+brew install jenv
+```
+
+Alternatively, and on Linux, you can install it from source :
+
+```bash
+git clone https://github.com/jenv/jenv.git ~/.jenv
 # Shell: bash
 echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
 echo 'eval "$(jenv init -)"' >> ~/.bash_profile
@@ -61,7 +80,7 @@ exec $SHELL -l
 
 Continue to the next section to install java.
 
-**Untested**: You can install this via its archive link on Git, using `curl` and decompression utilities of your choice. This repository does not automatically update itself like `brew` or other `git`-based utilities do.
+
 
 **Untested**: While this fork has improved `fish` shell support, it has not been tested by this maintainer. To install `jenv` for Fish according to the contributor's instructions:
 
@@ -196,6 +215,6 @@ Please contribute your own using a pull request!
 
 Users seem to have issues using `jenv` with Fish. Please report any here.
 
-While many fixes have been merged compared to the original repository, extensive testing has **not** been done. Please report any issues here instead of the main `jenv` repository.
 
-Otherwise, this was tested on macOS Mojave.
+
+
