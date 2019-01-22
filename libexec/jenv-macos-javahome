@@ -22,7 +22,7 @@ cat << EOT > ${HOME}/Library/LaunchAgents/jenv-environment.plist
      <string>sh</string>
      <string>-c</string>
      <string>
-     launchctl setenv JAVA_HOME $($HOME/.jenv/bin/jenv javahome) ;
+     launchctl setenv JAVA_HOME $(jenv javahome) ;
      </string>
    </array>
    <key>RunAtLoad</key>
