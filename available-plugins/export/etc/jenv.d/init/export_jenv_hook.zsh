@@ -12,17 +12,13 @@
  }
 
 #echo "configure export plugin for ZSH"
-jenv_emulate=`emulate`
-emulate zsh
-
-typeset -ag chpwd_functions
-if [[ -z $chpwd_functions[(r)_jenv_export_hook] ]]; then
-      chpwd_functions+=_jenv_export_hook;
-fi
-
-emulate $jenv_emulate
-#export
-
-
+function install_hook {
+  emulate -LR zsh
+  typeset -ag chpwd_functions
+  if [[ -z $chpwd_functions[(r)_jenv_export_hook] ]]; then
+        chpwd_functions+=_jenv_export_hook;
+  fi
+}
+install_hook
 
 _jenv_export_hook
