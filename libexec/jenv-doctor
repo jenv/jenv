@@ -25,6 +25,10 @@ function cfix() {
   echo -e "${COLOR}\t$*${RESET}"
 }
 
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}
+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
@@ -57,6 +61,7 @@ fi
 JAVA_BIN=`command -v java`
 
 EXPECTED_JAVA="$JENV_ROOT/shims/java"
+
 
 
 if [ "$EXPECTED_JAVA" = "$JAVA_BIN" ] ; then
@@ -92,5 +97,18 @@ else
   cwarn "Jenv is not loaded in your $shell"
   cwarn 'To fix : \tcat eval "$(jenv init -)" >>' $profile
 
+
+
+
 fi
 
+
+	for plugin in "${JENV_ROOT}"/plugins/*; do    
+    pluginName=$(basename $plugin) 
+  	targetLink=$(resolve_link $plugin)
+    if [[ ! $targetLink == $JENV_INSTALL_DIR* ]]; then
+          cwarn "Plugin $pluginName is linked to older jenv installation"
+          cfix "Please execute : jenv disable-plugin $pluginName && jenv enable-plugin $pluginName"
+    fi
+      
+	done   
