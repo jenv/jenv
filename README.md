@@ -1,15 +1,15 @@
-# Master your Java Environnement with jenv
+# Master your Java Environment with jenv
 
 Website : http://www.jenv.be
 
 Maintainers : 
-- (Gildas Cuisinier)[https://github.com/gcuisinier/]
+- [Gildas Cuisinier](https://github.com/gcuisinier/)
 
-Futur maintainer in discussion:
-- (Benjamin Berman)[https://github.com/doctorpangloss] 
+Future maintainer in discussion:
+- [Benjamin Berman](https://github.com/doctorpangloss) 
 
 As he makes an incredible work by taking time to merge the Pull Request on his fork, I (@gcuisinier) am in discussion with him to take part of jEnv directly if he wants.
-Whatever his decision, I thank him for his work, and to have convincing me to think about the futur of jEnv and accepting a new maintainer for the good of the project.
+Whatever his decision, I thank him for his work, and to have convincing me to think about the future of jEnv and accepting a new maintainer for the good of the project.
 
 ## What's jEnv ?
 
@@ -78,6 +78,8 @@ jenv enable-plugin export
 exec $SHELL -l
 ```
 
+Problem? Please visit the [Trouble Shooting](https://github.com/jenv/jenv/wiki/Trouble-Shooting) Wiki page.
+
 Continue to the next section to install java.
 
 
@@ -97,7 +99,7 @@ Use `jenv add` to inform `jenv` where your Java environment is located. `jenv` d
 For example, on macOS, use `brew` to install the latest Java (OpenJDK 11) followed by the appropriate `jenv add PATH_TO_JVM_HOME` command to recognize it.
 
 ```bash
-brew install java
+brew cask install java
 jenv add $(/usr/libexec/java_home)
 ```
 
