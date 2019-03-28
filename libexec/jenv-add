@@ -108,7 +108,8 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
 
     JENV_ALIAS="${JAVA_PROVIDER}${JAVA_PLATFORM}-${JAVA_VERSION}"
 
-    JAVA_SHORTVERSION=$(sed 's/\([0-9].[0-9]\).*/\1/' <<< $JAVA_VERSION)
+    JAVA_SHORTVERSION=$(sed 's/\([0-9]\.[0-9]\).*/\1/' <<< $JAVA_VERSION)
+    JAVA_SHORTESTVERSION=$(sed 's/\([0-9]\)\..*/\1/' <<< $JAVA_VERSION)
 
     add_alias_check $JENV_ALIAS
     add_alias_check $JAVA_VERSION
@@ -117,6 +118,10 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
     	add_alias_check $JAVA_SHORTVERSION
     fi;
 
+    # don't add shortest version for jdk 1.x
+    if [ "$JAVA_SHORTESTVERSION" != 1 -a "$JAVA_SHORTESTVERSION" != "$JAVA_SHORTVERSION" ]; then
+        add_alias_check $JAVA_SHORTESTVERSION
+    fi
 
     if $version_added ; then
     	$(jenv-rehash)
