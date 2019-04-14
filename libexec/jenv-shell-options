@@ -13,4 +13,24 @@
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
-exec jenv shell-options $@
+
+
+options="$1"
+
+if [ -z "$options" ]; then
+  if [ -z "$JENV_OPTIONS" ]; then
+    echo "jenv: no shell-specific options configured" >&2
+    exit 1
+  else
+    echo "echo \"\$JENV_OPTIONS\""
+    exit
+  fi
+fi
+
+if [ "$options" = "--unset" ]; then
+  echo "unset JENV_OPTIONS"
+  exit
+fi
+
+     
+echo "export JENV_OPTIONS=\"${options}\""

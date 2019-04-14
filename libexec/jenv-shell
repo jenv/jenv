@@ -15,4 +15,35 @@
 
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
-exec jenv-shell $@
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+  echo system
+  exec jenv-versions --bare
+fi
+
+version="$1"
+
+if [ -z "$version" ]; then
+  if [ -z "$JENV_VERSION" ]; then
+    echo "jenv: no shell-specific version configured" >&2
+    exit 1
+  else
+    echo "echo \"\$JENV_VERSION\""
+    exit
+  fi
+fi
+
+if [ "$version" = "--unset" ]; then
+  echo "unset JENV_VERSION"
+  exit
+fi
+
+# Make sure the specified version is installed.
+if jenv-prefix "$version" >/dev/null; then
+  echo "export JENV_VERSION=\"${version}\""
+else
+  echo "return 1"
+  exit 1
+fi

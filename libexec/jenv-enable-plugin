@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Summary: Activate a jEnv plugin
+# Usage: jenv enable-plugin <pluginName>
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  exec jenv-plugins
+fi
+
+if [ -z "$1" ]; then
+	echo "jenv help enable-plugin"
+	exit 1
+fi
+
+plugin="$1"
+
+
+if [ -h ${JENV_ROOT}/plugins/$plugin ]; then 
+	   echo "echo $plugin plugin already enabled"
+	else
+		if [ ! -d "${JENV_INSTALL_DIR}/available-plugins/$plugin" ]; then
+  		  echo "echo $plugin plugin does not exist"
+  		  exit 1;
+		fi
+ 		ln -s  "${JENV_INSTALL_DIR}/available-plugins/$plugin" "${JENV_ROOT}/plugins/$plugin" 
+		
+		if [ -f "${JENV_ROOT}/plugins/$plugin/etc/jenv.d/load/after.bash" ]; then
+			source "${JENV_ROOT}/plugins/$plugin/etc/jenv.d/load/after.bash"
+		fi
+
+ 		echo "echo $plugin plugin activated && jenv rehash"
+fi
+
+
