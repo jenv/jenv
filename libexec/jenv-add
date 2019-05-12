@@ -88,10 +88,11 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
         case "${JAVA_VERSION_OUTPUT}" in
             *HotSpot*)      JAVA_PROVIDER="oracle" ;;
             *Zulu*)         JAVA_PROVIDER="zulu" ;;
+            *GraalVM*)      JAVA_PROVIDER="graalvm" ;;
+	    *Corretto*)     JAVA_PROVIDER="corretto" ;;
             *OpenJDK*)      JAVA_PROVIDER="openjdk" ;;
             *J9*)           JAVA_PROVIDER="ibm" ;;
             *SAP*)          JAVA_PROVIDER="sap" ;;
-            *GraalVM*)      JAVA_PROVIDER="graalvm" ;;
             *)              JAVA_PROVIDER="other" ;;
         esac
     fi;
