@@ -90,9 +90,9 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
             *Zulu*)         JAVA_PROVIDER="zulu" ;;
             *GraalVM*)      JAVA_PROVIDER="graalvm" ;;
             *Corretto*)     JAVA_PROVIDER="corretto" ;;
-            *OpenJDK*)      JAVA_PROVIDER="openjdk" ;;
             *J9*)           JAVA_PROVIDER="ibm" ;;
             *SAP*)          JAVA_PROVIDER="sap" ;;
+            *OpenJDK*)      JAVA_PROVIDER="openjdk" ;;
             *)              JAVA_PROVIDER="other" ;;
         esac
     fi;
