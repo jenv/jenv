@@ -57,6 +57,11 @@ for path in ${JENV_HOOK_PATH//:/$'\n'}; do
     echo $(realpath $script)
   done
     ;;
+  fish )
+    for script in $path/"$JENV_COMMAND"/*.fish; do
+    echo $(realpath $script)
+  done
+    ;;
   esac
 
   
