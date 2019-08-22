@@ -2,7 +2,7 @@ if [[ ! -o interactive ]]; then
     return
 fi
 
-compctl -K _jenv jenv
+compctl -S "" -K _jenv jenv
 
 _jenv() {
   local words completions
