@@ -47,7 +47,21 @@ abs_dirname() {
   cd "$cwd"
 }
 
-root="$(abs_dirname "$0")/.."
+set +e
+if [ "$( uname -s )" == "Darwin" -a -n "$( which brew )" ]; then
+    jenv_prefix="$( brew --prefix jenv )"
+    if [ -n "${jenv_prefix}" -a -d "${jenv_prefix}" ]; then
+        root="${jenv_prefix}/libexec"
+    else
+        set -e
+        root="$(abs_dirname "$0")/.."
+    fi
+else
+    set -e
+    root="$(abs_dirname "$0")/.."
+fi
+set -e
+
 
 if [ -z "$print" ]; then
   case "$shell" in
