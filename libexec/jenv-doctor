@@ -95,7 +95,7 @@ else
   esac
 
   cwarn "Jenv is not loaded in your $shell"
-  cwarn 'To fix : \tcat eval "$(jenv init -)" >>' $profile
+  cwarn 'To fix : \techo eval "$(jenv init -)" >>' $profile
 
 
 
