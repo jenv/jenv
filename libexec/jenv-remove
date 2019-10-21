@@ -1,6 +1,6 @@
-#!/usr/bin/env bash        
-# Summary: Remove a JDK installation
-# Usage: jenv remove alias-name
+#!/usr/bin/env bash
+# Summary: Remove JDK installations
+# Usage: jenv remove alias-name+
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
@@ -9,16 +9,19 @@ if [ "$1" = "--complete" ]; then
   exec jenv-versions --bare
 fi
 
-JENV_VERSION="$1" 
-                  
-                            
-if [ -L "$JENV_ROOT/versions/$JENV_VERSION" ];
-then         
-	rm -f $JENV_ROOT/versions/$JENV_VERSION
-	rm -f ${JENV_ROOT}/$JENV_VERSION.time
-  $(jenv-rehash)             
-   echo "JDK $JENV_VERSION removed"
 
-else
-	echo "$JENV_VERSION is not a managed version of Java "
-fi
+for jenv_version in "$@"
+do
+  JENV_VERSION=${jenv_version}
+
+  if [ -L "$JENV_ROOT/versions/$JENV_VERSION" ];
+  then
+    rm -f $JENV_ROOT/versions/$JENV_VERSION
+    rm -f ${JENV_ROOT}/$JENV_VERSION.time
+    $(jenv-rehash)
+    echo "JDK $JENV_VERSION removed"
+
+  else
+    echo "$JENV_VERSION is not a managed version of Java "
+  fi
+done
