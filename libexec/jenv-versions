@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Summary: List all Java versions available to jenv
-# Usage: jenv versions [--bare]
+# Usage: jenv versions [--bare] [--verbose]
 #
 # Lists all Java versions found in `$JENV_ROOT/versions/*'.
 
