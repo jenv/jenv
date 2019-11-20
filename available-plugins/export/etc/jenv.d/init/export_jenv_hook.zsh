@@ -14,9 +14,9 @@
 #echo "configure export plugin for ZSH"
 function install_hook {
   emulate -LR zsh
-  typeset -ag chpwd_functions
-  if [[ -z $chpwd_functions[(r)_jenv_export_hook] ]]; then
-        chpwd_functions+=_jenv_export_hook;
+  typeset -ag precmd_functions
+  if [[ -z $precmd_functions[(r)_jenv_export_hook] ]]; then
+        precmd_functions+=_jenv_export_hook;
   fi
 }
 install_hook
