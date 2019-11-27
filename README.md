@@ -173,40 +173,34 @@ Our goal is to have both the latest version of Java and JDK 8 installed at the s
 We'll resume where we left off with Java 11.0.2 installed. Let's [install Java 8](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) now:
 
 ```bash
-brew tap caskroom/versions
-brew cask install java8
+brew cask install adoptopenjdk8
+brew cask install caskroom/versions/adoptopenjdk8
 ```
 
 This will install the latest version of Java 8 to a special directory in macOS. Let's see which directory that is:
 
 ```bash
 $ ls -1 /Library/Java/JavaVirtualMachines 
-jdk1.8.0_202.jdk
+adoptopenjdk-8.jdk
 openjdk-11.0.2.jdk
 ```
 
-Observe the `jdk1.8.0_202.jdk` directory. **Your exact version may vary**. We cannot retrieve this using `/usr/libexec/java_home`, unfortunately. We'll add the Java home directory using `jenv` so that it shows up in our `jenv versions` command:
+Observe the `adoptopenjdk-8.jdk` directory. **Your exact version may vary**. We cannot retrieve this using `/usr/libexec/java_home`, unfortunately. We'll add the Java home directory using `jenv` so that it shows up in our `jenv versions` command:
 
 ```bash
-$ jenv add /Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home/
+$ jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
+openjdk64-1.8.0.222 added
+1.8.0.222 added
+1.8 added
 $ jenv versions
 * system
   1.8
-  1.8.0.202-ea
+  1.8.0.222
+  openjdk64-1.8.0.222
   11.0
   11.0.2
   openjdk64-11.0.2
   oracle64-1.8.0.202-ea
-```
-
-Observe Oracle JDK8 is now in our list. Let's change to Java 1.8 using our `jenv shell VERSION` command:
-
-```bash
-$ jenv shell 1.8
-$ java -version
-java version "1.8.0_202-ea"
-Java(TM) SE Runtime Environment (build 1.8.0_202-ea-b03)
-Java HotSpot(TM) 64-Bit Server VM (build 25.202-b03, mixed mode)
 ```
 
 #### 2.2 Other Workflows
