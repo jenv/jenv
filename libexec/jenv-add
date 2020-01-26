@@ -91,6 +91,7 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
             *GraalVM*)      JAVA_PROVIDER="graalvm" ;;
             *Corretto*)     JAVA_PROVIDER="corretto" ;;
             *J9*)           JAVA_PROVIDER="ibm" ;;
+            *sapmachine*)   JAVA_PROVIDER="sap" ;;
             *SAP*)          JAVA_PROVIDER="sap" ;;
             *OpenJDK*)      JAVA_PROVIDER="openjdk" ;;
             *)              JAVA_PROVIDER="other" ;;
