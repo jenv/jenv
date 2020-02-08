@@ -89,8 +89,8 @@ Continue to the next section to install java.
 ```sh
 echo 'set PATH $HOME/.jenv/bin $PATH' >> ~/.config/fish/config.fish
 echo 'status --is-interactive; and source (jenv init -|psub)' >> ~/.config/fish/config.fish
-cp ~/.jenv/fish/jenv.fish ~/.config/fish/function/jenv.fish
-cp ~/.jenv/fish/export.fish ~/.config/fish/function/export.fish
+cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
+cp ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish
 ```
 
 #### 1.2 Adding Your Java Environment
