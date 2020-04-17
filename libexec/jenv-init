@@ -93,12 +93,14 @@ fish )
   echo "set -gx JENV_SHELL $shell"
   echo "set -gx JENV_LOADED 1"
   echo "set -e JAVA_HOME"
+  echo "set -e JDK_HOME"
   ;;
 bash | zsh )
   echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
   echo "export JENV_SHELL=$shell"
   echo "export JENV_LOADED=1"
   echo "unset JAVA_HOME"
+  echo "unset JDK_HOME"
   ;;
 esac
 
