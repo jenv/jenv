@@ -46,7 +46,7 @@ realpath() {
 shopt -s nullglob
 for path in ${JENV_HOOK_PATH//:/$'\n'}; do
 
-   case "$shell" in
+  case "$shell" in
   bash )
     for script in $path/"$JENV_COMMAND"/*.bash; do
     echo $(realpath $script)
@@ -55,9 +55,14 @@ for path in ${JENV_HOOK_PATH//:/$'\n'}; do
   zsh )
     for script in $path/"$JENV_COMMAND"/*.zsh; do
     echo $(realpath $script)
-  done
+    done 
     ;;
-  esac
+  fish )
+    for script in $path/"$JENV_COMMAND"/*.fish; do
+    echo $(realpath $script)
+    done
+    ;;
+esac
 
   
 done
