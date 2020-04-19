@@ -10,4 +10,11 @@ fi
 # When jenv shell integration is enabled, delegate to jenv-rehash,
 # then tell the shell to empty its command lookup cache.
 jenv-rehash
-echo "hash -r"
+case "$SHELL" in
+  */fish )
+    # no rehash support
+    ;;
+  * )
+    echo "hash -r 2>/dev/null || true"
+    ;;
+esac
