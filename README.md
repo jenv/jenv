@@ -86,11 +86,13 @@ Continue to the next section to install java.
 
 **Untested**: While this fork has improved `fish` shell support, it has not been tested by this maintainer. To install `jenv` for Fish according to the contributor's instructions:
 
+jenv.fish and export.fish are [here](https://github.com/Fabszn/jenv/tree/master/fish)
+
 ```sh
 echo 'set PATH $HOME/.jenv/bin $PATH' >> ~/.config/fish/config.fish
 echo 'status --is-interactive; and source (jenv init -|psub)' >> ~/.config/fish/config.fish
-cp ~/.jenv/fish/jenv.fish ~/.config/fish/function/jenv.fish
-cp ~/.jenv/fish/export.fish ~/.config/fish/function/export.fish
+cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
+cp ~/.jenv/fish/export.fish ~/.config/fish/functions/export.fish
 ```
 
 #### 1.2 Adding Your Java Environment
