@@ -12,7 +12,7 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
-version="0.5.2"
+version="0.5.3"
 
 if [ -d $JENV_ROOT ]; then
 cd "$JENV_ROOT"
