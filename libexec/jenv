@@ -68,8 +68,12 @@ shopt -s nullglob
 
 
 bin_path="$(abs_dirname "$0")"    
-                  
-if ! samedir "${JENV_ROOT}" "$bin_path/../"  ; then
+
+if [ "$JENV_USE_HOMEBREW" = "1" ]; then
+  JENV_INSTALL_DIR="$(brew --prefix)/opt/jenv/libexec"
+
+
+elif ! samedir "${JENV_ROOT}" "$bin_path/../"  ; then
    JENV_INSTALL_DIR=$(resolvepath "$bin_path/../")
 else
     JENV_INSTALL_DIR=$JENV_ROOT

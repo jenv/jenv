@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Summary: Refresh alias names
+     
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}       
+                  
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+
+if [ ! -f "${JENV_ROOT}/jenv.version" ]; then
+    echo "NONE" > ${JENV_ROOT}/jenv.version
+fi
+
+
+
+lastVersion=$(cat "${JENV_ROOT}/jenv.version" || echo "none")
+currentVersion=$(jenv --version)
+
+
+if [ ! "$lastVersion" == "$currentVersion" ]; then
+    echo "jenv has been updated, process to refresh plugin links"
+    for path in "${JENV_ROOT}/plugins/"*; do
+        if [ -d "$path" ]; then
+        pluginName=$(basename $path)
+        echo "Refresh plugin $pluginName"
+        ln -sfn  "${JENV_INSTALL_DIR}/available-plugins/$pluginName" "${JENV_ROOT}/plugins/$pluginName" 
+        fi
+    done
+fi
+
+echo "$currentVersion" > "${JENV_ROOT}/jenv.version"

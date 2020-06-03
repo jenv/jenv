@@ -7,6 +7,7 @@ set -e
 
 print=""
 no_rehash=""
+use_homebrew=""
 for args in "$@"
 do
   if [ "$args" = "-" ]; then
@@ -18,6 +19,14 @@ do
     no_rehash=1
     shift
   fi
+
+  if [ "$args" = "--homebrew" ]; then
+    use_homebrew=1
+    shift
+  fi
+
+
+
 done
 
 shell="$1"
@@ -47,7 +56,12 @@ abs_dirname() {
   cd "$cwd"
 }
 
-root="$(abs_dirname "$0")/.."
+if [ -n "$use_homebrew" ]; then
+  homebrew_prefix="$(brew --prefix)"
+  root="${homebrew_prefix}/opt/jenv/libexec"
+else
+  root="$(abs_dirname "$0")/.."
+fi
 
 if [ -z "$print" ]; then
   case "$shell" in
@@ -93,12 +107,18 @@ fish )
   echo "set -gx JENV_SHELL $shell"
   echo "set -gx JENV_LOADED 1"
   echo "set -e JAVA_HOME"
+  if [ -n "$use_homebrew" ]; then
+    echo "set -gx JENV_USE_HOMEBREW 1"
+  fi
   ;;
 bash | zsh )
   echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
   echo "export JENV_SHELL=$shell"
   echo "export JENV_LOADED=1"
   echo "unset JAVA_HOME"
+  if [ -n "$use_homebrew" ]; then
+    echo "export JENV_USE_HOMEBREW=1"
+  fi
   ;;
 esac
 
@@ -110,6 +130,8 @@ fi
 if [ -z "$no_rehash" ]; then
   echo 'jenv rehash 2>/dev/null'
 fi
+
+echo 'jenv refresh-plugins'
 
 for script in $(jenv-hooks init $shell); do
   echo "source \"$script\""
