@@ -77,6 +77,12 @@ if [ "$#" -eq 2 ]; then
 	JENV_JAVAPATH="$2"
 	JENV_ALIAS="$1"
 
+    add_alias_check $JENV_ALIAS
+    if $version_added ; then
+        $(jenv-rehash)
+    fi;
+
+    exit 0
 fi;
 
 if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
