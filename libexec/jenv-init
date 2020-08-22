@@ -111,6 +111,8 @@ if [ -z "$no_rehash" ]; then
   echo 'jenv rehash 2>/dev/null'
 fi
 
+echo "jenv refresh-plugins"
+
 for script in $(jenv-hooks init $shell); do
   echo "source \"$script\""
 done

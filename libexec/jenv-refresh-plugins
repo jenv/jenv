@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Summary: Refresh plugins links
+
+resolve_link() {
+  $(type -p greadlink readlink | head -1) "$1"
+}       
+                  
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+FORCE_REFRESH=0
+
+if [ ! -f "${JENV_ROOT}/jenv.version" ]; then
+    echo "NONE" > ${JENV_ROOT}/jenv.version
+fi
+
+if [ "$1" = "--complete" ]; then
+  echo "--force"
+  exit
+fi
+
+if [ "$1" = "--force" ]; then
+  FORCE_REFRESH=1
+fi
+
+
+lastVersion=$(cat "${JENV_ROOT}/jenv.version" || echo "none")
+currentVersion=$(jenv --version)
+
+
+if [ ! "$lastVersion" == "$currentVersion"  ] || [ $FORCE_REFRESH == "1" ]; then
+    echo "jenv has been updated, process to refresh plugin links"
+    for path in "${JENV_ROOT}/plugins/"*; do
+        if [ -L "$path" ]; then
+        pluginName=$(basename $path)
+        echo "Refresh plugin $pluginName"
+        ln -sfn  "${JENV_INSTALL_DIR}/available-plugins/$pluginName" "${JENV_ROOT}/plugins/$pluginName" 
+        fi
+
+    done
+fi
+
+echo "$currentVersion" > "${JENV_ROOT}/jenv.version"
