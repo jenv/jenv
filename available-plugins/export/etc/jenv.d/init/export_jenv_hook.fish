@@ -1,5 +1,5 @@
 # load jenv and enable export hook
-function __jenv_export_hook --on-event fish_prompt
+function __jenv_export_hook  --on-variable PWD
   set -gx JAVA_HOME (jenv javahome)
   set -gx JENV_FORCEJAVAHOME true
 
