@@ -174,8 +174,7 @@ Our goal is to have both the latest version of Java and JDK 8 installed at the s
 We'll resume where we left off with Java 11.0.2 installed. Let's [install Java 8](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) now:
 
 ```bash
-brew cask install adoptopenjdk8
-brew cask install caskroom/versions/adoptopenjdk8
+brew install homebrew/cask-versions/adoptopenjdk8 --cask
 ```
 
 This will install the latest version of Java 8 to a special directory in macOS. Let's see which directory that is:
