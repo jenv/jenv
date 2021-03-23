@@ -204,6 +204,31 @@ $ jenv versions
   oracle64-1.8.0.202-ea
 ```
 
+#### 2.1.2 Using Two JVMs on macOS using Temurin
+
+Install 11 and Latest JDK
+```bash
+brew install --cask temurin11
+brew install --cask temurin
+```
+
+Confirm JDK VM names.
+```bash
+$ ls -1 /Library/Java/JavaVirtualMachines 
+temurin-11.jdk
+temurin-16.jdk
+```
+
+```bash
+$ jenv add /Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home/
+$ jenv add /Library/Java/JavaVirtualMachines/temurin-16.jdk/Contents/Home/
+```
+NOTE:
+IntelliJ CE does have a bit of trouble detecting temurin.
+It might be wise to install both.
+* 11 Installed by AdoptOpenJDK
+* 11.0.12 Installed by Temurin <-- the XX.X.X2 suffix.
+
 #### 2.2 Other Workflows
 
 Please contribute your own using a pull request!
