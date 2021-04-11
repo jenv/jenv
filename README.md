@@ -100,7 +100,7 @@ Use `jenv add` to inform `jenv` where your Java environment is located. `jenv` d
 For example, on macOS, use `brew` to install the latest Java (OpenJDK 11) followed by the appropriate `jenv add PATH_TO_JVM_HOME` command to recognize it.
 
 ```bash
-brew cask install java
+brew install --cask java
 jenv add $(/usr/libexec/java_home)
 ```
 
@@ -174,8 +174,8 @@ Our goal is to have both the latest version of Java and JDK 8 installed at the s
 We'll resume where we left off with Java 11.0.2 installed. Let's [install Java 8](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) now:
 
 ```bash
-brew cask install adoptopenjdk8
-brew cask install caskroom/versions/adoptopenjdk8
+brew install --cask adoptopenjdk8
+brew install --cask caskroom/versions/adoptopenjdk8
 ```
 
 This will install the latest version of Java 8 to a special directory in macOS. Let's see which directory that is:
