@@ -101,7 +101,7 @@ For example, on macOS, use `brew` to install the latest Java (OpenJDK 11) follow
 
 ```bash
 brew install --cask java
-jenv add $(/usr/libexec/java_home)
+jenv add "$(/usr/libexec/java_home)"
 ```
 
 With macOS OpenJDK 11.0.2 installed, for example, either of these commands will add `/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home` as a valid JVM. Your JVM directory may vary!
