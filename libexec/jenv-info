@@ -32,7 +32,9 @@ export JENV_OPTIONS="$(jenv-options)"
 
 JENV_COMMAND="$1"              
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"    
+if [ "$JENV_VERSION" != "system" ]; then
+  export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
+fi
           
 
 JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"

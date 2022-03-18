@@ -25,6 +25,10 @@ export JENV_VERSION="$(jenv-version-name)"
 export JENV_OPTIONS="$(jenv-options)"    
 
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"    
+if [ "$JENV_VERSION" == "system" ]; then
+  echo "Using system JDK, no JAVA_HOME set!"
+  exit 1
+fi
 
+export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
 echo $JAVA_HOME
