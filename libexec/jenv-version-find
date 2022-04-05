@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+# Summary: Find an installed java version matching a specified version
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ -d "${JENV_ROOT}/versions/$1" ]; then
+  echo $1
+  exit
+fi
+
+CURRENT_JENV_VERSION=$(jenv-javahome)
+source jenv-detect-version "$CURRENT_JENV_VERSION"
+
+function find_jdk(){
+  matching="${JENV_ROOT}"/versions/"$1"-"$2"-"$3"
+  for version in $matching; do
+    [ -d "$version" ] && basename "$version" && return 0
+  done
+  return 1
+}
+
+function find_jdk2(){
+  matching="${JENV_ROOT}"/versions/*"$1"*
+  for version in $matching; do
+    [ -d "$version" ] && basename "$version" && return 0
+  done
+  return 1
+}
+
+# Input is version number
+if [[ $1 =~ ^[0-9]+(\.[0-9]+)*$ ]]; then
+  # First try to find a JDK with the same provider/architecture
+  find_jdk $JAVA_PROVIDER $1\* $OS_ARCH && exit
+
+  # First try to find a JDK with the same architecture, arbitrary provider
+  find_jdk \* $1\* "$OS_ARCH" && exit
+
+  # Then a JDK with an arbitrary provider and architecture
+  find_jdk \* $1\* \* && exit
+fi
+
+JAVA_SHORTVERSION=$(sed 's/\([0-9]\.[0-9]\).*/\1/' <<< $JAVA_VERSION)
+JAVA_SHORTESTVERSION=$(sed 's/\([0-9]\+\)\.\?.*/\1/' <<< $JAVA_VERSION)
+
+# don't add shortest version for jdk 1.x
+if [ "$JAVA_SHORTESTVERSION" != 1 -a "$JAVA_SHORTESTVERSION" != "$JAVA_SHORTVERSION" ]; then
+  JAVA_MAJOR_VERSION=$JAVA_SHORTESTVERSION
+else
+  JAVA_MAJOR_VERSION=$JAVA_SHORTVERSION
+fi
+
+# Input is architecture
+if [[ $1 =~ (x86|amd|aarch|ppc|s390|sparc).* ]]; then
+  # First try to find a JDK with the same provider and version
+  find_jdk $JAVA_PROVIDER $JAVA_VERSION $1 && exit
+
+  # First try to find a JDK with the same provider and major version
+  find_jdk $JAVA_PROVIDER $JAVA_MAJOR_VERSION $1 && exit
+
+  # First try to find a JDK with the same version, arbitrary provider
+  find_jdk \* $JAVA_VERSION $1 && exit
+
+  # First try to find a JDK with the same major version, arbitrary architecture
+  find_jdk \* $JAVA_MAJOR_VERSION $1 && exit
+
+  # Then a JDK with an arbitrary provider and version
+  find_jdk \* \* $1 && exit
+fi
+
+# Input is provider
+if [[ $1 =~ [a-z_]+ ]]; then
+  # First try to find a JDK with the same version and architecture
+  find_jdk $1 $JAVA_VERSION $OS_ARCH && exit
+
+  # First try to find a JDK with the same major version and architecture
+  find_jdk $1 $JAVA_JAVA_MAJOR_VERSION $OS_ARCH && exit
+
+  # First try to find a JDK with the same version, arbitrary architecture
+  find_jdk $1 $JAVA_VERSION \* && exit
+
+  # First try to find a JDK with the same major version, arbitrary architecture
+  find_jdk $1 $JAVA_MAJOR_VERSION \* && exit
+
+  # Then a JDK with an arbitrary version and architecture
+  find_jdk $1 \* \* && exit
+fi
+
+find_jdk2 $1 && exit
+
+echo $1

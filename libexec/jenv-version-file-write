@@ -12,6 +12,8 @@ if [ -z "$JENV_VERSION" ] || [ -z "$JENV_VERSION_FILE" ]; then
   exit 1
 fi
 
+JENV_VERSION=$(jenv-version-find $JENV_VERSION)
+
 # Make sure the specified version is installed.
 jenv-prefix "$JENV_VERSION" >/dev/null
 
