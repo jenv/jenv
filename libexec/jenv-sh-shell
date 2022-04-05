@@ -41,6 +41,7 @@ if [ "$version" = "--unset" ]; then
 fi
 
 # Make sure the specified version is installed.
+version=$(jenv-version-find $version)
 if jenv-prefix "$version" >/dev/null; then
   echo "export JENV_VERSION=\"${version}\""
 else
