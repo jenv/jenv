@@ -73,7 +73,7 @@ if [ -z "$print" ]; then
     echo
     case "$shell" in
     fish )
-      echo 'status --is-interactive; and source (jenv init -|psub)'
+      echo 'status --is-interactive; and jenv init - | source'
       ;;
     * )
       echo 'eval "$(jenv init -)"'
@@ -130,7 +130,7 @@ function jenv
 
   switch "\$command"
   case ${commands[*]}
-    source (jenv "sh-\$command" \$argv|psub)
+    jenv "sh-\$command" \$argv | source
   case '*'
     command jenv "\$command" \$argv
   end
