@@ -90,6 +90,10 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
         JAVA_VERSION_OUTPUT=`"${JENV_JAVAPATH}"/bin/java -version 2>&1`
         JAVA_VERSION=`"${JENV_JAVAPATH}"/bin/java -version 2>&1 | grep 'version' | head -n 1 | cut -d\" -f 2 `
         JAVA_VERSION=${JAVA_VERSION/_/.}
+        OS_ARCH=`"${JENV_JAVAPATH}"/bin/java -XshowSettings:all -version 2>&1 | grep os.arch | cut -d= -f2 | xargs`
+        if [ -z "$OS_ARCH" ]; then
+          OS_ARCH="unknown"
+        fi
 
         case "${JAVA_VERSION_OUTPUT}" in
             *HotSpot*)                          JAVA_PROVIDER="oracle" ;;
@@ -113,17 +117,7 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
         esac
     fi;
 
-    if [ $JAVA_PROVIDER=="sap" ]; then
-        JAVA_PLATFORM="64"
-    else
-        if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "64-Bit"; then
-            JAVA_PLATFORM="64"
-        else
-            JAVA_PLATFORM="32"
-        fi;
-    fi;
-
-    JENV_ALIAS="${JAVA_PROVIDER}${JAVA_PLATFORM}-${JAVA_VERSION}"
+    JENV_ALIAS="${JAVA_PROVIDER}-${JAVA_VERSION}-${OS_ARCH}"
 
     JAVA_SHORTVERSION=$(sed 's/\([0-9]\.[0-9]\).*/\1/' <<< $JAVA_VERSION)
     JAVA_SHORTESTVERSION=$(sed 's/\([0-9]\+\)\.\?.*/\1/' <<< $JAVA_VERSION)
