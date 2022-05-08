@@ -22,11 +22,17 @@ done
 
 shell="$1"
 if [ -z "$shell" ]; then
-  shell="$(ps -p "$PPID" -o 'args=' 2>/dev/null || true)"
-  shell="${shell%% *}"
-  shell="${shell##-}"
-  shell="${shell:-$SHELL}"
-  shell="${shell##*/}"
+  if [ -n "$BASH_VERSION" ]; then
+      shell="bash"
+  elif [ -n "$ZSH_VERSION" ]; then
+      shell="zsh"
+  elif [ -n "$FISH_VERSION" ]; then
+      shell="fish"
+  elif [ -n "$KSH_VERSION" ]; then
+      shell="ksh"
+  else
+      shell="unknown"
+  fi
 fi
 
 resolve_link() {
