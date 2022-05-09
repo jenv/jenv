@@ -47,7 +47,7 @@ shopt -s nullglob
 for path in ${JENV_HOOK_PATH//:/$'\n'}; do
 
   case "$shell" in
-  bash )
+  bash | * )
     for script in $path/"$JENV_COMMAND"/*.bash; do
     echo $(realpath $script)
     done

@@ -22,11 +22,17 @@ done
 
 shell="$1"
 if [ -z "$shell" ]; then
-  shell="$(ps -p "$PPID" -o 'args=' 2>/dev/null || true)"
-  shell="${shell%% *}"
-  shell="${shell##-}"
-  shell="${shell:-$SHELL}"
-  shell="${shell##*/}"
+  if [-n "$BASH_VERSIONH"]; then
+      shell="bash"
+  elif [ -n "$ZSH_VERSION"]; then
+      shell="zsh"
+  elif [ -n "FISH_VERSION"]; then
+      shell="fish"
+  elif [ -n "KSH_VERSION"]; then
+      shell="ksh"
+  else
+      shell="unknown"
+  fi
 fi
 
 resolve_link() {
@@ -95,7 +101,7 @@ fish )
   echo "set -e JAVA_HOME"
   echo "set -e JDK_HOME"
   ;;
-bash | zsh )
+bash | zsh | * )
   echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
   echo "export JENV_SHELL=$shell"
   echo "export JENV_LOADED=1"
@@ -137,7 +143,7 @@ function jenv
 end
 EOS
   ;;
-bash | zsh )
+bash | zsh | * )
   IFS="|"
   cat <<EOS
 jenv() {
