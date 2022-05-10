@@ -141,7 +141,7 @@ bash | zsh | * )
   IFS="|"
   cat <<EOS
 jenv() {
-  typeset command
+  type typeset &> /dev/null && typeset command
   command="\$1"
   if [ "\$#" -gt 0 ]; then
     shift
