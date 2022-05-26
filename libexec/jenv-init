@@ -95,7 +95,7 @@ fish )
   echo "set -e JAVA_HOME"
   echo "set -e JDK_HOME"
   ;;
-bash | zsh | * )
+bash | zsh )
   echo 'export PATH="'${JENV_ROOT}'/shims:${PATH}"'
   echo "export JENV_SHELL=$shell"
   echo "export JENV_LOADED=1"
@@ -137,7 +137,7 @@ function jenv
 end
 EOS
   ;;
-bash | zsh | * )
+bash | zsh )
   IFS="|"
   cat <<EOS
 jenv() {
