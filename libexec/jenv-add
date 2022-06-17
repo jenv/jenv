@@ -87,58 +87,11 @@ fi;
 
 if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
     if [ -z "${JENV_ALIAS}" ]; then
-        JAVA_VERSION_OUTPUT=`"${JENV_JAVAPATH}"/bin/java -version 2>&1`
-        JAVA_VERSION=`"${JENV_JAVAPATH}"/bin/java -version 2>&1 | grep 'version' | head -n 1 | cut -d\" -f 2 `
-        JAVA_VERSION=${JAVA_VERSION/_/.}
-
-        case "${JAVA_VERSION_OUTPUT}" in
-            *HotSpot*)                          JAVA_PROVIDER="oracle" ;;
-            *Zulu*)                             JAVA_PROVIDER="zulu" ;;
-            *Zing*)                             JAVA_PROVIDER="zulu_prime" ;;
-            *GraalVM*)                          JAVA_PROVIDER="graalvm" ;;
-            *Corretto*)                         JAVA_PROVIDER="corretto" ;;
-            *sapmachine*)                       JAVA_PROVIDER="sap" ;;
-            *SapMachine*)                       JAVA_PROVIDER="sap" ;;
-            *SAP*)                              JAVA_PROVIDER="sap" ;;
-            *Temurin*)                          JAVA_PROVIDER="temurin" ;;
-            *JBR*)                              JAVA_PROVIDER="jetbrains" ;;
-            *Kona*)                             JAVA_PROVIDER="kona" ;;
-            *OpenLogic*)                        JAVA_PROVIDER="openlogic" ;;
-            *Semeru\ Runtime\ Open*)            JAVA_PROVIDER="semeru" ;;
-            *Semeru\ Runtime\ Certified*)       JAVA_PROVIDER="semeru_certified" ;;
-            *Dragonwell*)                       JAVA_PROVIDER="dragonwell" ;;
-            *J9*)                               JAVA_PROVIDER="ibm" ;;
-            *OpenJDK*)                          JAVA_PROVIDER="openjdk" ;;
-            *)                                  JAVA_PROVIDER="other" ;;
-        esac
+      source jenv-detect-version ${JENV_JAVAPATH}
     fi;
 
-    if [ $JAVA_PROVIDER=="sap" ]; then
-        JAVA_PLATFORM="64"
-    else
-        if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "64-Bit"; then
-            JAVA_PLATFORM="64"
-        else
-            JAVA_PLATFORM="32"
-        fi;
-    fi;
-
-    JENV_ALIAS="${JAVA_PROVIDER}${JAVA_PLATFORM}-${JAVA_VERSION}"
-
-    JAVA_SHORTVERSION=$(sed 's/\([0-9]\.[0-9]\).*/\1/' <<< $JAVA_VERSION)
-    JAVA_SHORTESTVERSION=$(sed 's/\([0-9]\+\)\.\?.*/\1/' <<< $JAVA_VERSION)
-
+    JENV_ALIAS="${JAVA_PROVIDER}-${JAVA_VERSION}-${OS_ARCH}"
     add_alias_check $JENV_ALIAS
-    add_alias_check $JAVA_VERSION
-
-    if [ "$JAVA_SHORTVERSION" != "$JAVA_VERSION" ]; then
-    	add_alias_check $JAVA_SHORTVERSION
-    fi;
-
-    # don't add shortest version for jdk 1.x
-    if [ "$JAVA_SHORTESTVERSION" != 1 -a "$JAVA_SHORTESTVERSION" != "$JAVA_SHORTVERSION" ]; then
-        add_alias_check $JAVA_SHORTESTVERSION
-    fi
 
     if $version_added ; then
     	$(jenv-rehash)
