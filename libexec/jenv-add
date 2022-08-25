@@ -126,7 +126,7 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
     JENV_ALIAS="${JAVA_PROVIDER}${JAVA_PLATFORM}-${JAVA_VERSION}"
 
     JAVA_SHORTVERSION=$(sed 's/\([0-9]\.[0-9]\).*/\1/' <<< $JAVA_VERSION)
-    JAVA_SHORTESTVERSION=$(sed 's/\([0-9]\+\)\.\?.*/\1/' <<< $JAVA_VERSION)
+    JAVA_SHORTESTVERSION=$(sed 's/\([0-9]\{1,\}\)\.\{0,1\}.*/\1/' <<< $JAVA_VERSION)
 
     add_alias_check $JENV_ALIAS
     add_alias_check $JAVA_VERSION
