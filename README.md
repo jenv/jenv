@@ -174,7 +174,7 @@ We'll resume where we left off with Java 11.0.2 installed. Let's [install Java 8
 
 ```bash
 brew install --cask adoptopenjdk8
-brew install --cask caskroom/versions/adoptopenjdk8
+brew install --cask homebrew/cask-versions/adoptopenjdk8
 ```
 
 This will install the latest version of Java 8 to a special directory in macOS. Let's see which directory that is:
