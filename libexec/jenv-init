@@ -149,7 +149,7 @@ jenv() {
 
   case "\$command" in
   ${commands[*]})
-    eval \`jenv "sh-\$command" "\$@"\`;;
+    eval "\`jenv \"sh-\$command\" \"\$@\"\`";;
   *)
     command jenv "\$command" "\$@";;
   esac
