@@ -98,7 +98,7 @@ else
   cwarn 'To fix : \techo '\''eval "$(jenv init -)"'\'' >>' "$profile"
 fi
 
-for plugin in $(ls "${JENV_ROOT}"/plugins/* 2>/dev/null); do
+for plugin in $(command ls "${JENV_ROOT}"/plugins/ 2>/dev/null); do
     pluginName=$(basename $plugin)
     targetLink=$(resolve_link $plugin)
     if [[ ! $targetLink == $JENV_INSTALL_DIR* ]]; then
