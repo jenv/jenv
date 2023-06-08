@@ -56,6 +56,7 @@ function add_alias(){
 	cd "${JENV_JAVAPATH}"
     JENV_JAVAPATH=$PWD
     cd - 2>&1 > /dev/null
+    mkdir -p "${JENV_ROOT}/versions"
 	ln -s  "${JENV_JAVAPATH}" "${JENV_ROOT}/versions/$1"
 	touch ${JENV_ROOT}/$1.time
     cinfo "$1 added"
