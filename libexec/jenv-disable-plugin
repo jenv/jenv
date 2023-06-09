@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Summary: Desactivate a jEnv plugin
+# Summary: Deactivate a jEnv plugin
 # Usage: jenv disable-plugin <pluginName>
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
