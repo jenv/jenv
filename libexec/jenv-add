@@ -4,6 +4,11 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
+if [ "$#" -eq 0 ]; then
+  jenv help add
+  exit 1
+fi
+
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
   echo "--skip-existing"
