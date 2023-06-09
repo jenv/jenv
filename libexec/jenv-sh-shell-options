@@ -7,7 +7,7 @@
 #
 # Sets a shell-specific Java options by setting the `JENV_OPTIONS'
 # environment variable in your shell. This options overrides local
-# application-specific optionss and the global options.
+# application-specific options and the global options.
 #
 # <options> should be a string matching a Java options known to jenv.
 
