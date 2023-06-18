@@ -24,7 +24,24 @@ export JENV_VERSION="$(jenv-version-name)"
 
 export JENV_OPTIONS="$(jenv-options)"    
 
+resolve_link() {
+  $(type -p greadlink readlink | head -1) $@
+}
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"    
+javaHome="$JENV_ROOT/versions/$JENV_VERSION"
+# try to detect system jdk/jre
+if [ "$JENV_VERSION" = "system" ] && [ ! -e "$javaHome" ]; then
+  systemJava=$(resolve_link -f /usr/bin/javac)
+  if [ -e "$systemJava" ]; then
+    javaHome="${systemJava%%/bin/javac}"
+  else
+    systemJava=$(resolve_link -f /usr/bin/java)
+    if [ -e "$systemJava" ]; then
+      javaHome="${systemJava%%/bin/java}"
+    fi
+  fi
+fi
+
+export JAVA_HOME="$javaHome" 
 
 echo $JAVA_HOME
