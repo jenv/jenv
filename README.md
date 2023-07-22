@@ -71,7 +71,7 @@ $ jenv doctor
 
 Observe that `jenv` is correctly loaded but Java is not yet installed.
 
-To make sure `JAVA_HOME` is set, make sure to enable the `export` plugin:
+To make sure `JAVA_HOME` is set, make sure to enable the `export` [plugin](#22-using-plugins):
 
 ```bash
 jenv enable-plugin export
@@ -202,8 +202,35 @@ $ jenv versions
   openjdk64-11.0.2
   oracle64-1.8.0.202-ea
 ```
+#### 2.2 Using plugins
 
-#### 2.2 Other Workflows
+Enable the `export` plugin to export `JAVA_HOME`:
+
+```bash
+jenv enable-plugin export
+```
+
+Enable the `maven` plugin to ensure that jenv works properly with Maven(instead of using system JDK):
+```bash
+jenv enable-plugin maven
+```
+
+Enable the `gradle` plugin:
+```bash
+jenv enable-plugin gradle
+```
+
+Disable a certain plugin:
+```bash
+jenv disable-plugin <plugin-name>
+```
+
+Get all available plugins:
+```bash
+jenv plugins
+```
+
+#### 2.3 Other Workflows
 
 Please contribute your own using a pull request!
 
