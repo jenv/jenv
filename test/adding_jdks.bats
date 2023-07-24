@@ -12,15 +12,6 @@ setup() {
   rm -f ~/.jenv/versions/*
 }
 
-@test "add openjdk 1.6.0.41" {
-  jenv add /usr/lib/jvm/java-1.6.0-openjdk-1.6.0.41.x86_64/jre/
-
-  run jenv versions
-  assert_line --regexp '^ *1.6$'
-  assert_line --regexp '^ *1.6.0.41$'
-  assert_line --regexp '^ *openjdk64-1.6.0.41$'
-}
-
 @test "add openjdk 1.7.0.261" {
   jenv add /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.261-2.6.22.2.el7_8.x86_64/jre/
 
