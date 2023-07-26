@@ -1,5 +1,8 @@
 #!/usr/bin/env bats
 
+load 'test_helper/bats-support/load'
+load 'test_helper/bats-assert/load'
+
 setup() {
   export tmp_dir_1=`mktemp -d`
   export tmp_dir_2=`mktemp -d`
@@ -34,6 +37,7 @@ teardown() {
 
   jenv local 18
 
+  assert_equal "$(jenv version-name)" 18
   [ $(realpath $(jenv javahome)) = "/usr/lib/jvm/zulu18-ca" ]
 }
 
@@ -49,6 +53,7 @@ teardown() {
 
   cd $tmp_dir_2
 
+  assert_equal "$(jenv version-name)" 11
   [ $(realpath $(jenv javahome)) = "/usr/lib/jvm/graalvm-ce-java11-22.3.3" ]
 }
 
@@ -57,7 +62,10 @@ teardown() {
   jenv add /usr/lib/jvm/zulu18/
 
   jenv global 11
-  
+
+  output=$(jenv shell 18 && jenv version-name)
+  assert_equal $output 18
+
   output=$(jenv shell 18 && realpath $(jenv javahome))
   [ $output = "/usr/lib/jvm/zulu18-ca" ]
 }
@@ -70,5 +78,6 @@ teardown() {
   
   $(jenv shell 18)
 
+  assert_equal "$(jenv version-name)" 11
   [ $(realpath $(jenv javahome)) = "/usr/lib/jvm/graalvm-ce-java11-22.3.3" ]
 }
