@@ -1,16 +1,9 @@
 #!/usr/bin/env bats
 
-setup_file() {
-  export _ARCH="$(arch)"
-}
+load 'test_helper/bats-support/load'
+load 'test_helper/bats-assert/load'
 
-setup() {
-  load 'test_helper/bats-support/load'
-  load 'test_helper/bats-assert/load'
-
-  export PATH=$HOME/.jenv/bin/:$PATH
-  eval "$(jenv init -)"
-
+teardown() {
   jenv global --unset
   jenv shell --unset
   rm -f ~/.jenv/versions/*

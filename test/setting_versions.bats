@@ -1,19 +1,24 @@
 #!/usr/bin/env bats
 
 setup() {
-  export PATH=$HOME/.jenv/bin/:$PATH
+  export tmp_dir_1=`mktemp -d`
+  export tmp_dir_2=`mktemp -d`
+}
 
-  eval "$(jenv init -)"
+teardown() {
   jenv global --unset
   jenv shell --unset
   rm -f ~/.jenv/versions/*
+
+  rm -rf $tmp_dir_1 $tmp_dir_2
 }
 
 @test "global version is set globally" {
   jenv add /usr/lib/jvm/graalvm-ce-java11-22.3.3/
 
   jenv global 11
-  cd `mktemp -d`
+
+  cd $tmp_dir_1
 
   assert_equal "$(jenv version-name)" 11
   [ $(realpath $(jenv javahome)) = "/usr/lib/jvm/graalvm-ce-java11-22.3.3" ]
@@ -25,7 +30,8 @@ setup() {
 
   jenv global 11
 
-  cd `mktemp -d`
+  cd $tmp_dir_1
+
   jenv local 18
 
   [ $(realpath $(jenv javahome)) = "/usr/lib/jvm/zulu18-ca" ]
@@ -37,10 +43,11 @@ setup() {
 
   jenv global 11
 
-  cd `mktemp -d`
+  cd $tmp_dir_1
+
   jenv local 18
 
-  cd `mktemp -d`
+  cd $tmp_dir_2
 
   [ $(realpath $(jenv javahome)) = "/usr/lib/jvm/graalvm-ce-java11-22.3.3" ]
 }
