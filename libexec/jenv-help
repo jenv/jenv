@@ -143,7 +143,7 @@ if [ -z "$1" ] || [ "$1" == "jenv" ]; then
   [ -z "$usage" ] || exit
   echo
   echo "Some useful jenv commands are:"
-  print_summaries commands local global shell install uninstall rehash version versions which whence add
+  print_summaries commands local global shell install uninstall rehash version versions which whence add remove
   echo
   echo "See \`jenv help <command>' for information on a specific command."
   echo "For full documentation, see: https://github.com/jenv/jenv/blob/master/README.md"
