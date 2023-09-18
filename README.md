@@ -69,9 +69,9 @@ $ jenv doctor
 [OK]	Jenv is correctly loaded
 ```
 
-Observe that `jenv` is correctly loaded but Java is not yet installed.
+Observe that `jenv` is correctly loaded but Java is not yet installed. To rememedy this, see "[Adding Your Java Environment](#12-adding-your-java-environment)" below.
 
-To make sure `JAVA_HOME` is set, make sure to enable the `export` plugin:
+To have `JAVA_HOME` get set by jEnv, enable the `export` plugin:
 
 ```bash
 jenv enable-plugin export
