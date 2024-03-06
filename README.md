@@ -48,6 +48,13 @@ Alternatively, and on Linux, you can install it from source :
 
 ```bash
 git clone https://github.com/jenv/jenv.git ~/.jenv
+```
+
+####  1.2 Configuring your shell
+
+jEnv needs to be intialised in your shell by evalling the output of `jenv init -`. e.g.
+
+```bash
 # Shell: bash
 echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
 echo 'eval "$(jenv init -)"' >> ~/.bash_profile
@@ -58,7 +65,7 @@ echo 'eval "$(jenv init -)"' >> ~/.zshrc
 
 Restart your shell by closing and reopening your terminal window or running `exec $SHELL -l` in the current session for the changes to take effect.
 
-To verify `jenv` was installed, run `jenv doctor`. On a macOS machine, you'll observe the following output:
+To verify `jenv` was installed and initialised, run `jenv doctor`. On a macOS machine, you'll observe the following output:
 
 ```bash
 $ jenv doctor
@@ -92,7 +99,7 @@ echo 'status --is-interactive; and jenv init - | source' >> ~/.config/fish/confi
 cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
 ```
 
-#### 1.2 Adding Your Java Environment
+#### 1.3 Adding Your Java Environment
 
 Use `jenv add` to inform `jenv` where your Java environment is located. `jenv` does not, by itself, install Java.
 
@@ -141,7 +148,7 @@ If you executed this commands inside your `$HOME` directory, you can now delete 
 rm .java-version
 ```
 
-#### 1.3 Setting a Global Java Version
+#### 1.4 Setting a Global Java Version
 
 Use `jenv global VERSION` to set a global Java version:
 
@@ -154,7 +161,7 @@ When you next open a shell or terminal window, this version of Java will be the 
 On macOS, this sets `JAVA_HOME` for GUI applications on macOS using `jenv macos-javahome`. Integrates [this tutorial](https://www.ibm.com/support/knowledgecenter/en/SSPJLC_7.6.2/com.ibm.si.mpl.doc/tshoot/ts_java_home.html) to create a file that does **not update dynamically** depending on what local or shell version of Java is set, only global.
 
 
-#### 1.4 Setting a Shell Java Version
+#### 1.5 Setting a Shell Java Version
 
 Use `jenv shell VERSION` to set the Java used in this particular shell session:
 
