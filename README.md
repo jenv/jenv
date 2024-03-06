@@ -63,7 +63,18 @@ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(jenv init -)"' >> ~/.zshrc
 ```
 
+To have `JAVA_HOME` get set by jEnv, enable the `export` plugin. This needs to be done in an initialised shell:
+
+```bash
+eval "$(jenv init -)"
+jenv enable-plugin export
+```
+
 Restart your shell by closing and reopening your terminal window or running `exec $SHELL -l` in the current session for the changes to take effect.
+
+```bash
+exec $SHELL -l
+```
 
 To verify `jenv` was installed and initialised, run `jenv doctor`. On a macOS machine, you'll observe the following output:
 
@@ -76,20 +87,11 @@ $ jenv doctor
 [OK]	Jenv is correctly loaded
 ```
 
-Observe that `jenv` is correctly loaded but Java is not yet installed. To rememedy this, see "[Adding Your Java Environment](#12-adding-your-java-environment)" below.
-
-To have `JAVA_HOME` get set by jEnv, enable the `export` plugin:
-
-```bash
-jenv enable-plugin export
-exec $SHELL -l
-```
+Observe that `jenv` is correctly loaded but Java is not yet installed. To rememedy this, see "[Adding Your Java Environment](#13-adding-your-java-environment)" below.
 
 Problem? Please visit the [Trouble Shooting](https://github.com/jenv/jenv/wiki/Trouble-Shooting) Wiki page.
 
-Continue to the next section to install java.
-
-
+##### Support for fish
 
 **Untested**: While this fork has improved `fish` shell support, it has not been tested by this maintainer. To install `jenv` for Fish according to the contributor's instructions:
 
