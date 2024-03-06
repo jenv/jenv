@@ -5,7 +5,7 @@ set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
 if [ "$#" -eq 0 ]; then
-  jenv help add
+  jenv-help --usage add >&2
   exit 1
 fi
 
