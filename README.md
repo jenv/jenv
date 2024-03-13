@@ -38,13 +38,19 @@ Follow the steps below to get a working `jenv` installation with knowledge of yo
 
 #### 1.1 Installing `jenv`
 
-On macOS, the simpler way to install jEnv is using [Homebrew](https://brew.sh)
+On macOS, you can install jEnv using [Homebrew](https://brew.sh):
 
 ```bash
 brew install jenv
 ```
 
-Alternatively, and on Linux, you can install it from source :
+Or if you use [MacPorts](https://www.macports.org) on macOS:
+
+```bash
+sudo port install jenv
+```
+
+Alternatively, and on Linux, you can install it from source:
 
 ```bash
 git clone https://github.com/jenv/jenv.git ~/.jenv
