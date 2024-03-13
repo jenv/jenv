@@ -88,7 +88,7 @@ To verify `jenv` was installed and initialised, run `jenv doctor`. On a macOS ma
 $ jenv doctor
 [OK]	No JAVA_HOME set
 [ERROR]	Java binary in path is not in the jenv shims.
-[ERROR]	Please check your path, or try using /path/to/java/home is not a valid path to java installation.
+[ERROR]	Please check your path, or try using `jenv add /path/to/java/home`
 	PATH : /Users/user/.jenv/libexec:/Users/user/.jenv/shims:/Users/user/.jenv/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 [OK]	Jenv is correctly loaded
 ```
