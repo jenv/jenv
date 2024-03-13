@@ -59,7 +59,7 @@
 					<ul>	
 						<li><a class="FlattrButton" style="display:none;" rev="flattr;button:compact;" href="http://github.com/jenv/jenv"></a></li>
 						<li><i class="icon-home"></i><a href="http://www.jenv.be">http://www.jenv.be</a></li>
-						<li><i class="icon-github"></i><a href="https://github.com/gcuisinier/jenv">https://github.com/jenv/jenv</a></li>
+						<li><i class="icon-github"></i><a href="https://github.com/jenv/jenv">https://github.com/jenv/jenv</a></li>
 						<li><i class="icon-twitter"></i><a href="https://twitter.com/gcuisinier">@gcuisinier</a></li>
 					</ul>
 				</div>
@@ -80,7 +80,7 @@
 
 			<article class="row-fluid">
 				<header class="span3">
-					<h3>Installation</h3>
+					<h3>Install jEnv</h3>
 				</header>
 				<div class="span9">
 					<h4>Linux / OS X</h4>
@@ -92,7 +92,7 @@
 
 			<article class="row-fluid">
 				<header class="span3">
-					<h3>Installation</h3>
+					<h3>Configure your shell</h3>
 				</header>
 				<div class="span9">
 					<h4>Bash</h4>
@@ -105,12 +105,23 @@ $ echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 $ echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
 $ echo 'eval "$(jenv init -)"' >> ~/.zshrc
 </pre>
+					<h4>Enable the export plugin</h4>
+<pre class="code">
+$ eval "$(jenv init -)"
+$ jenv enable-plugin export
+</pre>
+					<h4>Restart your shell</h4>
+<pre class="code">
+$ exec $SHELL -l
+</pre>
+				</div>
+                <div class="span9">
 				</div>
 			</article>
 
 			<article class="row-fluid">
 				<header class="span3">
-					<h3>Configure</h3>
+					<h3>Add JDKs/JREs</h3>
 				</header>
 				<div class="span9">
 <pre class="code">
@@ -146,7 +157,7 @@ $ jenv versions
 			<article class="row-fluid">
 				<div class="span12" style="text-align:center">
 					<p class="welcome">
-						<a href="https://github.com/gcuisinier/jenv/wiki">Further Documentation</a>
+						<a href="https://github.com/jenv/jenv/wiki">Further Documentation</a>
 					</p>
 				</div>
 			</article>
@@ -175,7 +186,7 @@ $ jenv versions
 					<ul style="padding-top:10px">
 						<li>
 							<i class="icon-arrow-right"></i>
-							<a href="https://github.com/gcuisinier/jenv/issues">jEnv issues</a>
+							<a href="https://github.com/jenv/jenv/issues">jEnv issues</a>
 						</li>
 					</ul>
 				</div>
