@@ -33,7 +33,9 @@ JENV_COMMAND="$1"
 export JENV_OPTIONS="$(jenv-options)"    
 
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"    
+if [ "$JENV_VERSION" != "system" ]; then
+  export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
+fi
 
 if [ -z "$JENV_COMMAND" ]; then
   jenv-help --usage exec >&2
