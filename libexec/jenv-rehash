@@ -31,41 +31,6 @@ remove_prototype_shim() {
   rm -f "$PROTOTYPE_SHIM_PATH"
 }                               
 
-remove_from_path() {
-  local path_to_remove="$(expand_path "$1")"
-  local result=""
-
-  if [ -z "$path_to_remove" ]; then
-    echo "${PATH}"
-    return
-  fi
-
-  local paths
-  IFS=: paths=($PATH)
-
-  for path in "${paths[@]}"; do
-    path="$(expand_path "$path" || true)"
-    if [ -n "$path" ] && [ "$path" != "$path_to_remove" ]; then
-      result="${result}${path}:"
-    fi
-  done
-
-  echo "${result%:}"
-}
-
-expand_path() {
-  if [ ! -d "$1" ]; then
-    return 1
-  fi
-
-  local cwd="$(pwd)"
-  cd "$1"
-  pwd
-  cd "$cwd"
-}
-                                    
-
-
 # The prototype shim file is a script that re-execs itself, passing
 # its filename and any arguments to `jenv exec`. This file is
 # hard-linked for every executable and then removed. The linking

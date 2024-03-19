@@ -17,20 +17,21 @@ exportVariable(){
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
-  exec jenv shims --short
+  exec jenv-shims --short
 fi
 
-export JENV_VERSION="$(jenv-version-name)"
+export JENV_VERSION
+JENV_VERSION="$(jenv-version-name 2>/dev/null)" || :
 
 export JENV_OPTIONS="$(jenv-options)"
 
 JENV_COMMAND="$1"
 
-if [ "$JENV_VERSION" != "system" ]; then
-  export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
-fi
 
-JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"
+if ! JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")" ; then
+  echo "Unable to find command $JENV_COMMAND for version $JENV_VERSION" >&2
+  exit 1
+fi
 JENV_BIN_PATH="${JENV_COMMAND_PATH%/*}"
 
 for script in $(jenv-hooks exec); do
@@ -43,7 +44,7 @@ if [ "$JENV_VERSION" != "system" ]; then
 fi
 echo "Jenv will exec : $JENV_COMMAND_PATH $JENV_OPTIONS $@"
 echo "Exported variables :"
-echo "  JAVA_HOME=$JAVA_HOME"
+echo "  JAVA_HOME=$(jenv javahome)"
 while IFS=':' read -ra ADDR; do
       for i in "${ADDR[@]}"; do
       	  if [ -n "$i" ]; then

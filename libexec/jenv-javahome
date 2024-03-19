@@ -7,24 +7,70 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
-exportVariable(){
-   exportedValues="$exportedValues:$1"
-   export "$1"="$2"
+resolve_path() {
+  local path="$1"
+  realpath "$path" 2>/dev/null \
+    || readlink -f "$path" 2>/dev/null \
+    || greadlink -f "$path" 2>/dev/null \
+    || { [ -d "$path" ] && (cd -P "$path" && pwd) } \
+    || (
+        local resolver
+        resolver=$(type -p greadlink 2>/dev/null || type -p readlink 2>/dev/null) || :
+        local name
+        while [ -n "$path" ]; do
+          cd -P "${path%/*}"
+          name="${path##*/}"
+          if [ -n "$resolver" ]
+          then
+            path="$("$resolver" "$name" || true)"
+          else
+            path=""
+          fi
+        done
+
+        echo "$(pwd)/$name"
+       )
 }
 
-# Provide jenv completions
-if [ "$1" = "--complete" ]; then
-  exec jenv shims --short
+version=$JENV_VERSION
+[ -z "$version" ] && version="$(jenv-version-name)"
+
+home=""
+if [ "$version" = "system" ]; then
+  if sys_java=$(type -ap java \
+    | awk '$1 !~ "'"${JENV_ROOT}/shims"'" { print $1; exit }'); then
+
+    case "$sys_java" in
+      /bin/java | /usr/bin/java | /usr/local/bin/java | /sbin/java | /usr/sbin/java | /usr/local/sbin/java)
+        sys_java="$(resolve_path "$sys_java" 2>/dev/null)"
+        case "$sys_java" in
+          /bin/java | /usr/bin/java | /usr/local/bin/java | /sbin/java | /usr/sbin/java | /usr/local/sbin/java)
+            sys_java=""
+            ;;
+          *)
+            ;;
+        esac
+        ;;
+      *)
+        ;;
+    esac
+  fi
+
+  if [ -z "$sys_java" ] && [ -f "/usr/libexec/java_home" ] && [ -x "/usr/libexec/java_home" ]; then
+    sys_java="$(/usr/libexec/java_home 2>/dev/null)" || true
+  fi
+
+  if [ -z "$sys_java" ] && type -t update-alternatives >/dev/null; then
+    sys_java=$(update-alternatives --query java 2>/dev/null | sed -n '/^Best:/{s/Best: *//;s/\/bin\/java//;p;}')
+  fi
+
+  if [ -n "$sys_java" ]; then
+    home=$(dirname "$(dirname "$sys_java")")
+  else
+    home=$JAVA_HOME
+  fi
+else
+  home="$JENV_ROOT/versions/$version"
 fi
 
-export JENV_VERSION="$(jenv-version-name)"
-
-export JENV_OPTIONS="$(jenv-options)"
-
-if [ "$JENV_VERSION" == "system" ]; then
-  echo "Using system JDK, no JAVA_HOME set!"
-  exit 1
-fi
-
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
-echo "$JAVA_HOME"
+echo "$home"
