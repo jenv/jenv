@@ -62,8 +62,6 @@ JAVA_BIN=`command -v java`
 
 EXPECTED_JAVA="$JENV_ROOT/shims/java"
 
-
-
 if [ "$EXPECTED_JAVA" = "$JAVA_BIN" ] ; then
   cinfo "Java binaries in path are jenv shims"
 else
@@ -98,11 +96,14 @@ else
   cwarn 'To fix : \techo '\''eval "$(jenv init -)"'\'' >>' "$profile"
 fi
 
-for plugin in $(command ls "${JENV_ROOT}"/plugins/ 2>/dev/null); do
-    pluginName=$(basename $plugin)
-    targetLink=$(resolve_link $plugin)
-    if [[ ! $targetLink == $JENV_INSTALL_DIR* ]]; then
+shopt -s nullglob
+for plugin in "$JENV_ROOT"/plugins/*; do
+    pluginName=$(basename "$plugin")
+    if ! targetLink=$(resolve_link "$plugin"); then
+        cwarn "Plugin $pluginName is not linked to a jenv installation"
+    elif [[ ! $targetLink == $JENV_INSTALL_DIR* ]]; then
         cwarn "Plugin $pluginName is linked to older jenv installation"
         cfix "Please execute : jenv disable-plugin $pluginName && jenv enable-plugin $pluginName"
     fi
 done
+shopt -u nullglob
