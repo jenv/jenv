@@ -119,7 +119,7 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
         esac
     fi;
 
-    if [ $JAVA_PROVIDER=="sap" ]; then
+    if [ $JAVA_PROVIDER == "sap" ]; then
         JAVA_PLATFORM="64"
     else
         if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "64-Bit"; then
