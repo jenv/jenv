@@ -111,23 +111,26 @@ cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
 
 Use `jenv add` to inform `jenv` where your Java environment is located. `jenv` does not, by itself, install Java.
 
-For example, on macOS, use `brew` to install the latest Java (OpenJDK 11) followed by the appropriate `jenv add PATH_TO_JVM_HOME` command to recognize it.
+For example, on macOS, use `brew` to install the latest Java (OpenJDK 21, also follow the caveat steps to symlink into the system virtual machines) followed by the appropriate `jenv add PATH_TO_JVM_HOME` command to recognize it.
 
 ```bash
-brew install --cask java
-jenv add "$(/usr/libexec/java_home)"
+brew install java
+sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+jenv add "$(/usr/libexec/java_home)" # this will always default to the latest version in /Library/Java/JavaVirtualMachines
+# or
+# jenv add /Library/Java/JavaVirtualMachines/openjdk.jdk
 ```
 
-With macOS OpenJDK 11.0.2 installed, for example, either of these commands will add `/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home` as a valid JVM. Your JVM directory may vary!
+With macOS OpenJDK 21.0.2 installed, for example, either of these commands will add `/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home` as a valid JVM. Your JVM directory may vary!
 
 Observe now that this version of Java is added to your `jenv versions` command:
 
 ```bash
 $ jenv versions
 * system (set by /Users/user/.jenv/version)
-  11.0
-  11.0.2
-  openjdk64-11.0.2
+  21.0
+  21.0.2
+  openjdk64-21.0.2
 ```
 
 By default, the latest version of Java is your `system` Java on macOS.
@@ -135,46 +138,87 @@ By default, the latest version of Java is your `system` Java on macOS.
 We'll now set a `jenv local VERSION` local Java version for the current working directory. This will create a `.java-version` file we can check into Git for our projects, and `jenv` will load it correctly **when a shell is started from this directory**.
 
 ```bash
-$ jenv local 11.0.2
-$ exec $SHELL -l
+$ jenv local 21.0.2
 $ cat .java-version
-11.0.2
+21.0.2
 ```
 
 Is `JAVA_HOME` set?
 
 ```bash
 $ echo ${JAVA_HOME}
-/Users/bberman/.jenv/versions/11.0.2
+/Users/bberman/.jenv/versions/21.0.2
 ```
 
-Yes! Observe that `JAVA_HOME` is set to a valid shim directory. Unlike the main repository's documentation we helpfully installed the `export` plugin, and we now have the most important `jenv` features covered.
+Yes! Observe that `JAVA_HOME` is set to a valid shim directory - this is a result of enabling the `export` plugin.
 
 If you executed this commands inside your `$HOME` directory, you can now delete `.java-version`:
 
 ```bash
+jenv local --unset
+# or
 rm .java-version
 ```
 
-#### 1.4 Setting a Global Java Version
+#### 1.4 Setting Java versions
 
-Use `jenv global VERSION` to set a global Java version:
+`jenv` can set Java versions at 3 levels:
+- global (lowest priority)
+- local
+- shell (highest priority)
+
+Where multiple versions are set, the highest priority setting as above takes effect.
+
+For example if the global version was 17 and the shell version was 11, 11 would be used.
+
+##### 1.4.1 Setting a Global Java Version
+
+Use `jenv global VERSION` to set a global, default Java version:
 
 ```bash
-jenv global 11.0.2
+jenv global 21.0.2
 ```
 
 When you next open a shell or terminal window, this version of Java will be the default.
 
 On macOS, this sets `JAVA_HOME` for GUI applications on macOS using `jenv macos-javahome`. Integrates [this tutorial](https://www.ibm.com/support/knowledgecenter/en/SSPJLC_7.6.2/com.ibm.si.mpl.doc/tshoot/ts_java_home.html) to create a file that does **not update dynamically** depending on what local or shell version of Java is set, only global.
 
+It can be unset with
+```bash
+jenv global --unset
+```
 
-#### 1.5 Setting a Shell Java Version
+##### 1.4.2 Setting a local Java Version
+
+Use `jenv local VERSION` to set the Java used in this folder.
+
+This version will activate whenever you `cd` into the follder. This is useful in the root of projects, for example where you would typically run a
+`./gradlew build` or `./mvnw package` command from.
+
+```bash
+jenv local 21.0.2
+```
+
+This can be unset with
+```bash
+jenv local --unset
+# or
+unset .java-version
+```
+
+##### 1.4.3 Setting a Shell Java Version
 
 Use `jenv shell VERSION` to set the Java used in this particular shell session:
 
 ```bash
-jenv shell 11.0.2
+jenv shell 21.0.2
+```
+
+This can be unset with
+```bash
+jenv shell --unset
+# or
+unset JENV_VERSION
 ```
 
 ### 2 Common Workflows
@@ -185,25 +229,25 @@ These common workflows demonstrate how to use `jenv` to solve common problems.
 
 Our goal is to have both the latest version of Java and JDK 8 installed at the same time. This is helpful for developing Android applications, whose build tools are sensitive to using an exact Java version.
 
-We'll resume where we left off with Java 11.0.2 installed. Let's [install Java 8](https://stackoverflow.com/questions/24342886/how-to-install-java-8-on-mac) now:
+We'll resume where we left off with Java 21.0.2 installed. Let's install Java 8 from brew and symlink it into the Library folder per the caveats.
 
 ```bash
-brew install --cask adoptopenjdk8
-brew install --cask homebrew/cask-versions/adoptopenjdk8
+brew install openjdk@8
+sudo ln -sfn /usr/local/opt/openjdk@8/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-8.jdk
 ```
 
 This will install the latest version of Java 8 to a special directory in macOS. Let's see which directory that is:
 
 ```bash
 $ ls -1 /Library/Java/JavaVirtualMachines 
-adoptopenjdk-8.jdk
-openjdk-11.0.2.jdk
+openjdk-8.jdk
+openjdk.jdk
 ```
 
-Observe the `adoptopenjdk-8.jdk` directory. **Your exact version may vary**. We cannot retrieve this using `/usr/libexec/java_home`, unfortunately. We'll add the Java home directory using `jenv` so that it shows up in our `jenv versions` command:
+Observe the `openjdk-8.jdk` directory. **Your exact version may vary**. We cannot retrieve this using `/usr/libexec/java_home`, unfortunately. We'll add the Java home directory using `jenv` so that it shows up in our `jenv versions` command:
 
 ```bash
-$ jenv add /Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
+$ jenv add /Library/Java/JavaVirtualMachines/openjdk-8.jdk/Contents/Home/
 openjdk64-1.8.0.222 added
 1.8.0.222 added
 1.8 added
@@ -212,10 +256,10 @@ $ jenv versions
   1.8
   1.8.0.222
   openjdk64-1.8.0.222
-  11.0
-  11.0.2
-  openjdk64-11.0.2
-  oracle64-1.8.0.202-ea
+  21
+  21.0
+  21.0.2
+  openjdk64-21.0.2
 ```
 
 #### 2.2 Other Workflows
