@@ -11,15 +11,14 @@
 #   jenv exec java -jar myjar.jar
 #
 # is equivalent to:
-#   PATH="$JENV_ROOT/versions/oracle-1.6.3/bin:$PATH" java -jar myjar.jar 
+#   PATH="$JENV_ROOT/versions/oracle-1.6.3/bin:$PATH" java -jar myjar.jar
 
 set -e
-[ -n "$JENV_DEBUG" ] && set -x      
+[ -n "$JENV_DEBUG" ] && set -x
 
-
-exportVariable(){   
+exportVariable(){
    exportedValues="$exportedValues:$1"
-   export $1="$2 $3 $4 $5 $6 $7 $8 $9"
+   export "$1"="$2"
 }
 
 # Provide jenv completions
@@ -28,10 +27,9 @@ if [ "$1" = "--complete" ]; then
 fi
 
 export JENV_VERSION="$(jenv-version-name)"
-JENV_COMMAND="$1" 
+JENV_COMMAND="$1"
 
-export JENV_OPTIONS="$(jenv-options)"    
-
+export JENV_OPTIONS="$(jenv-options)"
 
 if [ "$JENV_VERSION" != "system" ]; then
   export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
