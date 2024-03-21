@@ -35,10 +35,8 @@ set -e
 exportedValues=""
 
 exportVariable(){
-echo $exportedValues
- #  echo $1, $2, $3
    exportedValues="$exportedValues:$1"
-   export $1="$2 $3 $4 $5 $6 $7 $8 $9"
+   export "$1"="$2"
 
 }
 

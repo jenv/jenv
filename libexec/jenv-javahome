@@ -5,13 +5,11 @@
 # Usage: jenv javahome
 #
 set -e
-[ -n "$JENV_DEBUG" ] && set -x      
+[ -n "$JENV_DEBUG" ] && set -x
 
-
-exportVariable(){   
-echo $exportedValues
+exportVariable(){
    exportedValues="$exportedValues:$1"
-   export $1="$2 $3 $4 $5 $6 $7 $8 $9"
+   export "$1"="$2"
 }
 
 # Provide jenv completions
@@ -21,9 +19,7 @@ fi
 
 export JENV_VERSION="$(jenv-version-name)"
 
-
-export JENV_OPTIONS="$(jenv-options)"    
-
+export JENV_OPTIONS="$(jenv-options)"
 
 if [ "$JENV_VERSION" == "system" ]; then
   echo "Using system JDK, no JAVA_HOME set!"
@@ -31,4 +27,4 @@ if [ "$JENV_VERSION" == "system" ]; then
 fi
 
 export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
-echo $JAVA_HOME
+echo "$JAVA_HOME"
