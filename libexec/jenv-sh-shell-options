@@ -28,7 +28,14 @@ if [ -z "$options" ]; then
 fi
 
 if [ "$options" = "--unset" ]; then
-  echo "unset JENV_OPTIONS"
+  case "$JENV_SHELL" in
+    bash|zsh)
+      echo "unset JENV_OPTIONS"
+      ;;
+    fish)
+      echo "set -e JENV_OPTIONS || true"
+      ;;
+  esac
   exit
 fi
 
