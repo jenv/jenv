@@ -14,17 +14,21 @@ exportVariable(){
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
-  exec jenv shims --short
+  echo "--detail"
 fi
 
-export JENV_VERSION="$(jenv-version-name)"
+export JENV_VERSION
+JENV_VERSION="$(jenv-version-name)"
 
 export JENV_OPTIONS="$(jenv-options)"
 
-if [ "$JENV_VERSION" == "system" ]; then
-  echo "Using system JDK, no JAVA_HOME set!"
-  exit 1
+export JAVA_HOME
+if [ "$JENV_VERSION" != "system" ]; then
+  JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
 fi
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
-echo "$JAVA_HOME"
+if [ "$1" = "--detail" ]; then
+  echo "$JENV_VERSION" "$JAVA_HOME"
+else
+  echo "$JAVA_HOME"
+fi

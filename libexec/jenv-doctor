@@ -45,8 +45,10 @@ exportVariable(){
 #  exec jenv shims --short
 #fi
 
-
-if [[ ! -z "$JAVA_HOME" ]] ; then
+jvn=$(jenv-version-name) || :
+if [[ "system" == "$jvn" ]] ; then
+  cinfo "JAVA_HOME not managed by jenv, version is system"
+elif [[ -n "$JAVA_HOME" ]] ; then
   if [[ -z "$JENV_FORCEJAVAHOME" ]] ; then
     cwarn "JAVA_HOME variable already set, scripts that use it directly could not use java version set by jenv"
   else

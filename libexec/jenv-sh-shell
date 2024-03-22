@@ -36,7 +36,14 @@ if [ -z "$version" ]; then
 fi
 
 if [ "$version" = "--unset" ]; then
-  echo "unset JENV_VERSION"
+  case "$JENV_SHELL" in
+    bash|zsh)
+      echo "unset JENV_VERSION"
+      ;;
+    fish)
+      echo "set -e JENV_VERSION || true"
+      ;;
+  esac
   exit
 fi
 
