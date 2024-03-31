@@ -15,39 +15,6 @@ if [ "$1" = "--complete" ]; then
   exec jenv shims --short
 fi
 
-expand_path() {
-  if [ ! -d "$1" ]; then
-    return 1
-  fi
-
-  local cwd="$(pwd)"
-  cd "$1"
-  pwd
-  cd "$cwd"
-}
-
-remove_from_path() {
-  local path_to_remove="$(expand_path "$1")"
-  local result=""
-
-  if [ -z "$path_to_remove" ]; then
-    echo "${PATH}"
-    return
-  fi
-
-  local paths
-  IFS=: paths=($PATH)
-
-  for path in "${paths[@]}"; do
-    path="$(expand_path "$path" || true)"
-    if [ -n "$path" ] && [ "$path" != "$path_to_remove" ]; then
-      result="${result}${path}:"
-    fi
-  done
-
-  echo "${result%:}"
-}
-
 JENV_VERSION="$(jenv-version-name)"
 JENV_COMMAND="$1"
 
@@ -57,15 +24,14 @@ if [ -z "$JENV_COMMAND" ]; then
 fi
 
 if [ "$JENV_VERSION" = "system" ]; then
-  PATH="$(remove_from_path "${JENV_ROOT}/shims")"
-  JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"
+  JENV_COMMAND_PATH=$(type -ap "$JENV_COMMAND" \
+    | awk '$1 !~ "'"${JENV_ROOT}/shims"'" { print $1; exit }') || true
 else
   JENV_COMMAND_PATH="${JENV_ROOT}/versions/${JENV_VERSION}/bin/${JENV_COMMAND}"
   if ! [ -x "$JENV_COMMAND_PATH" ]; then
-   	PATH="$(remove_from_path "${JENV_ROOT}/shims")"
-	JENV_COMMAND_PATH="$(command -v "$JENV_COMMAND" || true)"   
+    JENV_COMMAND_PATH=$(type -ap "$JENV_COMMAND" \
+      | awk '$1 !~ "'"${JENV_ROOT}/shims"'" { print $1; exit }') || true
   fi
-  
 fi
 
 for script in $(jenv-hooks which); do

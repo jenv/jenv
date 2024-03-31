@@ -26,30 +26,26 @@ if [ "$1" = "--complete" ]; then
   exec jenv shims --short
 fi
 
-export JENV_VERSION="$(jenv-version-name)"
 JENV_COMMAND="$1"
-
-export JENV_OPTIONS="$(jenv-options)"
-
-if [ "$JENV_VERSION" != "system" ]; then
-  export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
-fi
 
 if [ -z "$JENV_COMMAND" ]; then
   jenv-help --usage exec >&2
   exit 1
 fi
 
+export JENV_VERSION="$(jenv-version-name)"
+
+export JENV_OPTIONS="$(jenv-options)"
+
+export JAVA_HOME=$(jenv-javahome)
+
 JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"
 JENV_BIN_PATH="${JENV_COMMAND_PATH%/*}"
+export PATH="${JENV_BIN_PATH}:${PATH}"
 
 for script in $(jenv-hooks exec); do
-
-source "$script"
+  source "$script"
 done
 
 shift 1
-if [ "$JENV_VERSION" != "system" ]; then
-  export PATH="${JENV_BIN_PATH}:${PATH}"
-fi
 exec -a "$JENV_COMMAND" "$JENV_COMMAND_PATH" $JENV_OPTIONS "$@"
