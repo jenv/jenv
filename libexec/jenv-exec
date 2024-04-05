@@ -41,7 +41,6 @@ if [ -z "$JENV_COMMAND" ]; then
 fi
 
 JENV_COMMAND_PATH="$(jenv-which "$JENV_COMMAND")"
-JENV_BIN_PATH="${JENV_COMMAND_PATH%/*}"
 
 for script in $(jenv-hooks exec); do
 
@@ -50,6 +49,6 @@ done
 
 shift 1
 if [ "$JENV_VERSION" != "system" ]; then
-  export PATH="${JENV_BIN_PATH}:${PATH}"
+  export PATH="${JAVA_HOME}/bin:${PATH}"
 fi
 exec -a "$JENV_COMMAND" "$JENV_COMMAND_PATH" $JENV_OPTIONS "$@"
