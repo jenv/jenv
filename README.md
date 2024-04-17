@@ -119,6 +119,8 @@ sudo ln -sfn /usr/local/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtua
 jenv add "$(/usr/libexec/java_home)" # this will always default to the latest version in /Library/Java/JavaVirtualMachines
 # or
 # jenv add /Library/Java/JavaVirtualMachines/openjdk.jdk
+# or for fish shell (see: https://fishshell.com/docs/current/tutorial.html#command-substitutions)
+# jenv add (/usr/libexec/java_home)
 ```
 
 With macOS OpenJDK 21.0.2 installed, for example, either of these commands will add `/Library/Java/JavaVirtualMachines/openjdk.jdk/Contents/Home` as a valid JVM. Your JVM directory may vary!
