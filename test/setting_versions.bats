@@ -63,11 +63,13 @@ teardown() {
 
   jenv global 11
 
-  output=$(jenv shell 18 && jenv version-name)
-  assert_equal $output 18
+  jenv shell 18
 
-  output=$(jenv shell 18 && realpath $(jenv javahome))
-  [ $output = "/usr/lib/jvm/zulu18-ca" ]
+  run jenv version-name
+  assert_line 18
+
+  run realpath $(jenv javahome)
+  assert_line /usr/lib/jvm/zulu18-ca
 }
 
 @test "shell sets for current shell only, reverts to global outside" {
