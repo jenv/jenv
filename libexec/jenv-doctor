@@ -99,7 +99,7 @@ for plugin in "$JENV_ROOT"/plugins/*; do
     pluginName=$(basename "$plugin")
     if ! targetLink=$(resolve_link "$plugin"); then
         cwarn "Plugin $pluginName is not linked to a jenv installation"
-    elif [[ ! $targetLink == $JENV_INSTALL_DIR* ]]; then
+    elif [[ ! $targetLink == "$JENV_INSTALL_DIR"* ]]; then
         cwarn "Plugin $pluginName is linked to older jenv installation"
         cfix "Please execute : jenv disable-plugin $pluginName && jenv enable-plugin $pluginName"
     fi

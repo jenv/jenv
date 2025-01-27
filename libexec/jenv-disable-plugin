@@ -16,7 +16,7 @@ fi
 
 plugin="$1"
 
-if [ -h ${JENV_ROOT}/plugins/$plugin ]; then
+if [ -h "${JENV_ROOT}/plugins/$plugin" ]; then
 		if [ -f "${JENV_ROOT}/plugins/$plugin/etc/jenv.d/unload/after.bash" ]; then
 			source "${JENV_ROOT}/plugins/$plugin/etc/jenv.d/unload/after.bash"
 		fi

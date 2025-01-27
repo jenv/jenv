@@ -18,7 +18,7 @@ fi
 plugin="$1"
 
 
-if [ -h ${JENV_ROOT}/plugins/$plugin ]; then 
+if [ -h "${JENV_ROOT}/plugins/$plugin" ]; then 
 	   echo "echo $plugin plugin already enabled"
 	else
 		if [ ! -d "${JENV_INSTALL_DIR}/available-plugins/$plugin" ]; then
