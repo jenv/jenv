@@ -14,7 +14,7 @@ set -e
 
 version="0.5.7"
 
-if [ -d $JENV_ROOT ]; then
+if [ -d "$JENV_ROOT" ]; then
 cd "$JENV_ROOT"
 git_revision="$(git describe --tags HEAD 2>/dev/null || true)"
 git_revision="${git_revision#v}"
