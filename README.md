@@ -93,7 +93,7 @@ $ jenv doctor
 [OK]	Jenv is correctly loaded
 ```
 
-Observe that `jenv` is correctly loaded but Java is not yet installed. To rememedy this, see "[Adding Your Java Environment](#13-adding-your-java-environment)" below.
+Observe that `jenv` is correctly loaded but Java is not yet installed. To remedy this, see "[Adding Your Java Environment](#13-adding-your-java-environment)" below.
 
 Problem? Please visit the [Trouble Shooting](https://github.com/jenv/jenv/wiki/Trouble-Shooting) Wiki page.
 
