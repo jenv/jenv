@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Usage: ./changelog.sh [options]
+# Options:
+# --bump: (default) bump version based on conventional commits since last tag
+# -t <tag>: specify a tag to bump the version to
+#
+# e.g.
+# ./changelog.sh
+# ./changelog.sh -t 0.5.9
+
 FROM_VERSION=0.5.0
 CHANGELOG_FILE=CHANGELOG.md
 
