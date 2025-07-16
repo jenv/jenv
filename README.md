@@ -1,7 +1,5 @@
 # Master your Java Environment with jenv
 
-Website : http://www.jenv.be
-
 Maintainers : 
 - [Gildas Cuisinier](https://github.com/gcuisinier/)
 
