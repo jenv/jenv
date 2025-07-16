@@ -19,7 +19,7 @@ changelog() {
     fi
 
     local changelog_details
-    changelog_details=$(git-cliff $opts "$FROM_VERSION..")
+    changelog_details=$(git-cliff $opts -- "$FROM_VERSION..")
 
     if [ -z "$changelog_details" ]
     then

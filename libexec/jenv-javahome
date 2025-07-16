@@ -22,7 +22,7 @@ export JENV_VERSION="$(jenv-version-name)"
 export JENV_OPTIONS="$(jenv-options)"
 
 if [ "$JENV_VERSION" == "system" ]; then
-  echo "Using system JDK, no JAVA_HOME set!"
+  echo "Using system JDK, no JAVA_HOME set!" >&2
   exit 1
 fi
 
