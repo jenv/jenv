@@ -1,7 +1,7 @@
 #export
 
  _jenv_export_hook() {
-  export JAVA_HOME=$(jenv javahome)
+  export JAVA_HOME=$(jenv javahome 2>/dev/null)
   export JENV_FORCEJAVAHOME=true
 
   if [ -e "$JAVA_HOME/bin/javac" ]
