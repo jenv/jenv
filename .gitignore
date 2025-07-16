@@ -3,6 +3,7 @@
 /version
 /versions
 *.time
+jenv.version
 
 # Editor directories and files
 .idea

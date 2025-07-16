@@ -15,16 +15,6 @@ get-build-number() {
   basename $_prefix* | sed -E "s|$_name_prefix([0-9]+)[-.].*|\1|g"
 }
 
-@test "add openjdk 1.7.0" {
-  _BUILD_NO=$(get-build-number /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.)
-  jenv add /usr/lib/jvm/java-1.7.0-openjdk-1.7.0.*/jre/
-
-  run jenv versions
-  assert_line --regexp '^ *1.7$'
-  assert_line --regexp "^ *1.7.0.${_BUILD_NO}$"
-  assert_line --regexp "^ *openjdk64-1.7.0.${_BUILD_NO}$"
-}
-
 @test "add openjdk 1.8.0" {
   _BUILD_NO=$(get-build-number /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.)
   jenv add /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.*/jre/
@@ -44,6 +34,28 @@ get-build-number() {
   assert_line --regexp '^ *11.0$'
   assert_line --regexp "^ *11.0.${_PATCH_NO}$"
   assert_line --regexp "^ *openjdk64-11.0.${_PATCH_NO}$"
+}
+
+@test "add openjdk 17" {
+  _PATCH_NO=$(get-build-number /usr/lib/jvm/java-17-openjdk-17.0.)
+  jenv add /usr/lib/jvm/java-17-openjdk-17.0.*/
+
+  run jenv versions
+  assert_line --regexp '^ *17$'
+  assert_line --regexp '^ *17.0$'
+  assert_line --regexp "^ *17.0.${_PATCH_NO}$"
+  assert_line --regexp "^ *openjdk64-17.0.${_PATCH_NO}$"
+}
+
+@test "add openjdk 21" {
+  _PATCH_NO=$(get-build-number /usr/lib/jvm/java-21-openjdk-21.0.)
+  jenv add /usr/lib/jvm/java-21-openjdk-21.0.*/
+
+  run jenv versions
+  assert_line --regexp '^ *21$'
+  assert_line --regexp '^ *21.0$'
+  assert_line --regexp "^ *21.0.${_PATCH_NO}$"
+  assert_line --regexp "^ *openjdk64-21.0.${_PATCH_NO}$"
 }
 
 @test "add zulu 11" {
