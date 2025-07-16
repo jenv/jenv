@@ -1,6 +1,6 @@
 
 
-backuppath=$PATH
+backuppath="$PATH"
 
 PATH="$(remove_from_path "${JENV_ROOT}/shims")"
 GROOVY_BIN="$(command -v "groovy" || true)"
@@ -16,7 +16,7 @@ GROOVY_BIN="$(command -v "groovysh" || true)"
 make_shims "$GROOVY_BIN"
 
 
-PATH=$backuppath
+PATH="$backuppath"
 
 
 

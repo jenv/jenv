@@ -32,7 +32,7 @@ if [ ! "$lastVersion" == "$currentVersion"  ] || [ $FORCE_REFRESH == "1" ]; then
     echo "jenv has been updated, process to refresh plugin links"
     for path in "${JENV_ROOT}/plugins/"*; do
         if [ -L "$path" ]; then
-        pluginName=$(basename $path)
+        pluginName=$(basename "$path")
         echo "Refresh plugin $pluginName"
         ln -sfn  "${JENV_INSTALL_DIR}/available-plugins/$pluginName" "${JENV_ROOT}/plugins/$pluginName" 
         fi

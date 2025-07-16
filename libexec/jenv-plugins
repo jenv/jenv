@@ -21,7 +21,7 @@ samedir()  {
   local path1="$(resolvepath $1)"
   local path2="$(resolvepath $2)"
 
-  if [ $path1 == $path2 ]; then
+  if [ "$path1" == "$path2" ]; then
    return 0; 
   else
    return 1;
@@ -30,7 +30,7 @@ samedir()  {
 
 resolvepath() {
   local cwd="$(pwd)" 
-  cd $1
+  cd "$1"
   echo "$(pwd)"
   cd "$cwd"
 }

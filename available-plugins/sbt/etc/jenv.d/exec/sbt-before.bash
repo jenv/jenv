@@ -7,5 +7,5 @@ if [ "$1" = "sbt" ]; then
     fi
     unset JENV_OPTIONS
   fi
-  JENV_OPTIONS="$JENV_OPTIONS -java-home $JAVA_HOME"
+  JENV_OPTIONS="$JENV_OPTIONS -java-home '$JAVA_HOME'"
 fi

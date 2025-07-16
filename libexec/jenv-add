@@ -13,7 +13,7 @@ fi
 if [ "$1" = "--complete" ]; then
   echo "--skip-existing"
   for d in ${!#}*; do
-    [[ -d "$d" ]] && echo $d/
+    [[ -d "$d" ]] && echo "$d/"
   done
   exit
 fi
@@ -59,7 +59,7 @@ function add_alias_check(){
 
 function add_alias(){
 	cd "${JENV_JAVAPATH}"
-    JENV_JAVAPATH=$PWD
+    JENV_JAVAPATH="$PWD"
     cd - 2>&1 > /dev/null
     mkdir -p "${JENV_ROOT}/versions"
 	ln -s  "${JENV_JAVAPATH}" "${JENV_ROOT}/versions/$1"
@@ -122,7 +122,7 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
     if [ $JAVA_PROVIDER=="sap" ]; then
         JAVA_PLATFORM="64"
     else
-        if ${JENV_JAVAPATH}/bin/java -version 2>&1 | grep -q "64-Bit"; then
+        if "${JENV_JAVAPATH}/bin/java" -version 2>&1 | grep -q "64-Bit"; then
             JAVA_PLATFORM="64"
         else
             JAVA_PLATFORM="32"
