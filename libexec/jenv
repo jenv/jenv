@@ -101,21 +101,6 @@ shopt -u nullglob
 command="$1"
 
 case "$command" in
-  "completions" | "init" | "doctor" )
-    ;;
-  *)
-    if [[ "$JENV_LOADED" != "1" ]]
-    then
-      {
-        echo "Warning‘: jenv has not been initialised in the current shell, run"
-        echo '         eval "$(jenv init -)"'
-        echo
-      } >&2
-    fi
-    ;;
-esac
-
-case "$command" in
 "" | "-h" | "--help" )
   echo -e "$(jenv---version)\n$(jenv-help)" >&2
   ;;
