@@ -25,7 +25,7 @@ fi
 
 resolvepath() {
   local cwd="$(pwd)" 
-  cd $1
+  cd "$1"
   echo "$(pwd -P)"
   cd "$cwd"
 }
@@ -37,7 +37,7 @@ print_version() {
   if [ "$1" == "$current_version" ]; then
     echo "${hit_prefix}$(jenv-version 2>/dev/null)"
     if $verbose ; then
-      local realPath="$(resolvepath $2)"
+      local realPath="$(resolvepath "$2")"
      echo "         $2"
      echo "         --> $realPath"
      echo ""
@@ -45,7 +45,7 @@ print_version() {
   else
     echo "${miss_prefix}$1"
     if $verbose ; then
-            local realPath="$(resolvepath $2)"
+            local realPath="$(resolvepath "$2")"
 
       echo "         $2"
      echo "         --> $realPath"

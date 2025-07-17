@@ -11,9 +11,9 @@ set -e
 for path in "${JENV_ROOT}/versions/"*; do
   if [ -d "$path" ]; then
 
-      aliasname=$(basename $path)
+      aliasname=$(basename "$path")
       if test "${JENV_ROOT}/$aliasname.time" -ot "$path/bin/java"; then
-           realpath=$(resolve_link $path)
+           realpath="$(resolve_link "$path")"
            jenv remove $aliasname >> /dev/null 
            newalias=$(jenv add $realpath) 
            newalias=${newalias%added}
