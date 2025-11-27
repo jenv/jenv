@@ -183,12 +183,18 @@ jenv global 21.0.2
 
 When you next open a shell or terminal window, this version of Java will be the default.
 
-On macOS, this sets `JAVA_HOME` for GUI applications on macOS using `jenv macos-javahome`. Integrates [this tutorial](https://www.ibm.com/support/knowledgecenter/en/SSPJLC_7.6.2/com.ibm.si.mpl.doc/tshoot/ts_java_home.html) to create a file that does **not update dynamically** depending on what local or shell version of Java is set, only global.
-
 It can be unset with
 ```bash
 jenv global --unset
 ```
+
+On macOS, `JAVA_HOME` for GUI applications can be set using:
+
+```bash
+jenv macos-javahome
+```
+
+Integrates [this tutorial](https://web.archive.org/web/20211129032418/https://www.ibm.com/docs/en/maximo-anywhere/7.6.2?topic=tp-you-receive-error-that-java-home-variable-is-not-set-even-if-you-have-set-java-home) to create a file that does **not update dynamically** depending on what local or shell version of Java is set, only global.
 
 ##### 1.4.2 Setting a local Java Version
 
