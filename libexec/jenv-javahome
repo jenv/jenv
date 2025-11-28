@@ -7,24 +7,17 @@
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
 
-exportVariable(){
-   exportedValues="$exportedValues:$1"
-   export "$1"="$2"
-}
-
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
   exec jenv shims --short
 fi
 
-export JENV_VERSION="$(jenv-version-name)"
-
-export JENV_OPTIONS="$(jenv-options)"
+JENV_VERSION="$(jenv-version-name)"
 
 if [ "$JENV_VERSION" == "system" ]; then
   echo "Using system JDK, no JAVA_HOME set!" >&2
   exit 1
 fi
 
-export JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
+JAVA_HOME="$JENV_ROOT/versions/$JENV_VERSION"
 echo "$JAVA_HOME"
