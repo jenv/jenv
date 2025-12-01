@@ -19,7 +19,6 @@ fi
 
 # Provide jenv completions
 if [ "$1" = "--complete" ]; then
-  echo "--skip-existing"
   for d in ${!#}*; do
     [[ -d "$d" ]] && echo "$d/"
   done
