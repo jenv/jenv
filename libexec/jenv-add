@@ -115,6 +115,7 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
             *Semeru\ Runtime\ Certified*)       JAVA_PROVIDER="semeru_certified" ;;
             *Dragonwell*)                       JAVA_PROVIDER="dragonwell" ;;
             *J9*)                               JAVA_PROVIDER="ibm" ;;
+            *Liberica*)                         JAVA_PROVIDER="bellsoft" ;;
             *OpenJDK*)                          JAVA_PROVIDER="openjdk" ;;
             *)                                  JAVA_PROVIDER="other" ;;
         esac
