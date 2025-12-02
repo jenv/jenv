@@ -99,10 +99,10 @@ if [ -f "${JENV_JAVAPATH}/bin/java" ]; then
         JAVA_VERSION=${JAVA_VERSION/_/.}
 
         case "${JAVA_VERSION_OUTPUT}" in
+            *GraalVM*)                          JAVA_PROVIDER="graalvm" ;;
             *HotSpot*)                          JAVA_PROVIDER="oracle" ;;
             *Zulu*)                             JAVA_PROVIDER="zulu" ;;
             *Zing*)                             JAVA_PROVIDER="zulu_prime" ;;
-            *GraalVM*)                          JAVA_PROVIDER="graalvm" ;;
             *Corretto*)                         JAVA_PROVIDER="corretto" ;;
             *sapmachine*)                       JAVA_PROVIDER="sap" ;;
             *SapMachine*)                       JAVA_PROVIDER="sap" ;;
