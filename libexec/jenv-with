@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+#
+# Summary: Execute command with specific Java version
+#
+# Usage: jenv with <version> <command...>
+#
+# Executes the command with specified Java version being effective.
+# This is equivalent to running `jenv shell <version>' followed by
+# the command, but without changing the shell environment.
+#
+# <version> should be a string matching a Java version known to jenv.
+# The special version string `system' will use your default system Java.
+# Run `jenv versions' for a list of available Java versions.
+
+set -e
+[ -n "$JENV_DEBUG" ] && set -x
+
+if [ "$#" -lt 2 ]; then
+  jenv-help --usage with >&2
+  exit 1
+fi
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --unset
+  echo system
+  exec jenv-versions --bare
+fi
+
+export JENV_VERSION="$1"
+shift
+
+# reset & isolate from outer environment
+export JAVA_HOME=""
+export JENV_FORCEJAVAHOME=true
+export JDK_HOME=""
+export JENV_FORCEJDKHOME=true
+
+# TODO or may `jenv-javahome` should exit with 0 (printing nothing) when JENV_VERSION=system
+# then we would not need to special case `system` here
+if [ "$JENV_VERSION" != "system" ]; then
+    JAVA_HOME=$(jenv-javahome)
+    if [ -n "$JAVA_HOME" ] && [ -e "$JAVA_HOME/bin/javac" ]; then
+        JDK_HOME="$JAVA_HOME"
+    fi
+fi
+
+exec "$@"
