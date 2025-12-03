@@ -64,7 +64,20 @@ expand_path() {
   cd "$cwd"
 }
                                     
-
+# Locates jenv as found in the user's PATH. Otherwise, returns an
+# absolute path to the jenv executable itself.
+jenv_path() {
+  local found
+  found="$(PATH="$JENV_ORIG_PATH" type -P jenv)"
+  if [[ $found == /* ]]; then
+    echo "$found"
+  elif [[ -n "$found" ]]; then
+    echo "$PWD/${found#./}"
+  else
+    # Assume jenv isn't in PATH.
+    echo "${BASH_SOURCE%/*}/jenv"
+  fi
+}
 
 # The prototype shim file is a script that re-execs itself, passing
 # its filename and any arguments to `jenv exec`. This file is
@@ -93,7 +106,7 @@ if [ "\$program" = "java" ]; then
 fi
 
 export JENV_ROOT="$JENV_ROOT"
-exec "$(command -v jenv)" exec "\$program" "\$@"
+exec $(jenv_path) exec "\$program" "\$@"
 SH
   chmod +x "$PROTOTYPE_SHIM_PATH"
 }
