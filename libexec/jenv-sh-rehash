@@ -9,7 +9,7 @@ fi
 
 # When jenv shell integration is enabled, delegate to jenv-rehash,
 # then tell the shell to empty its command lookup cache.
-jenv-rehash
+jenv-rehash "$@"
 
 case "$shell" in
 fish )
