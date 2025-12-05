@@ -11,11 +11,10 @@ fi
 # then tell the shell to empty its command lookup cache.
 jenv-rehash
 
-case "$shell" in
-fish )
-  # no rehash support
-  ;;
-* )
-  echo "hash -r"
-  ;;
-esac
+# Check if the shell is fish
+if [[ "$SHELL" == *"fish"* ]] || [[ "$shell" == *"fish"* ]]; then
+    # no rehash support
+    :
+else
+    echo "hash -r"
+fi
