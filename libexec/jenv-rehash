@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 # Summary: Rehash jenv shims (run this after installing executables)
-       
+
+# Provide jenv completions
+if [ "$1" = "--complete" ]; then
+  echo --force
+  exit
+fi
                   
 set -e
 [ -n "$JENV_DEBUG" ] && set -x
@@ -11,14 +16,22 @@ PROTOTYPE_SHIM_PATH="${SHIM_PATH}/.jenv-shim"
 # Create the shims directory if it doesn't already exist.
 mkdir -p "$SHIM_PATH"
 
+remove_prototype_shim() {
+  rm -f "$PROTOTYPE_SHIM_PATH"
+}
+
+if [ "$1" = "--force" ]; then
+  remove_prototype_shim
+fi
+
 # Ensure only one instance of jenv-rehash is running at a time by
 # setting the shell's `noclobber` option and attempting to write to
 # the prototype shim file. If the file already exists, print a warning
 # to stderr and exit with a non-zero status.
 set -o noclobber
 { echo > "$PROTOTYPE_SHIM_PATH"
-} 2>/dev/null ||
-{ echo "jenv: cannot rehash: $PROTOTYPE_SHIM_PATH exists"
+} 2>| /dev/null ||
+{ echo "jenv: cannot rehash: $PROTOTYPE_SHIM_PATH exists, try 'jenv rehash --force' to override"
   exit 1
 } >&2
 set +o noclobber
@@ -26,10 +39,6 @@ set +o noclobber
 # If we were able to obtain a lock, register a trap to clean up the
 # prototype shim when the process exits.
 trap remove_prototype_shim EXIT
-
-remove_prototype_shim() {
-  rm -f "$PROTOTYPE_SHIM_PATH"
-}                               
 
 remove_from_path() {
   local path_to_remove="$(expand_path "$1")"
@@ -64,7 +73,20 @@ expand_path() {
   cd "$cwd"
 }
                                     
-
+# Locates jenv as found in the user's PATH. Otherwise, returns an
+# absolute path to the jenv executable itself.
+jenv_path() {
+  local found
+  found="$(PATH="$JENV_ORIG_PATH" type -P jenv)"
+  if [[ $found == /* ]]; then
+    echo "$found"
+  elif [[ -n "$found" ]]; then
+    echo "$PWD/${found#./}"
+  else
+    # Assume jenv isn't in PATH.
+    echo "${BASH_SOURCE%/*}/jenv"
+  fi
+}
 
 # The prototype shim file is a script that re-execs itself, passing
 # its filename and any arguments to `jenv exec`. This file is
@@ -93,7 +115,7 @@ if [ "\$program" = "java" ]; then
 fi
 
 export JENV_ROOT="$JENV_ROOT"
-exec "$(command -v jenv)" exec "\$program" "\$@"
+exec $(jenv_path) exec "\$program" "\$@"
 SH
   chmod +x "$PROTOTYPE_SHIM_PATH"
 }

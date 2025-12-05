@@ -62,10 +62,9 @@ else
 fi
 export JENV_DIR
 
-
 shopt -s nullglob
                   
-
+[ -n "$JENV_ORIG_PATH" ] || export JENV_ORIG_PATH="$PATH"
 
 bin_path="$(abs_dirname "$0")"    
                   
