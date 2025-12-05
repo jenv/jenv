@@ -30,7 +30,7 @@ fi
 # to stderr and exit with a non-zero status.
 set -o noclobber
 { echo > "$PROTOTYPE_SHIM_PATH"
-} 2>/dev/null ||
+} 2>| /dev/null ||
 { echo "jenv: cannot rehash: $PROTOTYPE_SHIM_PATH exists, try 'jenv rehash --force' to override"
   exit 1
 } >&2
