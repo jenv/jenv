@@ -26,7 +26,9 @@ function cfix() {
 }
 
 resolve_link() {
-  $(type -p greadlink readlink | head -1) "$1"
+  if [ -L "$1" ]; then
+    $(type -p greadlink readlink | head -1) "$1"
+  fi
 }
 
 set -e
