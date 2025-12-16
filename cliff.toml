@@ -57,7 +57,7 @@ commit_preprocessors = [
   #{ pattern = '.*', replace_command = 'typos --write-changes -' },
   { pattern = '^(Merge pull request)', replace = "contribution: ${1}" },
   { pattern = '^([^:]* .*([Rr]eadme|README).*)', replace = "doc: ${1}" },
-  { pattern = '^(.*nstall(ation)? (step?|instruction).*)', replace = "doc: ${1}" },
+  { pattern = '^([^:]* .*nstall(ation)? (step?|instruction).*)', replace = "doc: ${1}" },
   { pattern = '^[dD]oc(s?|ument) ', replace = "doc: " },
   { pattern = '^[fF]ix(e[ds])? ', replace = "fix: " },
   { pattern = '^[Rr]evert ', replace = "revert: " },
