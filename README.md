@@ -54,33 +54,48 @@ Alternatively, and on Linux, you can install it from source:
 
 ```bash
 git clone https://github.com/jenv/jenv.git ~/.jenv
+# Shell: bash
+echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
+# Shell: zsh
+echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
+# Shell: fish
+echo 'set PATH $HOME/.jenv/bin $PATH' >> ~/.config/fish/config.fish
 ```
 
-####  1.2 Configuring your shell
+#### 1.2 Configuring your shell
 
 jEnv needs to be intialised in your shell by evalling the output of `jenv init -`. e.g.
 
 ```bash
 # Shell: bash
-echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.bash_profile
 echo 'eval "$(jenv init -)"' >> ~/.bash_profile
 # Shell: zsh
-echo 'export PATH="$HOME/.jenv/bin:$PATH"' >> ~/.zshrc
 echo 'eval "$(jenv init -)"' >> ~/.zshrc
 ```
+
+Restart your shell by closing and reopening your terminal window or running `exec $SHELL -l` in the current session for `jenv` to take effect.
+
+##### Support for fish
+
+**Untested**: While this fork has improved `fish` shell support, it has not been tested by this maintainer. To install `jenv` for Fish according to the contributor's instructions:
+
+```sh
+echo 'status --is-interactive; and jenv init - | source' >> ~/.config/fish/config.fish
+cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
+```
+
+#### 1.3 Enable the export plugin
 
 To have `JAVA_HOME` get set by jEnv, enable the `export` plugin. This needs to be done in an initialised shell:
 
 ```bash
-eval "$(jenv init -)"
+eval "$(jenv init -)" # if not already restarted your shell
 jenv enable-plugin export
 ```
 
 Restart your shell by closing and reopening your terminal window or running `exec $SHELL -l` in the current session for the changes to take effect.
 
-```bash
-exec $SHELL -l
-```
+#### 1.4 Verifying your installation
 
 To verify `jenv` was installed and initialised, run `jenv doctor`. On a macOS machine, you'll observe the following output:
 
@@ -93,21 +108,9 @@ $ jenv doctor
 [OK]	Jenv is correctly loaded
 ```
 
-Observe that `jenv` is correctly loaded but Java is not yet installed. To remedy this, see "[Adding Your Java Environment](#13-adding-your-java-environment)" below.
+Observe that `jenv` is correctly loaded but Java has not yet been added to `jenv`.
 
-Problem? Please visit the [Trouble Shooting](https://github.com/jenv/jenv/wiki/Trouble-Shooting) Wiki page.
-
-##### Support for fish
-
-**Untested**: While this fork has improved `fish` shell support, it has not been tested by this maintainer. To install `jenv` for Fish according to the contributor's instructions:
-
-```sh
-echo 'set PATH $HOME/.jenv/bin $PATH' >> ~/.config/fish/config.fish
-echo 'status --is-interactive; and jenv init - | source' >> ~/.config/fish/config.fish
-cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
-```
-
-#### 1.3 Adding Your Java Environment
+#### 1.5 Adding Your Java Environment
 
 Use `jenv add` to inform `jenv` where your Java environment is located. `jenv` does not, by itself, install Java.
 
@@ -130,10 +133,14 @@ Observe now that this version of Java is added to your `jenv versions` command:
 ```bash
 $ jenv versions
 * system (set by /Users/user/.jenv/version)
+  21
   21.0
   21.0.2
   openjdk64-21.0.2
 ```
+
+`jenv` adds multiple variants of each Java version assuming they have not already been added.
+This allows you to add multiple JDKs of the same major version and have a way to differentiate them.
 
 By default, the latest version of Java is your `system` Java on macOS.
 
@@ -162,7 +169,7 @@ jenv local --unset
 rm .java-version
 ```
 
-#### 1.4 Setting Java versions
+#### 1.6 Setting Java versions
 
 `jenv` can set Java versions at 3 levels:
 - global (lowest priority)
@@ -173,7 +180,7 @@ Where multiple versions are set, the highest priority setting as above takes eff
 
 For example if the global version was 17 and the shell version was 11, 11 would be used.
 
-##### 1.4.1 Setting a Global Java Version
+##### 1.6.1 Setting a Global Java Version
 
 Use `jenv global VERSION` to set a global, default Java version:
 
@@ -196,7 +203,7 @@ jenv macos-javahome
 
 Integrates [this tutorial](https://web.archive.org/web/20211129032418/https://www.ibm.com/docs/en/maximo-anywhere/7.6.2?topic=tp-you-receive-error-that-java-home-variable-is-not-set-even-if-you-have-set-java-home) to create a file that does **not update dynamically** depending on what local or shell version of Java is set, only global.
 
-##### 1.4.2 Setting a local Java Version
+##### 1.6.2 Setting a local Java Version
 
 Use `jenv local VERSION` to set the Java used in this folder.
 
@@ -214,7 +221,7 @@ jenv local --unset
 unset .java-version
 ```
 
-##### 1.4.3 Setting a Shell Java Version
+##### 1.6.3 Setting a Shell Java Version
 
 Use `jenv shell VERSION` to set the Java used in this particular shell session:
 
@@ -278,6 +285,5 @@ Please contribute your own using a pull request!
 
 Users seem to have issues using `jenv` with Fish. Please report any here.
 
-
-
+Problem? Please visit the [Trouble Shooting](https://github.com/jenv/jenv/wiki/Trouble-Shooting) Wiki page.
 
