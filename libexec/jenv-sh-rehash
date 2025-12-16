@@ -12,7 +12,7 @@ fi
 jenv-rehash "$@"
 
 # Check if the shell is fish
-if [[ "$SHELL" == *"fish"* ]] || [[ "$shell" == *"fish"* ]]; then
+if [[ "$SHELL" == *"fish" ]] || [[ "$shell" == *"fish" ]]; then
     # no rehash support
     :
 else
