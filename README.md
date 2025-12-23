@@ -29,8 +29,9 @@ This document will show you how to install `jenv`, review its most common comman
 ### Contents
 
  1. [Getting Started](#1-getting-started)
- 2. [Example Workflows](#2-common-workflows)
- 3. [Known Issues](#3-known-issues)
+ 2. [Plugins](#2-plugins)
+ 3. [Example Workflows](#3-common-workflows)
+ 4. [Known Issues](#4-known-issues)
 
 ### 1. Getting Started
 
@@ -86,7 +87,7 @@ cp ~/.jenv/fish/jenv.fish ~/.config/fish/functions/jenv.fish
 
 #### 1.3 Enable the export plugin
 
-To have `JAVA_HOME` get set by jEnv, enable the `export` plugin. This needs to be done in an initialised shell:
+To have `JAVA_HOME` get set by jEnv, enable the `export` [plugin](#2-plugins). This needs to be done in an initialised shell:
 
 ```bash
 eval "$(jenv init -)" # if not already restarted your shell
@@ -159,7 +160,7 @@ $ echo ${JAVA_HOME}
 /Users/bberman/.jenv/versions/21.0.2
 ```
 
-Yes! Observe that `JAVA_HOME` is set to a valid shim directory - this is a result of enabling the `export` plugin.
+Yes! Observe that `JAVA_HOME` is set to a valid shim directory - this is a result of enabling the `export` [plugin](#2-plugins).
 
 If you executed this commands inside your `$HOME` directory, you can now delete `.java-version`:
 
@@ -236,11 +237,26 @@ jenv shell --unset
 unset JENV_VERSION
 ```
 
-### 2 Common Workflows
+### 2 Plugins
+
+The below plugins can be enabled with `jenv enable-plugin <plugin>` and disabled with `jenv disable-plugin <plugin>`.
+
+| Plugin | Effect                                                             |
+| ------ | ------------------------------------------------------------------ |
+| export | Set and export JAVA_HOME to the jenv version on every cd           |
+| gradle | Set and export GRADLE_OPTS to the jenv options when running gradle |
+| maven  | Set and export MAVEN_OPTS to the jenv options when running maven   |
+| ant    | Set and export ANT_OPTS to the jenv options when running ant       |
+| lein   | Set and export LEIN_JVM_OPTS to the jenv options when running lein |
+| sbt    | Set and export SBT_OPTS to the jenv options when running sbt       |
+
+Use `jenv plugins` to get all [available plugins](./available-plugins/).
+
+### 3 Common Workflows
 
 These common workflows demonstrate how to use `jenv` to solve common problems.
 
-#### 2.1 Using Two JVMs on macOS
+#### 3.1 Using Two JVMs on macOS
 
 Our goal is to have both the latest version of Java and JDK 8 installed at the same time. This is helpful for developing Android applications, whose build tools are sensitive to using an exact Java version.
 
@@ -277,11 +293,11 @@ $ jenv versions
   openjdk64-21.0.2
 ```
 
-#### 2.2 Other Workflows
+#### 3.2 Other Workflows
 
 Please contribute your own using a pull request!
 
-### 3 Known Issues
+### 4 Known Issues
 
 Users seem to have issues using `jenv` with Fish. Please report any here.
 
