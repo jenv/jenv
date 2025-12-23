@@ -247,8 +247,8 @@ The below plugins can be enabled with `jenv enable-plugin <plugin>` and disabled
 | gradle | Set and export GRADLE_OPTS to the jenv options when running gradle |
 | maven  | Set and export MAVEN_OPTS to the jenv options when running maven   |
 | ant    | Set and export ANT_OPTS to the jenv options when running ant       |
-| lein   | Set and export LEIN_JVM_OPTS to the jenv options when running ant  |
-| sbt    | Set and export SBT_OPTS to the jenv options when running ant       |
+| lein   | Set and export LEIN_JVM_OPTS to the jenv options when running lein |
+| sbt    | Set and export SBT_OPTS to the jenv options when running sbt       |
 
 Use `jenv plugins` to get all [available plugins](./available-plugins/).
 
