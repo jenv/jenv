@@ -241,14 +241,14 @@ unset JENV_VERSION
 
 The below plugins can be enabled with `jenv enable-plugin <plugin>` and disabled with `jenv disable-plugin <plugin>`.
 
-| Plugin | Effect                                                             |
-| ------ | ------------------------------------------------------------------ |
-| export | Set and export JAVA_HOME to the jenv version on every cd           |
-| gradle | Set and export GRADLE_OPTS to the jenv options when running gradle |
-| maven  | Set and export MAVEN_OPTS to the jenv options when running maven   |
-| ant    | Set and export ANT_OPTS to the jenv options when running ant       |
-| lein   | Set and export LEIN_JVM_OPTS to the jenv options when running lein |
-| sbt    | Set and export SBT_OPTS to the jenv options when running sbt       |
+| Plugin | Effect                                                                               |
+| ------ | ------------------------------------------------------------------------------------ |
+| export | Set and export `JAVA_HOME` and `JDK_HOME` to the `jenv javahome` after every command |
+| gradle | Set and export `GRADLE_OPTS` to the `jenv options` when running `gradle`             |
+| maven  | Set and export `MAVEN_OPTS` to the `jenv options` when running `maven`               |
+| ant    | Set and export `ANT_OPTS` to the `jenv options` when running `ant`                   |
+| lein   | Set and export `LEIN_JVM_OPTS` to the `jenv options` when running `lein`             |
+| sbt    | Set and export `SBT_OPTS` to the `jenv options` when running `sbt`                   |
 
 Use `jenv plugins` to get all [available plugins](./available-plugins/).
 
