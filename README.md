@@ -35,6 +35,8 @@ This document will show you how to install `jenv`, review its most common comman
 
 ### 1. Getting Started
 
+It is important that you **DO NOT** set `JAVA_HOME` anywhere in your `.bash_profile`. We want JEnv to handle it for us. 
+
 Follow the steps below to get a working `jenv` installation with knowledge of your `java` environment. Read all the code you execute carefully: a `$` symbol at the beginning of a line should be omitted, since it's meant to show you entering a command into your terminal and observing the response after the command.
 
 #### 1.1 Installing `jenv`
