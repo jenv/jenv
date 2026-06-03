@@ -5,6 +5,7 @@ set -e
 
 find_local_version_file() {
   local root="$1"
+  local parent
   while [ -n "$root" ]; do
     if [ -e "${root}/.java-version" ]; then
       echo "${root}/.java-version"
@@ -13,7 +14,9 @@ find_local_version_file() {
       echo "${root}/.jenv-version"
       exit
     fi
-    root="${root%/*}"
+    parent="${root%/*}"
+    [ "$parent" = "$root" ] && break
+    root="$parent"
   done
 }
 
