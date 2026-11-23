@@ -7,5 +7,6 @@ if [ "$1" = "sbt" ]; then
     fi
     unset JENV_OPTIONS
   fi
-  JENV_OPTIONS="$JENV_OPTIONS -java-home '$JAVA_HOME'"
+  # Keep the command at $1 for jenv-exec's shift and the Java home in one argument.
+  set -- "$1" -java-home "$JAVA_HOME" "${@:2}"
 fi
